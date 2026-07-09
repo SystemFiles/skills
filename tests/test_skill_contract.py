@@ -19,6 +19,7 @@ SKILLS_DIR = ROOT / "skills"
 # Skills expected to be present in this repository.
 EXPECTED_SKILLS = {
     "agentsmd-generator",
+    "brain-storm",
     "jj-case-insensitive-clone-fix",
     "research_codebase",
     "sdd-linear",
