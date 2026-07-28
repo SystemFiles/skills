@@ -18,6 +18,7 @@ Each skill is a directory under `skills/<name>/` containing a `SKILL.md` (plus a
 | `lavish-safe` | Local-only Lavish HTML review via `lavish-axi`, with share and telemetry forbidden. |
 | `research_codebase` | Map how a codebase works today and save a dated, citation-backed report under `thoughts/`, using parallel sub-agents by default. |
 | `sdd-linear` | Run the Spec-Driven Development (SDD) workflow with Linear issues, sub-issues, attachments, and comments as the system of record instead of `docs/specs`. |
+| `sdd-qa` | Ask SDD `docs/specs` clarification questions ONE-by-ONE and write decisions back to the questions file (explicit slash invocation). |
 | `sync-upstream` | Sync a fork's default branch with its upstream remote using merge or rebase, resolving conflicts as needed. |
 | `taskfile-automation` | Scaffold consistent, portable repo automation with a `Taskfile` as the single entry point (run the same locally and in CI), adding Docker/Compose only when external runtime deps demand it. |
 | `visual-explain` | Interactive local HTML explanation of a diff/branch/PR (Background, Intuition, Code walkthrough, Quiz). Adapted from sighup/claude-workflow `cw-explain`. |

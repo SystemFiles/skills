@@ -24,6 +24,7 @@ EXPECTED_SKILLS = {
     "lavish-safe",
     "research_codebase",
     "sdd-linear",
+    "sdd-qa",
     "sync-upstream",
     "taskfile-automation",
     "visual-explain",
