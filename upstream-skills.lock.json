@@ -6,9 +6,9 @@
       "source_url": "https://github.com/vercel-labs/agent-browser",
       "path": "skills/agent-browser",
       "ref": null,
-      "commit": "01c1147da66940c034a5ccea497447e52c2f6dfe",
+      "commit": "acbc22bdc5d4f6c5a88d97d4a4745d3c5eb0591f",
       "license": "Apache-2.0",
-      "synced_at": "2026-08-03T10:03:33.427450+00:00"
+      "synced_at": "2026-08-05T08:49:57.509729+00:00"
     }
   }
 }
