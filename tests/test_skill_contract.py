@@ -22,6 +22,7 @@ EXPECTED_SKILLS = {
     "issue-triage",
     "jj-case-insensitive-clone-fix",
     "lavish-safe",
+    "pr-feedback-qa",
     "research_codebase",
     "sdd-linear",
     "sdd-qa",

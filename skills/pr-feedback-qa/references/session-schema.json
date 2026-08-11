@@ -1,0 +1,217 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "pr-feedback-qa-session",
+  "title": "PR feedback Q&A session",
+  "type": "object",
+  "required": [
+    "version",
+    "slug",
+    "created_at",
+    "updated_at",
+    "source",
+    "status",
+    "current_index",
+    "findings",
+    "decisions",
+    "clarifications",
+    "github_issues",
+    "summary"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "version": {
+      "type": "integer",
+      "const": 1
+    },
+    "slug": {
+      "type": "string",
+      "minLength": 1
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "updated_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "source": {
+      "type": "object",
+      "required": ["type", "ref"],
+      "additionalProperties": false,
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": ["file", "pr"]
+        },
+        "ref": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Absolute or workspace-relative file path, or owner/repo#N / PR URL"
+        },
+        "repo": {
+          "type": ["string", "null"]
+        },
+        "pr_number": {
+          "type": ["integer", "null"]
+        }
+      }
+    },
+    "status": {
+      "type": "string",
+      "enum": ["in_progress", "summary_ready", "issues_created", "complete"]
+    },
+    "current_index": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "0-based index of the current undecided finding"
+    },
+    "findings": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "title", "summary", "sources"],
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "title": {
+            "type": "string"
+          },
+          "summary": {
+            "type": "string"
+          },
+          "sources": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": ["kind", "ref"],
+              "additionalProperties": false,
+              "properties": {
+                "kind": {
+                  "type": "string",
+                  "enum": ["file", "review", "inline_comment", "conversation"]
+                },
+                "ref": {
+                  "type": "string"
+                },
+                "author": {
+                  "type": ["string", "null"]
+                }
+              }
+            }
+          },
+          "fix_options": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "decisions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["finding_id", "disposition", "decided_at"],
+        "additionalProperties": false,
+        "properties": {
+          "finding_id": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "disposition": {
+            "type": "string",
+            "enum": ["address", "skip", "github_issue"]
+          },
+          "fix_choice": {
+            "type": ["string", "null"],
+            "description": "e.g. A1 or free-text Other"
+          },
+          "notes": {
+            "type": ["string", "null"]
+          },
+          "labels": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": ["bug", "enhancement"]
+            }
+          },
+          "decided_at": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      }
+    },
+    "clarifications": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["finding_id", "question", "answer", "at"],
+        "additionalProperties": false,
+        "properties": {
+          "finding_id": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "question": {
+            "type": "string"
+          },
+          "answer": {
+            "type": "string"
+          },
+          "at": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      }
+    },
+    "github_issues": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["finding_id", "url", "number", "created_at"],
+        "additionalProperties": false,
+        "properties": {
+          "finding_id": {
+            "type": ["integer", "null"],
+            "description": "null for parent umbrella issues"
+          },
+          "url": {
+            "type": "string"
+          },
+          "number": {
+            "type": "integer"
+          },
+          "title": {
+            "type": ["string", "null"]
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      }
+    },
+    "summary": {
+      "type": ["object", "null"],
+      "required": ["markdown", "generated_at"],
+      "additionalProperties": false,
+      "properties": {
+        "markdown": {
+          "type": "string"
+        },
+        "generated_at": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    }
+  }
+}
