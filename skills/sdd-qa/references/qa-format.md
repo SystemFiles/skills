@@ -1,5 +1,16 @@
 # SDD Q&A — formats
 
+## Plan mode gate
+
+```markdown
+This workflow needs **Plan mode**.
+
+Switch to Plan mode, then reply **ready**.
+I will not open the questions file or start Q&A until Plan mode is on.
+```
+
+If the mode-switch tool is available, call it with target `plan` and a one-line reason, then wait.
+
 ## Question file shape
 
 Each question block in `NN-questions-*-….md`:
