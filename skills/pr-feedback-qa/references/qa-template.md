@@ -65,20 +65,6 @@ Answer in plain language. Then reprint the same **How to fix?** and **Dispositio
 **Issue N+1/M — …**
 ```
 
-## Green / unnumbered batch (optional)
-
-When the source has a non-numbered polish batch:
-
-```markdown
-**Green / polish batch**
-
-**Disposition?**
-- **S)** Skip all
-- **I)** One parent GitHub Issue
-- **I-each)** Separate issues per bullet
-- **A)** Address selected bullets (list which)
-```
-
 ## Decision summary
 
 ```markdown
