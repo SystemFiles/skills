@@ -70,13 +70,7 @@ def _passed(section: dict | None) -> bool:
 
 
 def _subissue_progress(snapshot: dict) -> tuple[bool, int]:
-    """Return ``(any_exist, incomplete_count)`` for the executable sub-issues.
-
-    Accepts either the compact ``subissue_counts`` summary (authoritative when
-    present) or the explicit ``subissues`` list. The compact form lets the
-    sub-agent report a large feature as ``{"total": 50, "terminal": 49}``
-    instead of enumerating every sub-issue.
-    """
+    """Return ``(any_exist, incomplete_count)``. ``subissue_counts`` wins if present."""
     counts = snapshot.get("subissue_counts")
     if isinstance(counts, dict) and counts.get("total") is not None:
         total = int(counts.get("total") or 0)

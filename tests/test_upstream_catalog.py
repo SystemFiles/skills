@@ -43,7 +43,7 @@ def has_license(folder: Path) -> bool:
 def test_catalog_and_lock_agree() -> None:
     assert catalog_names() == set(lock_skills()), (
         "upstream-skills.toml and upstream-skills.lock.json disagree; "
-        "run `make sync-upstream-skills`"
+        "run `task sync-upstream-skills`"
     )
 
 

@@ -9,7 +9,7 @@ Analyze the provided features/issues and produce a breakdown of work suitable fo
 
 ## Process
 
-1. **Gather context** — Fetch issue details, read relevant source code using the `codebase-exploration` skill and the `research_codebase` skill (for more detailed analysis - when required)
+1. **Gather context** — Fetch issue details, read relevant source code; use the `research_codebase` skill when a deeper map is needed
 2. **Identify work units** — Break input into discrete, independently deliverable units - these units of work should be independently verifiable, either manually or using automated testing.
 3. **Map dependencies** — Which units depend on others? What must be sequenced vs parallelized?
 4. **Assess risks** — Flag units of work that touch the same file, projects/repositories, entities, or layers (merge conflict risk, network layer, data layer, etc.) across multiple systems

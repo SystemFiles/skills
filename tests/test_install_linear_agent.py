@@ -41,7 +41,6 @@ def test_is_idempotent_and_non_destructive(tmp_path: Path) -> None:
 
     assert proc.returncode == 0, proc.stderr
     assert parse_kv(proc.stdout)["status"] == "exists"
-    # Existing agent is left untouched.
     assert target.read_text(encoding="utf-8") == "custom user content\n"
 
 

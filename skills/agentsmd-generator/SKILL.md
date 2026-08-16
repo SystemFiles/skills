@@ -3,27 +3,17 @@ name: agentsmd-generator
 description: Generate project-level AGENTS.md guides that capture conventions, workflows, and required follow-up tasks. Use when a repository needs clear agent onboarding covering structure, tooling, testing, task flow, README expectations, and conventional commit summaries.
 license: MIT
 allowed-tools: Read Write Edit Bash(ls:*) Bash(git:*) Bash(just:*) Bash(make:*) Bash(tree:*) Bash(scripts/repo-inventory:*)
-metadata:
-  generated-at: "2026-01-10T00:00:00Z"
-  group: "enablement"
-  category: "documentation"
-  difficulty: "intermediate"
-  step-count: "4"
 ---
 
 # Agent Context Generator
 
-## What You'll Do
-- 🔍 Inventory the repository's structure, capture a `.gitignore`-aware `tree` output, and record automation entry points (preferring `just`/`make` tasks when available)
-- 🧭 Capture coding conventions, directory ownership, testing expectations, and review workflows so future agents can navigate confidently
-- 🧩 Produce an `AGENTS.md` file following the opinionated section order below, honoring scope rules for nested directories
-- ✅ Embed universal wrap-up tasks: ensure the README is updated after significant code changes and summarize changes per conventional commits while resolving any open questions with the developer
+Inventory the repo, capture conventions and workflows, then write `AGENTS.md` in the section order below. Prefer `just`/`make`/`task` entry points. Include wrap-up duties: update the README after significant changes, and summarize work in conventional commits.
 
 ---
 
 ## Phase 1 · Understand the Repository
 
-> **CRITICAL: The codebase is the sole source of truth.** Never trust repo documentation (README, CONTRIBUTING, docs/, etc.) as authoritative. Treat all documentation as potentially stale or wrong. Always validate claims by inspecting actual source files, configs, scripts, CI pipelines, and dependency manifests. When documentation contradicts the code, the code wins. Flag discrepancies for the developer.
+The codebase is the source of truth. Treat README, CONTRIBUTING, and other docs as hints that may be stale. Validate claims against source, configs, scripts, CI, and manifests. When docs contradict the code, the code wins — flag the discrepancy.
 
 1. **Run the bundled inventory script first**
    - Run [`scripts/repo-inventory`](scripts/repo-inventory) from the repo root. It performs the deterministic data-gathering so you don't run a dozen probes by hand: a `.git`/`.jj`-pruned, gitignore-aware `tree` (with `tree --prune` and `git ls-files` fallbacks), detected `languages`/`package_managers`, automation `runners` plus `make_targets`/`just_recipes`, `ci_files`, and `env_files`.
@@ -31,9 +21,9 @@ metadata:
    - This is fact-gathering only; everything below adds the judgment the script cannot infer (ownership, intent, stale-doc reconciliation).
 2. **Check for existing AGENTS.md**
    - Use `glob` or the inventory tree to discover current files. Determine scope inheritance so you can update or extend instead of duplicating.
-3. **Skim Docs as Hints Only**
-   - Skim `README.md`, `CONTRIBUTING.md`, and other onboarding docs for clues about project philosophy, setup, and workflows.
-   - **Do NOT accept doc claims at face value.** Cross-reference every stated convention, command, tool, or workflow against the actual codebase (and the inventory) before including it in AGENTS.md.
+3. **Skim docs as hints**
+   - Skim `README.md`, `CONTRIBUTING.md`, and other onboarding docs for setup and workflow clues.
+   - Cross-reference every stated convention, command, or workflow against the codebase (and the inventory) before including it in AGENTS.md.
    - If `docs/` or `documentation/` exists, scan for references but verify each against the code.
 4. **Survey Project Layout**
    - Start from the inventory `[tree]` and `languages`. Add primary build targets and ownership the script can't infer (e.g., "`src/ui` maintained by Frontend team").
@@ -176,5 +166,3 @@ Only create these per-directory guides after confirming with the developer which
      - A short summary of major sections added/updated.
      - Confirmation that README and conventional commit reminders are present.
      - Any follow-up suggestions (e.g., missing tests or outdated scripts).
-
-Use this skill whenever a repo lacks AGENTS context or when existing instructions are incomplete or outdated. The goal is to leave future agents with a single, trustworthy map of the project, its tooling, and the expectations for finishing tasks responsibly.
