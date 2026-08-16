@@ -9,14 +9,13 @@ from __future__ import annotations
 
 from pathlib import Path
 
-from conftest import parse_kv, requires, run_script
+from conftest import parse_kv, run_script
 
 SKILL = "sdd-linear"
 SCRIPT = "install-linear-agent.sh"
 AGENT_FILE = "linear-project-manager.md"
 
 
-@requires("bash")
 def test_installs_into_empty_dest(tmp_path: Path) -> None:
     dest = tmp_path / "agents"
 
@@ -30,7 +29,6 @@ def test_installs_into_empty_dest(tmp_path: Path) -> None:
     assert "name: linear-project-manager" in target.read_text(encoding="utf-8")
 
 
-@requires("bash")
 def test_is_idempotent_and_non_destructive(tmp_path: Path) -> None:
     dest = tmp_path / "agents"
     dest.mkdir()
@@ -44,7 +42,6 @@ def test_is_idempotent_and_non_destructive(tmp_path: Path) -> None:
     assert target.read_text(encoding="utf-8") == "custom user content\n"
 
 
-@requires("bash")
 def test_force_overwrites_existing(tmp_path: Path) -> None:
     dest = tmp_path / "agents"
     dest.mkdir()

@@ -1,9 +1,7 @@
 """Behavior tests for the research_codebase `spec_metadata.sh` script.
 
-The script prints the deterministic frontmatter metadata block (date,
-researcher, git_commit, branch, repository, last_updated*) for a research
-document. It is self-contained and bundled with the skill, replacing the
-previously-external `hack/spec_metadata.sh`.
+The script prints the frontmatter metadata block (date, researcher,
+git_commit, branch, repository, last_updated*) for a research document.
 """
 
 from __future__ import annotations
