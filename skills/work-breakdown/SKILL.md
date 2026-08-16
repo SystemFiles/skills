@@ -9,18 +9,17 @@ Analyze the provided features/issues and produce a breakdown of work suitable fo
 
 ## Process
 
-1. **Gather context** — Fetch issue details, read relevant source code using the `codebase-exploration` skill and the `research_codebase` skill (for more detailed analysis - when required)
-2. **Identify work units** — Break input into discrete, independently deliverable units - these units of work should be independently verifiable, either manually or using automated testing.
+1. **Gather context** — Fetch issue details and read relevant source using the `codebase-exploration` and `research_codebase` skills.
+2. **Identify work units** — Split into independently deliverable units that can be verified manually or with tests.
 3. **Map dependencies** — Which units depend on others? What must be sequenced vs parallelized?
-4. **Assess risks** — Flag units of work that touch the same file, projects/repositories, entities, or layers (merge conflict risk, network layer, data layer, etc.) across multiple systems
-5. **Recommend execution order** — Suggest which units can run in parallel and which should be sequenced
+4. **Assess risks** — Flag units that touch the same files, repos, entities, or layers (merge conflicts, network, data, etc.).
+5. **Recommend execution order** — Which units can run in parallel, which must be sequenced.
 
 ## Output
 
-Present a concise breakdown to the user:
-- List of work units with one-line descriptions
-- Dependency graph (which blocks which) - this should be a minimal visual representation
+- Work units with one-line descriptions
+- Dependency graph (minimal visual: which blocks which)
 - Risk flags
 - Recommended implementation strategy
 
-Do NOT make requirements or design decisions — just identify the shape of the work.
+Do not make requirements or design decisions — identify the shape of the work.

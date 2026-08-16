@@ -68,8 +68,7 @@ def test_url_mode_detects_packed_collision(tmp_path: Path) -> None:
     assert "release" in proc.stdout
 
 
-def test_jj_clone_help_still_works_after_refactor() -> None:
-    # jj-clone now sources lib.sh; make sure that wiring didn't break startup.
+def test_jj_clone_help() -> None:
     proc = run_script(SKILL, "jj-clone", "--help")
 
     assert proc.returncode == 0

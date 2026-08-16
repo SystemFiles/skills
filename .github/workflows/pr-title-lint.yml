@@ -38,15 +38,12 @@ jobs:
             didn't match the configured pattern. Please ensure that the subject
             doesn't start with an uppercase character.
 
-      # Add comment when PR title is invalid
       - uses: marocchino/sticky-pull-request-comment@v2
         if: always() && (steps.lint_pr_title.outputs.error_message != null)
         with:
           header: pr-title-lint-error
           message: |
-            👋 Thank you for opening this pull request!
-
-            We require PR titles to follow the [Conventional Commits specification](https://www.conventionalcommits.org/).
+            PR titles must follow [Conventional Commits](https://www.conventionalcommits.org/).
 
             **Error details:**
 
@@ -60,7 +57,6 @@ jobs:
 
             Please update your PR title and the check will run automatically.
 
-      # Delete comment when PR title is fixed
       - uses: marocchino/sticky-pull-request-comment@v2
         if: ${{ steps.lint_pr_title.outputs.error_message == null }}
         with:

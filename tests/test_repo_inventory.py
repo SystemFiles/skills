@@ -9,7 +9,7 @@ from __future__ import annotations
 
 from pathlib import Path
 
-from conftest import git, init_repo, parse_kv, requires, run_script
+from conftest import init_repo, parse_kv, run_script
 
 SKILL = "agentsmd-generator"
 SCRIPT = "repo-inventory"

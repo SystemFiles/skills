@@ -3,78 +3,41 @@ name: agentsmd-generator
 description: Generate project-level AGENTS.md guides that capture conventions, workflows, and required follow-up tasks. Use when a repository needs clear agent onboarding covering structure, tooling, testing, task flow, README expectations, and conventional commit summaries.
 license: MIT
 allowed-tools: Read Write Edit Bash(ls:*) Bash(git:*) Bash(just:*) Bash(make:*) Bash(tree:*) Bash(scripts/repo-inventory:*)
-metadata:
-  generated-at: "2026-01-10T00:00:00Z"
-  group: "enablement"
-  category: "documentation"
-  difficulty: "intermediate"
-  step-count: "4"
 ---
 
 # Agent Context Generator
 
-## What You'll Do
-- 🔍 Inventory the repository's structure, capture a `.gitignore`-aware `tree` output, and record automation entry points (preferring `just`/`make` tasks when available)
-- 🧭 Capture coding conventions, directory ownership, testing expectations, and review workflows so future agents can navigate confidently
-- 🧩 Produce an `AGENTS.md` file following the opinionated section order below, honoring scope rules for nested directories
-- ✅ Embed universal wrap-up tasks: ensure the README is updated after significant code changes and summarize changes per conventional commits while resolving any open questions with the developer
+Inventory the repo from source (not docs), then write an `AGENTS.md` that future agents can follow. Treat README/CONTRIBUTING/`docs/` as hints only: verify every claim against code, configs, scripts, CI, and manifests. When they disagree, the code wins — flag the discrepancy.
 
----
+## Phase 1 · Understand the repository
 
-## Phase 1 · Understand the Repository
+1. **Run [`scripts/repo-inventory`](scripts/repo-inventory)** from the repo root. It emits `key=value` facts (`languages`, `package_managers`, `runners`, `make_targets`/`just_recipes`, `ci_files`, `env_files`) plus a gitignore-aware `[tree]` (with `tree --prune` and `git ls-files` fallbacks). Use `-C <dir>` to scope a subdirectory or `--depth <n>` to widen/trim the tree. Everything below is judgment the script cannot infer (ownership, intent, stale-doc reconciliation).
+2. **Existing AGENTS.md** — find current files and their scope inheritance so you update instead of duplicating.
+3. **Docs as hints** — skim README, CONTRIBUTING, and other onboarding docs. Cross-check every stated convention, command, tool, or workflow against the inventory and the code before including it.
+4. **Layout** — start from `[tree]` and `languages`. Add ownership the script cannot infer (e.g. "`src/ui` maintained by Frontend"). Flag must-read files (ADR indexes, architecture overviews, runbooks). If `tree` was unavailable, the script already fell back; trim to the top 2–3 levels.
+5. **Automation** — confirm which `runners` / `make_targets` / `just_recipes` are canonical for lint, test, build, and data sync. If `just` is not installed, read the `Justfile` for recipe names.
+6. **Tooling & environment** — add required runtimes, secrets handling, and local services on top of `languages`, `package_managers`, and `env_files`.
+7. **Testing & quality** — start from `ci_files`, then name test suites, coverage, lint, and format expectations.
+8. **Ambiguities** — ask before drafting when ownership, workflows, or whether `plans/`/`docs/` are canonical is unclear.
 
-> **CRITICAL: The codebase is the sole source of truth.** Never trust repo documentation (README, CONTRIBUTING, docs/, etc.) as authoritative. Treat all documentation as potentially stale or wrong. Always validate claims by inspecting actual source files, configs, scripts, CI pipelines, and dependency manifests. When documentation contradicts the code, the code wins. Flag discrepancies for the developer.
+## Phase 2 · Plan the structure
 
-1. **Run the bundled inventory script first**
-   - Run [`scripts/repo-inventory`](scripts/repo-inventory) from the repo root. It performs the deterministic data-gathering so you don't run a dozen probes by hand: a `.git`/`.jj`-pruned, gitignore-aware `tree` (with `tree --prune` and `git ls-files` fallbacks), detected `languages`/`package_managers`, automation `runners` plus `make_targets`/`just_recipes`, `ci_files`, and `env_files`.
-   - Read its `key=value` lines as the **factual baseline** for the steps below. Use `-C <dir>` to scope a subdirectory or `--depth <n>` to widen/trim the tree.
-   - This is fact-gathering only; everything below adds the judgment the script cannot infer (ownership, intent, stale-doc reconciliation).
-2. **Check for existing AGENTS.md**
-   - Use `glob` or the inventory tree to discover current files. Determine scope inheritance so you can update or extend instead of duplicating.
-3. **Skim Docs as Hints Only**
-   - Skim `README.md`, `CONTRIBUTING.md`, and other onboarding docs for clues about project philosophy, setup, and workflows.
-   - **Do NOT accept doc claims at face value.** Cross-reference every stated convention, command, tool, or workflow against the actual codebase (and the inventory) before including it in AGENTS.md.
-   - If `docs/` or `documentation/` exists, scan for references but verify each against the code.
-4. **Survey Project Layout**
-   - Start from the inventory `[tree]` and `languages`. Add primary build targets and ownership the script can't infer (e.g., "`src/ui` maintained by Frontend team").
-   - Check for `plans/`, `docs/`, or other knowledge directories. Flag must-read files (ADR indexes, architecture overviews, runbooks) to reference later in AGENTS.md.
-   - If `tree` is unavailable, the script falls back automatically; trim the captured tree to the top 2–3 levels and note omissions for brevity.
-5. **Confirm Automation Runners**
-   - The inventory reports `runners`, `make_targets`, and (when `just` is installed) `just_recipes`. Confirm which commands are canonical for linting, testing, building, and syncing data; note the definitive task names for inclusion later.
-   - If `just` is not installed, inspect the `Justfile` directly for recipe names.
-6. **Catalog Tooling & Environment**
-   - The inventory gives `languages`, `package_managers`, and `env_files`. Add required runtimes, secrets handling, and local services it can't detect.
-   - Review any `.env.example`, `config/`, or secrets documentation surfaced in `env_files` that agents must read.
-7. **Clarify Testing & Quality Gates**
-   - Start from the inventory `ci_files`, then identify test suites, coverage expectations, linting, and formatting.
-8. **Resolve Ambiguities Early**
-   - Whenever conventions, ownership, or workflows seem unclear, prompt the developer with focused questions before drafting the guide.
-   - Ask explicitly whether existing `plans/` or documentation directories are authoritative or stale, and clarify what canon to reference.
+Use this order:
 
-> **Outcome:** A structured notes list describing layout, tooling, commands, testing, release process, documentation references, pending questions, and update expectations.
+1. **Header** — Title + short purpose.
+2. **Context Marker** — Emoji marker (🧠) so agents signal they loaded project context.
+3. **Quick Facts** — Languages, package manager, key scripts, CI.
+4. **Repository Tour** — Directory map with responsibilities and ownership.
+5. **Tooling & Setup** — Runtimes, package managers, env vars, secrets.
+6. **Common Tasks** — Lint/test/build/deploy. Prefer `just` recipes, then `make` targets, then raw commands.
+7. **Testing & Quality** — When and how to run tests, lint, format, coverage, CI.
+8. **Workflow Expectations** — Branching, review, feature flags, deploy cadence.
+9. **Documentation Duties** — When to update README, diagrams, or other docs.
+10. **Finish the Task** — Mandatory wrap-up checklist.
 
----
-
-## Phase 2 · Plan the AGENTS.md Structure
-Follow this opinionated order to keep files consistent and scannable:
-
-1. **Header** — Title + short purpose statement.
-2. **Context Marker** — Emoji marker (🧠) so agents signal they have loaded project context.
-3. **Quick Facts** — Table or bullet summary (languages, package manager, key scripts, CI).
-4. **Repository Tour** — High-level directory map with responsibilities and ownership hints.
-5. **Tooling & Setup** — Required runtimes, package managers, environment variables, secrets.
-6. **Common Tasks** — Lint/test/build/deploy commands. Prefer listing `just` recipes first, then `make` targets, then raw commands.
-7. **Testing & Quality** — When and how to run tests, linting, formatting, coverage, and CI expectations.
-8. **Workflow Expectations** — Branching model, review norms, feature flagging, deployment cadence.
-9. **Documentation Duties** — When to update `README.md`, architecture diagrams, or other docs.
-10. **Finish the Task** — Mandatory wrap-up checklist for every agent task.
-
-For deeper directories (e.g., `services/api/`), include a "Scope" note at the top clarifying inheritance from parent AGENTS instructions. Always confirm with the developer before drafting new per-directory AGENTS files so you do not duplicate existing guidance or create unnecessary overhead.
-
----
+For nested directories (e.g. `services/api/`), add a Scope note at the top describing inheritance. Confirm with the developer before creating per-directory AGENTS files.
 
 ## Phase 3 · Compose AGENTS.md
-Use the template below and adapt each section to the project:
 
 ```markdown
 # Project Agent Guide
@@ -120,11 +83,12 @@ The marker for this instruction is: 🧠
 - List other docs to refresh (architecture, ADRs, etc.)
 
 ## Finish the Task Checklist
-- [ ] Update relevant docs (& `README.md` if significant changes landed)
-- [ ] Summarize changes in conventional commit format (e.g., `feat: ...`, `fix: ...`)
+- [ ] Update relevant docs (`README.md` if the change is significant)
+- [ ] Summarize changes in conventional commit format (e.g. `feat: ...`, `fix: ...`)
 ```
 
-### Subdirectory Template (Use Only with Developer Approval)
+Subdirectory template (only with developer approval):
+
 ```markdown
 # <Directory Name> Agent Guide
 
@@ -147,34 +111,21 @@ The marker for this instruction is: 🧠
 - Docs or runbooks to reference
 - Open questions captured during discovery
 ```
-Only create these per-directory guides after confirming with the developer which areas need dedicated context and what information should be emphasized.
 
-**Writing Notes:**
-- The Context Marker section signals to agents (and users) that project-specific context is loaded. Agents following emoji marker conventions will prepend 🧠 to responses, confirming AGENTS.md was read.
-- Keep language direct and actionable. Agents should follow commands verbatim.
-- Mention the preferred order of operations (e.g., "Always run `just format` before opening a PR").
-- When referencing scripts, include relative paths so agents can jump quickly (e.g., ``scripts/bootstrap.sh``).
-- Incorporate a trimmed `tree --gitignore` snapshot (or link to the saved artifact) so readers grasp layout quickly.
-- In the Repository Tour, highlight where `plans/`, `docs/`, design docs, or ADRs live if present.
-- Call out any unanswered questions as action items, and confirm with the developer before creating any per-directory AGENTS overlays.
-- If the project mixes languages/platforms, add subsections per component but keep global guidance first.
+Writing notes:
 
----
+- Agents following emoji-marker conventions prepend 🧠 to responses after loading this file.
+- Keep language direct. Commands should be copyable.
+- Prefer relative paths for scripts (e.g. `scripts/bootstrap.sh`).
+- Include a trimmed `tree --gitignore` snapshot (or a link to it) in the Repository Tour.
+- Call out unanswered questions as action items.
+- Mixed-language repos: subsections per component, global guidance first.
 
-## Phase 4 · Validate & Wrap Up
-1. **Self-review**
-   - Does the file respect AGENTS scope rules? (Mention inheritance or overrides.)
-   - Are all critical commands documented, especially automation entry points?
-   - Is the README update expectation explicit?
-   - Did you obtain developer approval before adding any per-directory AGENTS files, and is that approval reflected in the write-up?
-   - Does the "Finish the Task" checklist include the conventional commit summary reminder?
-2. **Formatting**
-   - Ensure headings use Title Case, commands are wrapped in backticks, and lists are concise.
-   - Keep sections under ~8 bullets unless a table is clearer.
-3. **Handoff Summary**
-   - When delivering the AGENTS.md to the user, include:
-     - A short summary of major sections added/updated.
-     - Confirmation that README and conventional commit reminders are present.
-     - Any follow-up suggestions (e.g., missing tests or outdated scripts).
+## Phase 4 · Validate
 
-Use this skill whenever a repo lacks AGENTS context or when existing instructions are incomplete or outdated. The goal is to leave future agents with a single, trustworthy map of the project, its tooling, and the expectations for finishing tasks responsibly.
+- Scope rules stated (inheritance / overrides).
+- Canonical automation commands present.
+- README update and conventional-commit reminders in the wrap-up checklist.
+- Per-directory files only exist if the developer approved them.
+
+When handing off, summarize what was added or updated, confirm the wrap-up reminders, and list leftover gaps (missing tests, stale scripts).
