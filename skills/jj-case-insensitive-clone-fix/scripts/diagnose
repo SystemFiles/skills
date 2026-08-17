@@ -38,7 +38,7 @@ case "${1:-}" in
     exit 0
     ;;
   --stdin)
-    names="$(cat | awk 'NF')"
+    names="$(awk 'NF')"
     ;;
   "")
     echo "Error: missing <git-url> (or --stdin)" >&2

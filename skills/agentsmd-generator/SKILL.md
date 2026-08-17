@@ -7,7 +7,7 @@ allowed-tools: Read Write Edit Bash(ls:*) Bash(git:*) Bash(just:*) Bash(make:*) 
 
 # Agent Context Generator
 
-Inventory the repo from source (not docs), then write an `AGENTS.md` that future agents can follow. Treat README/CONTRIBUTING/`docs/` as hints only: verify every claim against code, configs, scripts, CI, and manifests. When they disagree, the code wins — flag the discrepancy.
+Inventory the repo from source (not docs), then write an `AGENTS.md` that future agents can follow. Treat README/CONTRIBUTING/`docs/` as hints only: verify every claim against code, configs, scripts, CI, and manifests. When they disagree, the code wins — flag the discrepancy. Prefer `just`/`make`/`task` entry points. Include wrap-up duties: update the README after significant changes, and summarize work in conventional commits.
 
 ## Phase 1 · Understand the repository
 
