@@ -9,7 +9,7 @@ from __future__ import annotations
 
 from pathlib import Path
 
-from conftest import commit_file, init_repo, parse_kv, run_script
+from conftest import git, init_repo, parse_kv, requires, run_script
 
 SKILL = "agentsmd-generator"
 SCRIPT = "repo-inventory"
@@ -76,7 +76,7 @@ def test_detects_ci_and_env_files(tmp_path: Path) -> None:
 
 def test_emits_tree_section(tmp_path: Path) -> None:
     repo = init_repo(tmp_path / "proj")
-    commit_file(repo, "README.md", "# hi\n", "docs: readme")
+    (repo / "README.md").write_text("# hi\n", encoding="utf-8")
 
     out = run_script(SKILL, SCRIPT, cwd=repo).stdout
 
