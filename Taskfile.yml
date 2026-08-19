@@ -29,7 +29,7 @@ tasks:
   verify-discovery:
     desc: List skills via the skills CLI from this local path
     cmds:
-      - npx -y skills add ./. --list
+      - bunx skills add ./. --list
 
   install-hooks:
     desc: Install pre-commit git hooks

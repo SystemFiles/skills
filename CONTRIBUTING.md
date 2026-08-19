@@ -93,7 +93,7 @@ Run the checks:
 ```bash
 task validate          # contract test: every SKILL.md has valid name/description
 task lint              # full pre-commit gate (markdownlint, cspell, gitleaks, ...)
-task verify-discovery  # list skills via the skills CLI from this local path
+task verify-discovery  # list skills via bunx skills CLI from this local path
 task ci                # the full gate CI runs (validate + lint)
 ```
 

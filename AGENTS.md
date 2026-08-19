@@ -8,6 +8,7 @@ Agent skills catalog for the [skills CLI](https://github.com/vercel-labs/skills)
 
 - **Primary language:** Markdown skills; Python 3.12+ for contracts and catalog scripts
 - **Package manager:** [uv](https://docs.astral.sh/uv/) (`pyproject.toml`, `package = false`)
+- **JS runner:** [Bun](https://bun.sh) (`bun`, `bunx`) — not `npm`/`npx`
 - **Entrypoints:** `task` via `Taskfile.yml`
 - **CI:** `.github/workflows/ci.yml` → `task ci`; PR title lint; scheduled upstream sync
 
@@ -25,6 +26,7 @@ Agent skills catalog for the [skills CLI](https://github.com/vercel-labs/skills)
 - **Authored** skills: edit `skills/<name>/`; dir name = frontmatter `name`.
 - **Vendored** skills: edit `upstream-skills.toml` only → `task sync-upstream-skills`; never hand-edit vendored trees.
 - Day-to-day gate: `task ci` (`validate` + `lint`). Details: [DEVELOPMENT.md](docs/DEVELOPMENT.md).
+- Prefer `bun`/`bunx` over `npm`/`npx` (including the skills CLI).
 - How the catalog fits together: [ARCHITECTURE.md](docs/ARCHITECTURE.md).
 - `.lavish/` is local scratch, not canon.
 

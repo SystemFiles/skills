@@ -8,7 +8,7 @@ Setup, day-to-day commands, and patterns for working in this catalog. Architectu
 | --- | --- |
 | [uv](https://docs.astral.sh/uv/) | Python 3.12+ toolchain + deps (`uv sync`) |
 | [Task](https://taskfile.dev) | Single automation entry point (`Taskfile.yml`) |
-| Node / `npx` | Only for `task verify-discovery` (skills CLI) |
+| [Bun](https://bun.sh) / `bunx` | Only for `task verify-discovery` (skills CLI). Prefer `bun`/`bunx` over `npm`/`npx`. |
 | Cursor `agent` CLI | Only for `task evals` (skill-creator agent runs) |
 
 No Docker, no local services, no app `.env` for ordinary work.

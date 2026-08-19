@@ -43,10 +43,12 @@ Provenance (source commit and license) is recorded in `upstream-skills.lock.json
 
 ## Install
 
+Prefer [`bun`](https://bun.sh) / `bunx` over `npm` / `npx`.
+
 List the available skills without installing:
 
 ```bash
-npx skills add SystemFiles/skills --list
+bunx skills add SystemFiles/skills --list
 ```
 
 Install a single skill (interactive agent selection):
@@ -76,7 +78,7 @@ bunx skills add SystemFiles/skills --skill issue-triage --global
 Install every skill in this repo:
 
 ```bash
-npx skills add SystemFiles/skills --skill '*'
+bunx skills add SystemFiles/skills --skill '*'
 ```
 
 ### Cursor plugin (IDE / team / Cloud Agents)
@@ -93,13 +95,13 @@ Reload Cursor, then confirm skills under Customize.
 
 Team Marketplace (Teams / Enterprise): Dashboard → Plugins → import this GitHub repo → set Required or Default On. Enable auto-refresh if the Cursor GitHub App is on the repo.
 
-Cloud Agents do not see `npx skills add --global` home installs. After marketplace install, verify a Cloud Agent can invoke a skill from this catalog. If it cannot, commit the needed skills under `.agents/skills/` or `.cursor/skills/` in the target repo (project-scoped discovery).
+Cloud Agents do not see `bunx skills add --global` home installs. After marketplace install, verify a Cloud Agent can invoke a skill from this catalog. If it cannot, commit the needed skills under `.agents/skills/` or `.cursor/skills/` in the target repo (project-scoped discovery).
 
 ## Updating and removing
 
 ```bash
 # Update installed skills from this source
-npx skills update
+bunx skills update
 
 # Remove a skill
 bunx skills remove issue-triage

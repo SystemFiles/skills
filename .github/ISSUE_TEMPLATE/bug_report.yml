@@ -21,7 +21,7 @@ body:
     id: repro
     attributes:
       label: Steps to reproduce
-      description: Commands run (e.g. `npx skills add ...`) and what happened.
+      description: Commands run (e.g. `bunx skills add ...`) and what happened.
     validations:
       required: true
   - type: textarea
@@ -34,6 +34,6 @@ body:
     id: agent
     attributes:
       label: Agent / environment
-      description: Which agent and OS (e.g. Cursor on macOS), plus `node`/`skills` versions if relevant.
+      description: Which agent and OS (e.g. Cursor on macOS), plus `bun`/`skills` versions if relevant.
     validations:
       required: false
