@@ -13,6 +13,21 @@
 #   ref   optional  branch/tag (defaults to the upstream default branch)
 
 [[skill]]
+name = "code-review"
+repo = "mattpocock/skills"
+path = "skills/engineering/code-review"
+
+[[skill]]
+name = "codebase-design"
+repo = "mattpocock/skills"
+path = "skills/engineering/codebase-design"
+
+[[skill]]
+name = "domain-modeling"
+repo = "mattpocock/skills"
+path = "skills/engineering/domain-modeling"
+
+[[skill]]
 name = "grill-me"
 repo = "mattpocock/skills"
 path = "skills/productivity/grill-me"
@@ -33,14 +48,34 @@ repo = "mattpocock/skills"
 path = "skills/engineering/improve-codebase-architecture"
 
 [[skill]]
+name = "prototype"
+repo = "mattpocock/skills"
+path = "skills/engineering/prototype"
+
+[[skill]]
+name = "research"
+repo = "mattpocock/skills"
+path = "skills/engineering/research"
+
+[[skill]]
+name = "tdd"
+repo = "mattpocock/skills"
+path = "skills/engineering/tdd"
+
+[[skill]]
 name = "teach"
 repo = "mattpocock/skills"
 path = "skills/productivity/teach"
 
 [[skill]]
-name = "test-driven-development"
-repo = "obra/superpowers"
-path = "skills/test-driven-development"
+name = "to-spec"
+repo = "mattpocock/skills"
+path = "skills/engineering/to-spec"
+
+[[skill]]
+name = "to-tickets"
+repo = "mattpocock/skills"
+path = "skills/engineering/to-tickets"
 
 [[skill]]
 name = "wayfinder"

@@ -33,12 +33,19 @@ Provenance (source commit and license) is recorded in `upstream-skills.lock.json
 
 | Skill | Upstream | License | Description |
 | --- | --- | --- | --- |
+| `code-review` | [mattpocock/skills](https://github.com/mattpocock/skills) | MIT | Two-axis review (Standards + Spec) of changes since a commit, branch, tag, or merge-base. |
+| `codebase-design` | [mattpocock/skills](https://github.com/mattpocock/skills) | MIT | Shared vocabulary for designing deep modules (interfaces, seams, testability). |
+| `domain-modeling` | [mattpocock/skills](https://github.com/mattpocock/skills) | MIT | Build and sharpen a project's domain model (`CONTEXT.md` / ADRs). |
 | `grill-me` | [mattpocock/skills](https://github.com/mattpocock/skills) | MIT | Relentless interview to sharpen a plan or design (explicit invocation). |
 | `grill-with-docs` | [mattpocock/skills](https://github.com/mattpocock/skills) | MIT | Same grilling loop, also producing ADRs and glossary docs as you go. |
 | `grilling` | [mattpocock/skills](https://github.com/mattpocock/skills) | MIT | Stress-test a plan/decision/idea with a decision-tree interview. |
 | `improve-codebase-architecture` | [mattpocock/skills](https://github.com/mattpocock/skills) | MIT | Scan for deepening opportunities, present an HTML report, then grill one. |
+| `prototype` | [mattpocock/skills](https://github.com/mattpocock/skills) | MIT | Throwaway logic or UI prototype to answer a design question. |
+| `research` | [mattpocock/skills](https://github.com/mattpocock/skills) | MIT | Investigate a question against primary sources and write findings as Markdown in the repo. |
+| `tdd` | [mattpocock/skills](https://github.com/mattpocock/skills) | MIT | Test-first / red-green-refactor workflow with seam-based tests. |
 | `teach` | [mattpocock/skills](https://github.com/mattpocock/skills) | MIT | Teach a skill or concept inside the current workspace. |
-| `test-driven-development` | [obra/superpowers](https://github.com/obra/superpowers) | MIT | TDD workflow before writing implementation code. |
+| `to-spec` | [mattpocock/skills](https://github.com/mattpocock/skills) | MIT | Synthesize the current conversation into a spec and publish it (explicit invocation). |
+| `to-tickets` | [mattpocock/skills](https://github.com/mattpocock/skills) | MIT | Break a plan, spec, or conversation into tracer-bullet tickets with blocking edges (explicit invocation). |
 | `wayfinder` | [mattpocock/skills](https://github.com/mattpocock/skills) | MIT | Map large work as decision tickets on an issue tracker and resolve them one by one. |
 
 ## Install
