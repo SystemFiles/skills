@@ -16,10 +16,12 @@ import yaml
 ROOT = Path(__file__).resolve().parents[1]
 SKILLS_DIR = ROOT / "skills"
 
-# Skills expected to be present in this repository.
+# Authored skills that must remain present (vendored ones are covered by
+# tests/test_upstream_catalog.py).
 EXPECTED_SKILLS = {
     "agentsmd-generator",
     "issue-triage",
+    "bro",
     "jj-case-insensitive-clone-fix",
     "lavish-safe",
     "pr-feedback-qa",
@@ -46,10 +48,6 @@ def parse_frontmatter(path: Path) -> dict:
     data = yaml.safe_load(match.group(1))
     assert isinstance(data, dict), f"{path}: frontmatter is not a YAML mapping"
     return data
-
-
-def test_skills_directory_exists() -> None:
-    assert SKILLS_DIR.is_dir(), "skills/ directory must exist"
 
 
 def test_expected_skills_present() -> None:

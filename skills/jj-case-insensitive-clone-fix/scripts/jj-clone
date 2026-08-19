@@ -144,9 +144,7 @@ fallback_clone() {
 clone_log="$(mktemp -t jj-clone.XXXXXX)"
 trap 'rm -f "$clone_log"' EXIT
 
-if jj git clone "$url" "$target" 2>&1 | tee "$clone_log"; then
-  : # success
-else
+if ! jj git clone "$url" "$target" 2>&1 | tee "$clone_log"; then
   rc=$?
   if grep -qE 'Failed to update refs:' "$clone_log"; then
     echo >&2

@@ -114,8 +114,8 @@ for f in Justfile justfile Makefile makefile GNUmakefile Taskfile.yml Taskfile.y
 done
 
 if [[ -n "$makefile" ]]; then
-  # Same `## help`-style convention used by this repo's own Makefile.
-  # `|| true` keeps a no-match `grep` (exit 1, with pipefail) from aborting.
+  # GNU make `target: ## help` convention. `|| true` keeps a no-match grep
+  # from aborting under pipefail.
   make_targets="$(grep -E '^[a-zA-Z0-9_.-]+:.*?## ' "$makefile" 2>/dev/null \
     | sed -E 's/^([a-zA-Z0-9_.-]+):.*/\1/' | sort -u | paste -sd, - || true)"
 fi
