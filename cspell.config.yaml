@@ -7,10 +7,15 @@ words:
   - Codex
   - evals
   - frontmatter
+  - sighup
+  - wayfinder
+  - obra
+  - mattpocock
   - pytest
   - repo
   - sdd
   - skillsrc
+  - systemfiles
   - taskfile
   - venv
   - vercel

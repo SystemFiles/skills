@@ -16,3 +16,16 @@ node_modules/
 
 # OS
 .DS_Store
+
+# issue-triage clarifying Q&A / resume artifacts (subject-repo local state)
+.issue-triage/
+
+# pr-feedback-qa session JSON (subject-repo local state; also ensured by session_log.py)
+.scratch/
+
+# skill-creator eval run workspaces (sibling to skill dirs or repo root)
+*-workspace/
+skills/*-workspace/
+
+# Local scratch (not canonical)
+.lavish/

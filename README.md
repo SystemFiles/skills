@@ -13,12 +13,17 @@ Each skill is a directory under `skills/<name>/` containing a `SKILL.md` (plus a
 | Skill | Description |
 | --- | --- |
 | `agentsmd-generator` | Generate project-level `AGENTS.md` onboarding guides covering structure, tooling, testing, task flow, and conventions. |
+| `issue-triage` | Turn a rough GitHub Issue into an agent-executable sealed body with `ready` + size labels (explicit invocation). Clarifying Q&A persists under `.issue-triage/` (gitignored) for resume. Ships `issue_ops` + validators, offline `evals/`, and `mock_gh` for script unit tests. |
 | `bro` | Slash-command only (`/bro`): restate the last message plainly and concisely, without jargon. |
 | `jj-case-insensitive-clone-fix` | Diagnose and fix the `jj git clone` "Failed to update refs" error on case-insensitive filesystems (e.g. macOS APFS). |
+| `lavish-safe` | Local-only Lavish HTML review via `lavish-axi`, with share and telemetry forbidden. |
+| `pr-feedback-qa` | Disposition PR or file-based review feedback one item at a time (Address / Skip / GitHub Issue), with resumable JSON sessions under `.scratch/pr-feedback-qa/` and a final decision table. |
 | `research_codebase` | Map how a codebase works today and save a dated, citation-backed report under `thoughts/`, using parallel sub-agents by default. |
 | `sdd-linear` | Run the Spec-Driven Development (SDD) workflow with Linear issues, sub-issues, attachments, and comments as the system of record instead of `docs/specs`. |
+| `sdd-qa` | Ask SDD `docs/specs` clarification questions ONE-by-ONE and write decisions back to the questions file (explicit slash invocation). |
 | `sync-upstream` | Sync a fork's default branch with its upstream remote using merge or rebase, resolving conflicts as needed. |
 | `taskfile-automation` | Scaffold consistent, portable repo automation with a `Taskfile` as the single entry point (run the same locally and in CI), adding Docker/Compose only when external runtime deps demand it. |
+| `visual-explain` | Interactive local HTML explanation of a diff/branch/PR (Background, Intuition, Code walkthrough, Quiz). Adapted from sighup/claude-workflow `cw-explain`. |
 | `work-breakdown` | Decompose large/ambiguous scope into smaller units of work with dependencies and parallelization. |
 
 ### Vendored from upstream
@@ -34,6 +39,13 @@ Provenance (source commit and license) is recorded in `upstream-skills.lock.json
 | Skill | Upstream | License | Description |
 | --- | --- | --- | --- |
 | `agent-browser` | [vercel-labs/agent-browser](https://github.com/vercel-labs/agent-browser) | Apache-2.0 | Browser automation CLI for AI agents (navigate, fill forms, screenshot, scrape, test web/Electron apps). |
+| `grill-me` | [mattpocock/skills](https://github.com/mattpocock/skills) | MIT | Relentless interview to sharpen a plan or design (explicit invocation). |
+| `grill-with-docs` | [mattpocock/skills](https://github.com/mattpocock/skills) | MIT | Same grilling loop, also producing ADRs and glossary docs as you go. |
+| `grilling` | [mattpocock/skills](https://github.com/mattpocock/skills) | MIT | Stress-test a plan/decision/idea with a decision-tree interview. |
+| `improve-codebase-architecture` | [mattpocock/skills](https://github.com/mattpocock/skills) | MIT | Scan for deepening opportunities, present an HTML report, then grill one. |
+| `teach` | [mattpocock/skills](https://github.com/mattpocock/skills) | MIT | Teach a skill or concept inside the current workspace. |
+| `test-driven-development` | [obra/superpowers](https://github.com/obra/superpowers) | MIT | TDD workflow before writing implementation code. |
+| `wayfinder` | [mattpocock/skills](https://github.com/mattpocock/skills) | MIT | Map large work as decision tickets on an issue tracker and resolve them one by one. |
 
 Some upstream skills set `hidden: true`, so they will not appear in
 `npx skills add SystemFiles/skills --list`. Install them by explicit name, for
@@ -76,6 +88,22 @@ Install every skill in this repo:
 ```bash
 npx skills add SystemFiles/skills --skill '*'
 ```
+
+### Cursor plugin (IDE / team / Cloud Agents)
+
+This repo is also an [Agent Plugin](https://agent-plugins.org): root [`plugin.json`](plugin.json) plus `skills/*/SKILL.md`. Prefer this path when you want Cursor (not other agents) to load the whole catalog without the skills CLI.
+
+Local dry-run:
+
+```bash
+ln -s "$(pwd)" ~/.cursor/plugins/local/systemfiles-skills
+```
+
+Reload Cursor, then confirm skills under Customize.
+
+Team Marketplace (Teams / Enterprise): Dashboard → Plugins → import this GitHub repo → set Required or Default On. Enable auto-refresh if the Cursor GitHub App is on the repo.
+
+Cloud Agents do not see `npx skills add --global` home installs. After marketplace install, verify a Cloud Agent can invoke a skill from this catalog. If it cannot, commit the needed skills under `.agents/skills/` or `.cursor/skills/` in the target repo (project-scoped discovery).
 
 ## Updating and removing
 
