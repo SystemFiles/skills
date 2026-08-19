@@ -6,8 +6,8 @@ body:
     id: skill
     attributes:
       label: Skill name
-      description: Which skill is affected? (e.g. `work-breakdown`) Leave blank if it is an install/discovery issue.
-      placeholder: work-breakdown
+      description: Which skill is affected? (e.g. `issue-triage`) Leave blank if it is an install/discovery issue.
+      placeholder: issue-triage
     validations:
       required: false
   - type: textarea

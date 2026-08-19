@@ -19,19 +19,14 @@ SKILLS_DIR = ROOT / "skills"
 # Authored skills that must remain present (vendored ones are covered by
 # tests/test_upstream_catalog.py).
 EXPECTED_SKILLS = {
-    "agentsmd-generator",
     "issue-triage",
     "bro",
     "jj-case-insensitive-clone-fix",
-    "lavish-safe",
     "pr-feedback-qa",
     "research_codebase",
-    "sdd-linear",
     "sdd-qa",
     "sync-upstream",
-    "taskfile-automation",
     "visual-explain",
-    "work-breakdown",
 }
 
 FRONTMATTER_RE = re.compile(r"^---\n(.*?)\n---\n", re.DOTALL)

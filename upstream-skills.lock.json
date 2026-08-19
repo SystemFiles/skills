@@ -1,15 +1,6 @@
 {
   "version": 1,
   "skills": {
-    "agent-browser": {
-      "repo": "vercel-labs/agent-browser",
-      "source_url": "https://github.com/vercel-labs/agent-browser",
-      "path": "skills/agent-browser",
-      "ref": null,
-      "commit": "81c336c1c20b80ac648e0416a7b6e0c0ae7878bb",
-      "license": "Apache-2.0",
-      "synced_at": "2026-07-20T13:53:03.306628+00:00"
-    },
     "grill-me": {
       "repo": "mattpocock/skills",
       "source_url": "https://github.com/mattpocock/skills",

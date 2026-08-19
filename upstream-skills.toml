@@ -13,11 +13,6 @@
 #   ref   optional  branch/tag (defaults to the upstream default branch)
 
 [[skill]]
-name = "agent-browser"
-repo = "vercel-labs/agent-browser"
-path = "skills/agent-browser"
-
-[[skill]]
 name = "grill-me"
 repo = "mattpocock/skills"
 path = "skills/productivity/grill-me"

@@ -5,7 +5,7 @@ Valid types: feat, fix, docs, style, refactor, perf, test, build, ci, chore, rev
 
 Examples:
   feat(skills): add new aws-vpc-creator skill
-  fix: correct frontmatter in work-breakdown
+  fix: correct frontmatter in issue-triage
   docs: update install instructions
 
 The PR title is validated automatically.

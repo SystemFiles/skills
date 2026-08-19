@@ -127,8 +127,7 @@ Deliverable is the local HTML path. Open it when useful:
 open <output-file>   # macOS; xdg-open on Linux
 ```
 
-Optional: if the user wants annotation / review loops, hand off to `lavish-safe`
-on the same file — do not upload or publish.
+Keep the HTML local. Do not upload or publish it.
 
 ## Authoring Protocol (explainer child)
 
