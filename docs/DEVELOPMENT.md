@@ -73,6 +73,11 @@ Or generate candidates: `task capture-project PROJECT=…` (local-only installs 
 - Skill-scoped helpers: `skills/<name>/scripts/`.
 - Tests live under `tests/` at the repo root (import/path against skill scripts as needed).
 - Pre-commit already runs `uv run pytest -q` as `skill-contract-tests`; still run `task ci` before review.
+- Keep helpers stdlib-only and offline so they run wherever the skill is installed. A helper that needs a local browser (`sykesdev-design-system/scripts/render_check.py`) stays out of pytest and is run by hand.
+
+### Skills that ship binary assets
+
+`skills/sykesdev-design-system/` carries self-hosted fonts and the logo master so the skill works offline after install. `check-added-large-files` excludes that logo directory; keep the exclusion narrow rather than raising the repo-wide ceiling.
 
 ### Docs and spelling
 

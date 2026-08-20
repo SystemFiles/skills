@@ -18,6 +18,7 @@ Each skill is a directory under `skills/<name>/` containing a `SKILL.md` (plus a
 | `pr-feedback-qa` | Disposition PR or file-based review feedback one item at a time (Address / Skip / GitHub Issue), with resumable JSON sessions under `.scratch/pr-feedback-qa/` and a final decision table. |
 | `research_codebase` | Map how a codebase works today and save a dated, citation-backed report under `thoughts/`, using parallel sub-agents by default. |
 | `sdd-qa` | Ask SDD `docs/specs` clarification questions ONE-by-ONE and write decisions back to the questions file (explicit slash invocation). |
+| `sykesdev-design-system` | Apply the sykesdev Harbor Chart design system to app UI, pages, and fully self-contained single-file HTML documents. Ships tokens, a component + behavior layer, self-hosted fonts, the mark, a document starter, `bundle_html.py` (inline everything into one sendable file) and `render_check.py` (tmp screenshots for judging, not shipping). |
 | `sync-upstream` | Sync a fork's default branch with its upstream remote using merge or rebase, resolving conflicts as needed. |
 | `visual-explain` | Interactive local HTML explanation of a diff/branch/PR (Background, Intuition, Code walkthrough, Quiz). Adapted from sighup/claude-workflow `cw-explain`. |
 

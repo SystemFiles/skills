@@ -19,6 +19,9 @@ repos:
       - id: check-toml
       - id: check-json
       - id: check-added-large-files
+        # The design system ships its logo master (1254px, ~840 KB) so the
+        # skill stands alone wherever it is installed.
+        exclude: ^skills/sykesdev-design-system/assets/logos/
       - id: end-of-file-fixer
         exclude: ^skills/
       - id: trailing-whitespace
