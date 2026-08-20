@@ -1,0 +1,329 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Harbor Chart — self-contained document starter</title>
+  <meta name="description" content="Starter for a single-file Harbor Chart document.">
+  <!-- No <link rel="icon">: harbor-ui.js reuses the masthead mark as the tab
+       icon so a bundled document carries those bytes once. -->
+  <link rel="stylesheet" href="../assets/tokens.css">
+  <link rel="stylesheet" href="../assets/harbor-ui.css">
+  <style>
+    /* Document-specific layout only. Anything reusable belongs in
+       harbor-ui.css, and every value comes from tokens.css. */
+    .field-plate {
+      position: relative;
+      background: var(--ink);
+      border: 1px solid var(--rule);
+      min-height: 220px;
+      padding: var(--space-5);
+    }
+    .soundings {
+      position: relative;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+      gap: var(--space-3);
+    }
+    .sounding {
+      appearance: none;
+      background: transparent;
+      border: 0;
+      padding: var(--space-2);
+      font: inherit;
+      color: inherit;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: var(--space-1);
+      text-align: left;
+    }
+    .sounding .swatch {
+      width: 100%;
+      height: 28px;
+      border: 1px solid var(--rule);
+      outline: 1px solid transparent;
+      outline-offset: 2px;
+    }
+    .sounding:hover .swatch { outline-color: var(--kelp); }
+    .sounding[aria-pressed="true"] .swatch {
+      outline: 2px solid var(--lamp);
+      outline-offset: 3px;
+    }
+    .sample-head {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+      margin-bottom: var(--space-3);
+    }
+    .sample-head .blob {
+      width: 48px;
+      height: 48px;
+      border: 1px solid var(--rule);
+      flex: 0 0 auto;
+    }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <header class="masthead">
+      <img class="mark" src="../assets/logos/logo-256.png" width="72" height="72"
+           alt="sykesdev mark" data-favicon>
+      <h1>Document starter</h1>
+      <p class="meta">
+        <b>sykesdev-design-system</b>
+        one file · no network · no siblings<br>
+        night channel · paper type · lamp signal
+      </p>
+    </header>
+
+    <nav class="rail" aria-label="Sections" data-toc="main h2">
+      <h2>On this page</h2>
+    </nav>
+
+    <main class="sheet" data-anchors="main h2, main h3">
+      <section class="plate">
+        <ol class="crumbs">
+          <li><a href="#top">sykesdev</a></li>
+          <li><a href="#top">Design system</a></li>
+          <li aria-current="page">Document starter</li>
+        </ol>
+        <h2 data-toc-label="Brief">Brief</h2>
+        <p class="lede">
+          Copy this file, replace the content, bundle it, send the one file. Everything
+          below is a working recipe from the component layer — delete what the document
+          does not need rather than inventing a new pattern.
+        </p>
+        <div class="callout" data-kind="signal">
+          <span class="label">bundle</span>
+          <p>
+            Authored with <code>&lt;link&gt;</code> and <code>&lt;script src&gt;</code> so the
+            parts stay editable. Bundle to the file you will send, then discard the
+            authored source. The destination is one document, not a folder of parts.
+          </p>
+        </div>
+      </section>
+
+      <section class="plate">
+        <h2>Soundings</h2>
+        <p class="lede">Click a depth to sample it. Fathom is structure and never type.</p>
+        <div class="plate-grid" data-sample-group>
+          <div class="field-plate">
+            <div class="graticule" aria-hidden="true"></div>
+            <div class="soundings">
+              <button class="sounding" type="button" data-sample aria-pressed="true"
+                      data-name="ink" data-hex="#0B1018" data-ratio="canvas"
+                      data-use="Night channel, gaps, on-lamp text.">
+                <span class="swatch" style="background: var(--ink)"></span>
+                <span class="sounding-text" style="color: var(--text)">ink</span>
+                <span class="sounding-text">#0B1018</span>
+              </button>
+              <button class="sounding" type="button" data-sample aria-pressed="false"
+                      data-name="paper" data-hex="#E6EDF5" data-ratio="16.2:1 body"
+                      data-use="Titles and reading on ink.">
+                <span class="swatch" style="background: var(--paper)"></span>
+                <span class="sounding-text" style="color: var(--text)">paper</span>
+                <span class="sounding-text">#E6EDF5</span>
+              </button>
+              <button class="sounding" type="button" data-sample aria-pressed="false"
+                      data-name="lamp" data-hex="#05DBCC" data-ratio="10.9:1 signal"
+                      data-use="Mark cyan. Primary fill, focus, sampled.">
+                <span class="swatch" style="background: var(--lamp)"></span>
+                <span class="sounding-text" style="color: var(--text)">lamp</span>
+                <span class="sounding-text">#05DBCC</span>
+              </button>
+              <button class="sounding" type="button" data-sample aria-pressed="false"
+                      data-name="buoy" data-hex="#A7B8CC" data-ratio="9.4:1 secondary"
+                      data-use="Secondary text, placeholders, ticks.">
+                <span class="swatch" style="background: var(--buoy)"></span>
+                <span class="sounding-text" style="color: var(--text)">buoy</span>
+                <span class="sounding-text">#A7B8CC</span>
+              </button>
+            </div>
+          </div>
+          <div class="well">
+            <div class="sample-head">
+              <span class="blob" data-sample-slot="hex" data-sample-swatch
+                    style="background: var(--ink)" aria-hidden="true"></span>
+              <span>
+                <span class="sounding-text" style="display: block; color: var(--text); font-weight: 700"
+                      data-sample-slot="name">ink</span>
+                <span class="sounding-text" data-sample-slot="hex">#0B1018</span>
+              </span>
+            </div>
+            <dl class="kv">
+              <dt>ratio</dt><dd data-sample-slot="ratio">canvas</dd>
+              <dt>use</dt><dd data-sample-slot="use">Night channel, gaps, on-lamp text.</dd>
+            </dl>
+          </div>
+        </div>
+      </section>
+
+      <section class="plate">
+        <h2>Controls</h2>
+        <p class="lede">Sentence case, square, lamp for the one primary action.</p>
+        <div class="btn-row">
+          <button class="btn btn-primary" type="button" data-toast="Recorded — one authored moment.">Record fix</button>
+          <button class="btn btn-secondary" type="button" data-dialog="confirm">Open dialog</button>
+          <button class="btn btn-ghost" type="button">Skip</button>
+          <button class="btn btn-primary" type="button" disabled>Unavailable</button>
+        </div>
+        <p></p>
+        <div class="chip-row">
+          <span class="chip">ink #0B1018</span>
+          <span class="chip" data-sampled="true">lamp #05DBCC</span>
+          <span class="chip">paper #E6EDF5</span>
+        </div>
+        <h3>Form</h3>
+        <form class="stack" style="max-width: 420px" novalidate>
+          <div class="field" data-error>
+            <label for="token">Token name</label>
+            <input id="token" name="token" type="text" value="white"
+                   aria-invalid="true" aria-describedby="token-error">
+            <span class="error" id="token-error">
+              error — white is not a named token. Use paper, lamp, buoy, or ink.
+            </span>
+          </div>
+          <div class="field">
+            <label for="note">Fix note</label>
+            <input id="note" name="note" type="text" placeholder="Swap to paper and recheck contrast">
+            <span class="hint">Hint stays buoy on ink.</span>
+          </div>
+          <label class="check">
+            <input type="checkbox" checked>
+            Re-run the contrast pass
+          </label>
+          <div class="btn-row actions">
+            <button class="btn btn-ghost" type="reset">Clear</button>
+            <button class="btn btn-primary" type="submit">Record fix</button>
+          </div>
+        </form>
+      </section>
+
+      <section class="plate">
+        <h2>Readings</h2>
+        <p class="lede">
+          Soundings are mono and tabular. Filter or sort the tide table; the
+          <span class="tip" tabindex="0" aria-describedby="tip-sort">sort control
+            <span class="tip-body" id="tip-sort" role="tooltip">Numeric columns sort numerically.</span>
+          </span> lives in the header cell.
+        </p>
+        <div class="plate-grid" style="margin-bottom: var(--space-5)">
+          <div class="stat">
+            <span class="value">16.2:1</span>
+            <span class="label">paper on ink</span>
+          </div>
+          <div class="stat">
+            <span class="value">11</span>
+            <span class="label">named tokens</span>
+          </div>
+          <div>
+            <span class="label sounding-text">coverage</span>
+            <span class="meter" role="img" aria-label="Coverage: 72 percent">
+              <span style="width: 72%"></span>
+            </span>
+          </div>
+        </div>
+        <div class="field" style="max-width: 320px; margin-bottom: var(--space-4)">
+          <label for="tide-filter">Filter rows</label>
+          <input id="tide-filter" type="search" placeholder="lamp"
+                 data-filter="tide-table" data-filter-status="tide-count">
+          <span class="hint"><span id="tide-count">4 of 4</span> shown</span>
+        </div>
+        <div class="table-wrap">
+          <table class="table" id="tide-table" data-sort-table>
+            <caption class="visually-hidden">Token contrast against ink</caption>
+            <thead>
+              <tr>
+                <th scope="col">Token</th>
+                <th scope="col">Hex</th>
+                <th scope="col" class="num">On ink</th>
+                <th scope="col" data-no-sort>Job</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>paper</td><td>#E6EDF5</td><td class="num">16.2</td><td>Body and titles</td></tr>
+              <tr><td>lamp</td><td>#05DBCC</td><td class="num">10.9</td><td>Signal, focus, primary fill</td></tr>
+              <tr><td>buoy</td><td>#A7B8CC</td><td class="num">9.4</td><td>Secondary text</td></tr>
+              <tr><td>kelp</td><td>#7E92A8</td><td class="num">6.0</td><td>Quiet labels</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="plate">
+        <h2>Panels</h2>
+        <div class="tabs" data-tabs>
+          <div role="tablist" aria-label="Recipes">
+            <button role="tab" type="button" id="tab-css" aria-controls="panel-css" aria-selected="true">CSS</button>
+            <button role="tab" type="button" id="tab-bundle" aria-controls="panel-bundle" aria-selected="false">Bundle</button>
+            <button role="tab" type="button" id="tab-empty" aria-controls="panel-empty" aria-selected="false">Empty</button>
+          </div>
+          <div role="tabpanel" id="panel-css" aria-labelledby="tab-css" tabindex="0">
+            <div class="code">
+              <button class="btn btn-small" type="button" data-copy="snippet-css">Copy</button>
+              <pre id="snippet-css">.btn-primary {
+  background: var(--lamp);
+  color: var(--on-lamp);
+  border-color: var(--lamp);
+}</pre>
+            </div>
+          </div>
+          <div role="tabpanel" id="panel-bundle" aria-labelledby="tab-bundle" tabindex="0" hidden>
+            <div class="code">
+              <button class="btn btn-small" type="button" data-copy="snippet-bundle">Copy</button>
+              <pre id="snippet-bundle">python3 scripts/bundle_html.py "$TMPDIR/harbor-doc.html" \
+  -o dest/brief.html \
+  --fonts overpass/400,overpass/600,overpass/700,overpass/800,overpass-mono/500</pre>
+            </div>
+          </div>
+          <div role="tabpanel" id="panel-empty" aria-labelledby="tab-empty" tabindex="0" hidden>
+            <div class="empty">
+              <span class="title">Nothing sampled yet</span>
+              <p>Pick a sounding above to fill this panel.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="plate">
+        <h2>Notices</h2>
+        <div class="plate-grid">
+          <div class="callout">
+            <span class="label">note</span>
+            <p>Status is a mark plus a word. This system owns no red.</p>
+          </div>
+          <div class="callout" data-kind="warn">
+            <span class="label">warn</span>
+            <p>A dashed lamp rule carries the warning, never a new hue.<sup><a href="#fn-1" id="ref-1">1</a></sup></p>
+          </div>
+        </div>
+        <p></p>
+        <span class="loading" role="progressbar" aria-label="Working"></span>
+      </section>
+
+      <footer class="plate footnotes">
+        <h2 class="visually-hidden">Footnotes</h2>
+        <ol>
+          <li id="fn-1">
+            Contrast floors: 4.5:1 body, 3:1 large text and non-text UI.
+            <a href="#ref-1">back</a>
+          </li>
+        </ol>
+      </footer>
+    </main>
+  </div>
+
+  <dialog class="plate-dialog" id="confirm">
+    <h2>Record this fix</h2>
+    <p>Dialogs are floating UI: offset shadow, lamp rule, square corners.</p>
+    <div class="btn-row actions">
+      <button class="btn btn-ghost" type="button" data-close="cancel">Cancel</button>
+      <button class="btn btn-primary" type="button" data-close="confirm">Record</button>
+    </div>
+  </dialog>
+
+  <script src="../assets/harbor-ui.js"></script>
+</body>
+</html>

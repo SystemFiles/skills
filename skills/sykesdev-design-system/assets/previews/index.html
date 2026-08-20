@@ -1,0 +1,461 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>sykesdev — Harbor Chart</title>
+  <link rel="stylesheet" href="../tokens.css">
+  <style>
+    html, body { min-height: 100%; }
+    body {
+      min-height: 100vh;
+      padding: 20px;
+    }
+
+    .chart {
+      display: grid;
+      grid-template-columns: minmax(0, 1.6fr) 20px minmax(280px, 0.8fr);
+      grid-template-rows: auto 20px minmax(420px, 1fr);
+      gap: 0;
+      min-height: calc(100vh - 40px);
+    }
+
+    .title-block {
+      grid-column: 1 / -1;
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      align-items: end;
+      gap: 24px;
+      padding: 16px 20px 20px;
+      background: var(--plate);
+      border: 1px solid var(--rule);
+      position: relative;
+    }
+    .title-block img {
+      display: block;
+      width: 72px;
+      height: 72px;
+      background: var(--mark);
+    }
+    .title-block h1 {
+      margin: 0;
+      font-size: var(--type-display);
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      line-height: 0.95;
+      color: var(--text);
+      max-width: 18ch;
+    }
+    .title-meta {
+      font-family: "Overpass Mono", ui-monospace, monospace;
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--buoy);
+      text-align: right;
+      line-height: 1.6;
+    }
+    .title-meta b {
+      display: block;
+      color: var(--lamp);
+      font-weight: 700;
+    }
+
+    .field {
+      grid-column: 1;
+      grid-row: 3;
+      position: relative;
+      background: var(--ink);
+      border: 1px solid var(--rule);
+      overflow: hidden;
+      min-height: 480px;
+    }
+    .graticule {
+      position: absolute;
+      inset: 0;
+      background-image:
+        repeating-linear-gradient(to right, var(--rule) 0 1px, transparent 1px 80px),
+        repeating-linear-gradient(to bottom, var(--rule) 0 1px, transparent 1px 80px);
+      opacity: 0.85;
+      pointer-events: none;
+      animation: lamp-wipe 0.6s var(--ease) both;
+    }
+    @keyframes lamp-wipe {
+      from { clip-path: inset(0 100% 0 0); }
+      to { clip-path: inset(0 0 0 0); }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .graticule { animation: none; }
+    }
+
+    .ticks-x, .ticks-y {
+      position: absolute;
+      font-family: "Overpass Mono", ui-monospace, monospace;
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--buoy);
+      pointer-events: none;
+    }
+    .ticks-x {
+      left: 0; right: 0; bottom: 8px;
+      display: grid;
+      grid-template-columns: repeat(8, 1fr);
+      padding: 0 8px;
+    }
+    .ticks-y {
+      top: 12px; left: 8px; bottom: 28px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .soundings {
+      position: absolute;
+      inset: 36px 24px 36px 48px;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      grid-template-rows: repeat(3, 1fr);
+      gap: 12px;
+    }
+    .sounding {
+      appearance: none;
+      background: transparent;
+      border: 0;
+      color: inherit;
+      font: inherit;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: center;
+      gap: 4px;
+      padding: 8px;
+      border-radius: 0;
+      text-align: left;
+    }
+    .sounding:hover .swatch {
+      outline-color: var(--lamp);
+    }
+    .sounding[aria-pressed="true"] .swatch {
+      outline: 2px solid var(--lamp);
+      outline-offset: 3px;
+    }
+    .sounding .swatch {
+      width: 100%;
+      height: 28px;
+      border: 1px solid var(--rule);
+      outline: 1px solid transparent;
+      outline-offset: 2px;
+    }
+    .sounding .name {
+      font-family: "Overpass Mono", ui-monospace, monospace;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text);
+    }
+    .sounding .hex {
+      font-family: "Overpass Mono", ui-monospace, monospace;
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--buoy);
+    }
+
+    .legend {
+      grid-column: 3;
+      grid-row: 3;
+      background: var(--plate);
+      border: 1px solid var(--rule);
+      padding: 24px 20px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      min-width: 0;
+    }
+    .legend h2 {
+      margin: 0 0 8px;
+      font-size: var(--type-title);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: var(--text);
+    }
+    .legend .lede {
+      margin: 0 0 24px;
+      font-size: 16px;
+      color: var(--buoy);
+      max-width: var(--measure);
+    }
+    .sample {
+      border: 1px solid var(--rule);
+      padding: 16px;
+      background: var(--ink);
+      margin-bottom: 24px;
+    }
+    .sample .chip-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+    .sample .blob {
+      width: 48px;
+      height: 48px;
+      border: 1px solid var(--rule);
+      flex: 0 0 auto;
+    }
+    .sample dt {
+      font-family: "Overpass Mono", ui-monospace, monospace;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--lamp);
+    }
+    .sample dd {
+      margin: 0;
+      font-family: "Overpass Mono", ui-monospace, monospace;
+      font-size: 12px;
+      color: var(--buoy);
+    }
+    .sample dl {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 4px 12px;
+      margin: 0;
+    }
+
+    .type-row, .space-row {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-bottom: 24px;
+    }
+    .type-row span, .space-row span {
+      font-family: "Overpass Mono", ui-monospace, monospace;
+      font-size: 12px;
+      color: var(--buoy);
+    }
+    .type-specimens {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      color: var(--text);
+    }
+    .t-display { font-size: 1.75rem; font-weight: 800; letter-spacing: -0.02em; line-height: 1; }
+    .t-title { font-size: 1.25rem; font-weight: 700; }
+    .t-body { font-size: 1rem; font-weight: 400; }
+    .t-mono { font-family: "Overpass Mono", ui-monospace, monospace; font-size: 0.75rem; font-weight: 500; }
+
+    .rungs {
+      display: flex;
+      align-items: end;
+      gap: 6px;
+      height: 64px;
+    }
+    .rung {
+      background: var(--lamp);
+      width: 14px;
+    }
+
+    .legend nav {
+      margin-top: auto;
+      padding-top: 16px;
+      border-top: 1px solid var(--rule);
+      font-size: 15px;
+      font-weight: 600;
+    }
+    .legend nav a {
+      color: var(--lamp);
+      text-decoration: none;
+      border-bottom: 1px solid var(--rule);
+    }
+    .legend nav a:hover { border-bottom-color: var(--lamp); }
+
+    @media (max-width: 840px) {
+      body { padding: 8px; }
+      .chart {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        min-height: 0;
+      }
+      .title-block {
+        grid-template-columns: auto 1fr;
+        gap: 12px;
+        padding: 8px 12px 10px;
+      }
+      .title-block img { width: 44px; height: 44px; }
+      .title-block h1 { font-size: 1.35rem; }
+      .title-meta { grid-column: 1 / -1; text-align: left; font-size: 11px; }
+      .ticks-x, .ticks-y { display: none; }
+      .field { min-height: 0; border: 1px solid var(--rule); }
+      .soundings {
+        position: relative;
+        inset: auto;
+        padding: 10px;
+        grid-template-columns: repeat(4, 1fr);
+        grid-template-rows: none;
+        gap: 6px;
+      }
+      .sounding { padding: 4px; gap: 2px; }
+      .sounding .swatch { height: 10px; }
+      .sounding .hex { display: none; }
+      .legend { padding: 12px; }
+      .legend h2 { font-size: 1.15rem; }
+      .legend .lede { margin-bottom: 10px; font-size: 14px; }
+      .sample { margin-bottom: 12px; padding: 10px; }
+      .type-row, .space-row { margin-bottom: 10px; }
+      .t-display { font-size: 1.15rem; }
+      .legend nav { padding-top: 8px; }
+    }
+  </style>
+</head>
+<body>
+  <!--
+    THESIS: The system is a night harbor chart — tokens are soundings, components are buoys — not a sidebar docs gallery.
+    OWN-WORLD: Night channel #0B1018; paper type #E6EDF5; lamp signal #05DBCC (mark cyan); Overpass + Overpass Mono; square plates; hairline graticule.
+    STORY: Read the chart, sample a sounding, copy the token; open buoys for control recipes.
+    FIRST VIEWPORT: Title block with mark. Sounding field on a graticule. Tide legend with live sample, type, spacing. Click a depth to sample it.
+    FORM: Harbor Chart (grounded #1). Seed ecf0da14.
+    FINISH: unreviewed and undocumented is unfinished; this build ends with the finish review, the verdict, DESIGN.md, and every shipping raster carrying its provenance
+  -->
+  <div class="chart">
+    <header class="title-block">
+      <img src="../logos/logo-256.png" width="72" height="72" alt="sykesdev mark" data-favicon>
+      <h1>Harbor Chart</h1>
+      <div class="title-meta">
+        <b>sykesdev-design-system</b>
+        scale 1:1 · fathoms as tokens<br>
+        night channel · paper type · lamp signal
+      </div>
+    </header>
+
+    <div class="field" aria-label="Sounding field">
+      <div class="graticule" aria-hidden="true"></div>
+      <div class="ticks-y" aria-hidden="true">
+        <span>48</span><span>32</span><span>16</span><span>0</span>
+      </div>
+      <div class="ticks-x" aria-hidden="true">
+        <span>0</span><span>8</span><span>16</span><span>24</span><span>32</span><span>40</span><span>48</span><span>64</span>
+      </div>
+      <div class="soundings">
+        <button class="sounding" type="button" aria-pressed="true" data-name="ink" data-hex="#0B1018" data-ratio="canvas" data-use="Night channel. Gaps between plates. On-lamp text.">
+          <span class="swatch" style="background:var(--ink)"></span>
+          <span class="name">ink</span>
+          <span class="hex">#0B1018</span>
+        </button>
+        <button class="sounding" type="button" aria-pressed="false" data-name="paper" data-hex="#E6EDF5" data-ratio="16.2:1 body" data-use="Titles and reading on ink.">
+          <span class="swatch" style="background:var(--paper)"></span>
+          <span class="name">paper</span>
+          <span class="hex">#E6EDF5</span>
+        </button>
+        <button class="sounding" type="button" aria-pressed="false" data-name="lamp" data-hex="#05DBCC" data-ratio="10.9:1 signal" data-use="Mark cyan. Primary fill, focus, sampled.">
+          <span class="swatch" style="background:var(--lamp)"></span>
+          <span class="name">lamp</span>
+          <span class="hex">#05DBCC</span>
+        </button>
+        <button class="sounding" type="button" aria-pressed="false" data-name="buoy" data-hex="#A7B8CC" data-ratio="9.4:1 secondary" data-use="Secondary text, placeholders, ticks.">
+          <span class="swatch" style="background:var(--buoy)"></span>
+          <span class="name">buoy</span>
+          <span class="hex">#A7B8CC</span>
+        </button>
+        <button class="sounding" type="button" aria-pressed="false" data-name="kelp" data-hex="#7E92A8" data-ratio="6.0:1 quiet" data-use="Quiet labels, scrollbar.">
+          <span class="swatch" style="background:var(--kelp)"></span>
+          <span class="name">kelp</span>
+          <span class="hex">#7E92A8</span>
+        </button>
+        <button class="sounding" type="button" aria-pressed="false" data-name="plate" data-hex="#141C28" data-ratio="elevated" data-use="Elevated plate ground.">
+          <span class="swatch" style="background:var(--plate)"></span>
+          <span class="name">plate</span>
+          <span class="hex">#141C28</span>
+        </button>
+        <button class="sounding" type="button" aria-pressed="false" data-name="shoal" data-hex="#1A2433" data-ratio="recessed" data-use="Recessed well.">
+          <span class="swatch" style="background:var(--shoal)"></span>
+          <span class="name">shoal</span>
+          <span class="hex">#1A2433</span>
+        </button>
+        <button class="sounding" type="button" aria-pressed="false" data-name="rule" data-hex="#3A4A5E" data-ratio="hairline" data-use="Graticule and borders.">
+          <span class="swatch" style="background:var(--rule)"></span>
+          <span class="name">rule</span>
+          <span class="hex">#3A4A5E</span>
+        </button>
+        <button class="sounding" type="button" aria-pressed="false" data-name="fathom" data-hex="#243044" data-ratio="structure — never text" data-use="Deep structure only.">
+          <span class="swatch" style="background:var(--fathom)"></span>
+          <span class="name">fathom</span>
+          <span class="hex">#243044</span>
+        </button>
+        <button class="sounding" type="button" aria-pressed="false" data-name="foam" data-hex="#54E1DA" data-ratio="lamp + paper" data-use="Primary hover.">
+          <span class="swatch" style="background:var(--foam)"></span>
+          <span class="name">foam</span>
+          <span class="hex">#54E1DA</span>
+        </button>
+        <button class="sounding" type="button" aria-pressed="false" data-name="mist" data-hex="#079E96" data-ratio="lamp + ink" data-use="Primary press.">
+          <span class="swatch" style="background:var(--mist)"></span>
+          <span class="name">mist</span>
+          <span class="hex">#079E96</span>
+        </button>
+      </div>
+    </div>
+
+    <aside class="legend" id="tide">
+      <h2>Tide</h2>
+      <p class="lede">Sample a sounding. Body is paper on ink. Lamp is the signal. Fathom is never type.</p>
+
+      <div class="sample" id="sample">
+        <div class="chip-row">
+          <div class="blob" id="blob" style="background:var(--ink)"></div>
+          <div>
+            <div class="name font-sounding" id="s-name" style="font-size:14px;font-weight:700;color:var(--text)">ink</div>
+            <div class="hex font-sounding" id="s-hex" style="color:var(--buoy)">#0B1018</div>
+          </div>
+        </div>
+        <dl>
+          <dt>ratio</dt><dd id="s-ratio">canvas</dd>
+          <dt>use</dt><dd id="s-use">Night channel. Gaps between plates. On-lamp text.</dd>
+        </dl>
+      </div>
+
+      <div class="type-row">
+        <span>Overpass / Overpass Mono</span>
+        <div class="type-specimens">
+          <div class="t-display">Chart</div>
+          <div class="t-title">Plate title</div>
+          <div class="t-body">Body at sixteen on ink.</div>
+          <div class="t-mono">#E6EDF5  16.2:1</div>
+        </div>
+      </div>
+
+      <div class="space-row">
+        <span>4 8 12 16 24 32 48 64</span>
+        <div class="rungs" aria-hidden="true">
+          <div class="rung" style="height:4px"></div>
+          <div class="rung" style="height:8px"></div>
+          <div class="rung" style="height:12px"></div>
+          <div class="rung" style="height:16px"></div>
+          <div class="rung" style="height:24px"></div>
+          <div class="rung" style="height:32px"></div>
+          <div class="rung" style="height:48px"></div>
+          <div class="rung" style="height:64px"></div>
+        </div>
+      </div>
+
+      <nav><a href="components.html">Buoy recipes — buttons, cards, forms, chips</a></nav>
+    </aside>
+  </div>
+  <script>
+    const sample = {
+      blob: document.getElementById("blob"),
+      name: document.getElementById("s-name"),
+      hex: document.getElementById("s-hex"),
+      ratio: document.getElementById("s-ratio"),
+      use: document.getElementById("s-use"),
+    };
+    const buttons = [...document.querySelectorAll(".sounding")];
+    function apply(btn) {
+      buttons.forEach((b) => b.setAttribute("aria-pressed", b === btn ? "true" : "false"));
+      sample.blob.style.background = btn.dataset.hex;
+      sample.name.textContent = btn.dataset.name;
+      sample.hex.textContent = btn.dataset.hex;
+      sample.ratio.textContent = btn.dataset.ratio;
+      sample.use.textContent = btn.dataset.use;
+    }
+    buttons.forEach((btn) => btn.addEventListener("click", () => apply(btn)));
+  </script>
+</body>
+</html>

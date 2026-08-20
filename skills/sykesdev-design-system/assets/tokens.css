@@ -1,0 +1,153 @@
+/* sykesdev-design-system — Harbor Chart tokens. Night navy, paper type, mark cyan. */
+
+@font-face {
+  font-family: Overpass;
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("fonts/overpass-latin-400-normal.woff2") format("woff2");
+}
+@font-face {
+  font-family: Overpass;
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("fonts/overpass-latin-500-normal.woff2") format("woff2");
+}
+@font-face {
+  font-family: Overpass;
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("fonts/overpass-latin-600-normal.woff2") format("woff2");
+}
+@font-face {
+  font-family: Overpass;
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("fonts/overpass-latin-700-normal.woff2") format("woff2");
+}
+@font-face {
+  font-family: Overpass;
+  font-style: normal;
+  font-weight: 800;
+  font-display: swap;
+  src: url("fonts/overpass-latin-800-normal.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Overpass Mono";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("fonts/overpass-mono-latin-400-normal.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Overpass Mono";
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("fonts/overpass-mono-latin-500-normal.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Overpass Mono";
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("fonts/overpass-mono-latin-600-normal.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Overpass Mono";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("fonts/overpass-mono-latin-700-normal.woff2") format("woff2");
+}
+
+:root {
+  /* Night channel. Paper for type, lamp for signal. Not the old teal ramp. */
+  --ink: #0b1018;
+  --plate: #141c28;
+  --shoal: #1a2433;
+  --fathom: #243044;
+  --rule: #3a4a5e;
+  --paper: #e6edf5;
+  --buoy: #a7b8cc;
+  --kelp: #7e92a8;
+  --lamp: #05dbcc;
+  --foam: #54e1da; /* lamp + paper */
+  --mist: #079e96; /* lamp + ink */
+  --mark: #000;
+
+  --text: var(--paper);
+  --text-2: var(--buoy);
+  --text-large-only: var(--kelp);
+  --on-lamp: var(--ink);
+
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-7: 48px;
+  --space-8: 64px;
+
+  --type-display: 2.5rem;
+  --type-title: 1.5rem;
+  --type-body: 1rem;
+  --type-small: 0.875rem;
+  --type-sounding: 0.75rem;
+
+  --measure: 70ch;
+  --gap-plate: 20px;
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --focus: 2px solid var(--lamp);
+}
+
+html {
+  background: var(--ink);
+  color: var(--text);
+  caret-color: var(--lamp);
+  font-family: Overpass, ui-sans-serif, system-ui, sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.45;
+  font-synthesis: none;
+}
+
+body {
+  margin: 0;
+  background: var(--ink);
+  color: var(--text);
+}
+
+::selection {
+  background: var(--buoy);
+  color: var(--ink);
+}
+
+:focus-visible {
+  outline: var(--focus);
+  outline-offset: 2px;
+}
+
+* {
+  scrollbar-color: var(--kelp) var(--ink);
+}
+*::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+*::-webkit-scrollbar-track {
+  background: var(--ink);
+}
+*::-webkit-scrollbar-thumb {
+  background: var(--kelp);
+}
+
+.font-sounding {
+  font-family: "Overpass Mono", ui-monospace, monospace;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0;
+}

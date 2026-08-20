@@ -1,0 +1,234 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>sykesdev — Buoy recipes</title>
+  <link rel="stylesheet" href="../tokens.css">
+  <link rel="stylesheet" href="../harbor-ui.css">
+  <style>
+    /* This plate declares no component styles: every control below comes from
+       harbor-ui.css. Only the state-matrix scaffolding is local. */
+    .shell { grid-template-columns: minmax(0, 1fr); max-width: 1080px; margin: 0 auto; }
+    .states {
+      margin: 0 0 var(--space-2);
+      font-family: "Overpass Mono", ui-monospace, monospace;
+      font-size: var(--type-sounding);
+      color: var(--text-2);
+    }
+    .pair { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: var(--gap-plate); }
+  </style>
+</head>
+<body>
+  <!--
+    THESIS: Buoys are square chart tickets on the night channel — recipes to copy, not a component gallery grid of icon cards.
+    OWN-WORLD: Night navy, paper type, lamp signal, Overpass, 0 radius, hatch for disabled, dashed lamp for error.
+    STORY: Implement a control by copying the recipe; audit by matching these states.
+    FIRST VIEWPORT: Mast with mark. Plates of buttons, chips, a working form, a nested-forbidden single card.
+    FORM: Harbor Chart (grounded #1). Seed ecf0da14.
+    FINISH: unreviewed and undocumented is unfinished; this build ends with the finish review, the verdict, DESIGN.md, and every shipping raster carrying its provenance
+  -->
+  <div class="shell">
+    <header class="masthead">
+      <img class="mark" src="../logos/logo-256.png" width="56" height="56" alt="sykesdev mark" data-favicon>
+      <h1>Buoys</h1>
+      <p class="meta">
+        <b>harbor-ui.css</b>
+        every control below is the shipped layer<br>
+        states: rest · hover · active · focus · disabled
+      </p>
+    </header>
+
+    <main class="sheet">
+      <section class="plate">
+        <h2>Buttons</h2>
+        <p class="lede">Lamp fill, ink text. Sentence case. Square. Disabled is a hatch, not a gray.</p>
+        <p class="states">roles — primary, secondary, ghost, small</p>
+        <div class="btn-row">
+          <button class="btn btn-primary" type="button">Sample lamp</button>
+          <button class="btn btn-secondary" type="button">Fix contrast</button>
+          <button class="btn btn-ghost" type="button">Skip mark</button>
+          <button class="btn btn-small btn-secondary" type="button">Copy</button>
+        </div>
+        <p class="states">states — hover and press are live; focus needs the keyboard</p>
+        <div class="btn-row">
+          <button class="btn btn-primary" type="button">Rest</button>
+          <button class="btn btn-primary" type="button" style="background: var(--foam); border-color: var(--foam)">Hover foam</button>
+          <button class="btn btn-primary" type="button" style="background: var(--mist); border-color: var(--mist)">Press mist</button>
+          <button class="btn btn-primary" type="button" style="outline: var(--focus); outline-offset: 2px">Focus lamp</button>
+          <button class="btn btn-primary" type="button" disabled>Unavailable</button>
+        </div>
+      </section>
+
+      <section class="plate">
+        <h2>Chips and readouts</h2>
+        <div class="chip-row" style="margin-bottom: var(--space-5)">
+          <span class="chip">ink #0B1018</span>
+          <span class="chip" data-sampled="true">lamp #05DBCC</span>
+          <span class="chip">paper #E6EDF5</span>
+        </div>
+        <div class="pair">
+          <dl class="kv">
+            <dt>paper on ink</dt><dd>16.2:1</dd>
+            <dt>lamp on ink</dt><dd>10.9:1</dd>
+            <dt>fathom</dt><dd>structure — never text</dd>
+          </dl>
+          <div class="stat">
+            <span class="value">11</span>
+            <span class="label">named tokens</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="plate">
+        <h2>Form</h2>
+        <p class="lede">
+          Tide cells. Placeholder is buoy. Error is a dashed rule plus a sentence,
+          never a new hue.
+        </p>
+        <form class="stack" style="max-width: 420px" id="fix-form" novalidate>
+          <div class="field" data-error id="token-field">
+            <label for="token">Token name</label>
+            <input id="token" name="token" type="text" value="white"
+                   aria-invalid="true" aria-describedby="token-err">
+            <span class="error" id="token-err">
+              error — white is not a named token. Use paper, lamp, buoy, or ink.
+            </span>
+          </div>
+          <div class="field">
+            <label for="note">Fix note</label>
+            <input id="note" name="note" type="text" placeholder="Swap to paper and recheck contrast">
+            <span class="hint">Hint stays buoy on ink.</span>
+          </div>
+          <div class="field">
+            <label for="ground">Ground</label>
+            <select id="ground" name="ground">
+              <option>ink</option>
+              <option>plate</option>
+              <option>shoal</option>
+            </select>
+          </div>
+          <label class="check"><input type="checkbox" checked> Re-run the contrast pass</label>
+          <div class="btn-row actions">
+            <button class="btn btn-ghost" type="reset">Clear</button>
+            <button class="btn btn-primary" type="submit">Record fix</button>
+          </div>
+        </form>
+      </section>
+
+      <section class="plate">
+        <h2>Structure</h2>
+        <p class="states">breadcrumbs, tabs, table</p>
+        <ol class="crumbs">
+          <li><a href="index.html">Chart</a></li>
+          <li aria-current="page">Buoys</li>
+        </ol>
+        <div class="tabs" data-tabs>
+          <div role="tablist" aria-label="Structure">
+            <button role="tab" type="button" id="t-table" aria-controls="p-table" aria-selected="true">Table</button>
+            <button role="tab" type="button" id="t-empty" aria-controls="p-empty" aria-selected="false">Empty</button>
+          </div>
+          <div role="tabpanel" id="p-table" aria-labelledby="t-table" tabindex="0">
+            <div class="table-wrap">
+              <table class="table" id="tokens" data-sort-table>
+                <thead>
+                  <tr>
+                    <th scope="col">Token</th>
+                    <th scope="col">Hex</th>
+                    <th scope="col" class="num">On ink</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr><td>paper</td><td>#E6EDF5</td><td class="num">16.2</td></tr>
+                  <tr><td>lamp</td><td>#05DBCC</td><td class="num">10.9</td></tr>
+                  <tr data-sampled="true"><td>buoy</td><td>#A7B8CC</td><td class="num">9.4</td></tr>
+                  <tr><td>kelp</td><td>#7E92A8</td><td class="num">6.0</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div role="tabpanel" id="p-empty" aria-labelledby="t-empty" tabindex="0" hidden>
+            <div class="empty">
+              <span class="title">No soundings recorded</span>
+              <p>Sample a depth on the chart to fill this table.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="plate">
+        <h2>Floating and feedback</h2>
+        <div class="btn-row" style="margin-bottom: var(--space-5)">
+          <button class="btn btn-secondary" type="button" data-dialog="sheet-dialog">Open dialog</button>
+          <button class="btn btn-ghost" type="button" data-toast="Recorded — one authored moment.">Raise toast</button>
+          <span class="tip" tabindex="0" aria-describedby="tip-hatch">
+            Disabled hatch
+            <span class="tip-body" id="tip-hatch" role="tooltip">Diagonal ink hatch, never color alone.</span>
+          </span>
+        </div>
+        <div class="pair">
+          <div class="callout">
+            <span class="label">note</span>
+            <p>Status is a mark plus a word. This system owns no red.</p>
+          </div>
+          <div class="callout" data-kind="warn">
+            <span class="label">warn</span>
+            <p>Dashed lamp rule carries the warning.</p>
+          </div>
+        </div>
+        <p></p>
+        <span class="loading" role="progressbar" aria-label="Working"></span>
+      </section>
+
+      <section class="plate">
+        <h2>Code</h2>
+        <div class="code">
+          <button class="btn btn-small" type="button" data-copy="snip">Copy</button>
+          <pre id="snip">&lt;button class="btn btn-primary" type="button"&gt;Sample lamp&lt;/button&gt;</pre>
+        </div>
+        <p style="margin-top: var(--space-4)">
+          Chart plates do not nest, so this is one plate — not a grid of cards.
+          <a href="index.html">Back to the chart</a>
+        </p>
+      </section>
+    </main>
+  </div>
+
+  <dialog class="plate-dialog" id="sheet-dialog">
+    <h2>Record this fix</h2>
+    <p>Floating UI gets an offset shadow. Everything else gets a hairline rule.</p>
+    <div class="btn-row actions">
+      <button class="btn btn-ghost" type="button" data-close="cancel">Cancel</button>
+      <button class="btn btn-primary" type="button" data-close="confirm">Record</button>
+    </div>
+  </dialog>
+
+  <script src="../harbor-ui.js"></script>
+  <script>
+    // Recipe: validation names the problem and the fix, and never adds a hue.
+    document.getElementById("fix-form").addEventListener("submit", (event) => {
+      event.preventDefault();
+      const field = document.getElementById("token-field");
+      const input = document.getElementById("token");
+      const message = document.getElementById("token-err");
+      const named = ["ink", "paper", "fathom", "kelp", "buoy", "lamp", "plate",
+                     "shoal", "rule", "foam", "mist"];
+      const value = input.value.trim().toLowerCase();
+      if (!named.includes(value)) {
+        field.setAttribute("data-error", "");
+        input.setAttribute("aria-invalid", "true");
+        message.className = "error";
+        message.textContent =
+          `error — ${value || "empty"} is not a named token. Use a token from the chart.`;
+        input.focus();
+        return;
+      }
+      field.removeAttribute("data-error");
+      input.removeAttribute("aria-invalid");
+      message.className = "hint";
+      message.textContent = `On-chart. ${value} is a named token.`;
+      window.harbor.toast("Fix recorded");
+    });
+  </script>
+</body>
+</html>

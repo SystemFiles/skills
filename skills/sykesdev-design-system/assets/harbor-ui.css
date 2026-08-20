@@ -1,0 +1,837 @@
+/* sykesdev-design-system — Harbor Chart component layer.
+ *
+ * Depends on tokens.css for every value: no hex, no size, no easing is
+ * re-declared here. Load tokens.css first, then this file.
+ *
+ * Square corners, hairline rules before shadows, lamp only for signal.
+ * Disabled is a hatch. Error is a dashed lamp rule plus the word "error".
+ */
+
+/* ---------------------------------------------------------------- layout */
+
+.shell {
+  display: grid;
+  grid-template-columns: minmax(200px, 240px) minmax(0, 1fr);
+  gap: var(--gap-plate);
+  align-items: start;
+  /* Rows must not absorb leftover height, or the ink gaps between plates grow
+     past 20px whenever the content is shorter than the viewport. */
+  align-content: start;
+  padding: var(--gap-plate);
+  min-height: 100vh;
+}
+
+.shell > .masthead {
+  grid-column: 1 / -1;
+}
+
+@media (max-width: 900px) {
+  .shell {
+    grid-template-columns: minmax(0, 1fr);
+    padding: var(--space-3);
+    gap: var(--space-3);
+  }
+}
+
+.masthead {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: end;
+  gap: var(--space-5);
+  background: var(--plate);
+  border: 1px solid var(--rule);
+  padding: var(--space-4) var(--gap-plate) var(--gap-plate);
+}
+
+.masthead .mark {
+  display: block;
+  width: 72px;
+  height: 72px;
+  background: var(--mark);
+}
+
+.masthead h1 {
+  margin: 0;
+  font-size: var(--type-display);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 0.95;
+  color: var(--text);
+}
+
+.masthead .meta {
+  font-family: "Overpass Mono", ui-monospace, monospace;
+  font-variant-numeric: tabular-nums;
+  font-size: var(--type-sounding);
+  font-weight: 500;
+  color: var(--text-2);
+  text-align: right;
+  line-height: 1.6;
+}
+
+.masthead .meta b {
+  display: block;
+  color: var(--lamp);
+  font-weight: 700;
+}
+
+@media (max-width: 720px) {
+  .masthead {
+    grid-template-columns: auto 1fr;
+    gap: var(--space-3);
+    padding: var(--space-2) var(--space-3) var(--space-3);
+  }
+  .masthead .mark { width: 44px; height: 44px; }
+  .masthead h1 { font-size: var(--type-title); }
+  .masthead .meta { grid-column: 1 / -1; text-align: left; }
+}
+
+.sheet {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-plate);
+  min-width: 0;
+}
+
+/* A plate is a chart plate: elevated ground, hairline rule, square, and it
+ * never nests inside another plate. */
+.plate {
+  background: var(--plate);
+  border: 1px solid var(--rule);
+  padding: var(--space-5);
+}
+
+.plate > :first-child { margin-top: 0; }
+.plate > :last-child { margin-bottom: 0; }
+.plate[data-sampled="true"] { border-color: var(--lamp); }
+
+.plate-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: var(--gap-plate);
+}
+
+.well {
+  background: var(--shoal);
+  border: 1px solid var(--rule);
+  padding: var(--space-4);
+}
+
+/* ------------------------------------------------------------------ type */
+
+h2 {
+  margin: var(--space-6) 0 var(--space-2);
+  font-size: var(--type-title);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--text);
+}
+
+h3 {
+  margin: var(--space-5) 0 var(--space-2);
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--text);
+}
+
+p, li {
+  max-width: var(--measure);
+}
+
+p {
+  margin: 0 0 var(--space-4);
+}
+
+.lede {
+  color: var(--text-2);
+  margin-bottom: var(--space-5);
+}
+
+.sounding-text {
+  font-family: "Overpass Mono", ui-monospace, monospace;
+  font-variant-numeric: tabular-nums;
+  font-size: var(--type-sounding);
+  font-weight: 500;
+  color: var(--text-2);
+  letter-spacing: 0;
+}
+
+a {
+  color: var(--lamp);
+  text-decoration: none;
+  border-bottom: 1px solid var(--rule);
+}
+
+a:hover { border-bottom-color: var(--lamp); }
+
+/* Anchor handle beside a heading. Visible on hover or keyboard focus only. */
+.anchor {
+  margin-left: var(--space-2);
+  border: 0;
+  font-family: "Overpass Mono", ui-monospace, monospace;
+  font-size: var(--type-small);
+  color: var(--kelp);
+  opacity: 0;
+  transition: opacity 120ms var(--ease);
+}
+
+:is(h2, h3):hover .anchor,
+.anchor:focus-visible { opacity: 1; }
+
+/* --------------------------------------------------------------- the rail */
+
+.rail {
+  position: sticky;
+  top: var(--gap-plate);
+  background: var(--plate);
+  border: 1px solid var(--rule);
+  padding: var(--space-4);
+  max-height: calc(100vh - var(--space-8));
+  overflow: auto;
+}
+
+.rail h2 {
+  margin: 0 0 var(--space-3);
+  font-size: var(--type-small);
+  font-weight: 700;
+  color: var(--kelp);
+}
+
+.rail ol {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.rail a {
+  display: block;
+  padding: var(--space-2) var(--space-2) var(--space-2) var(--space-3);
+  border: 0;
+  border-left: 2px solid var(--rule);
+  color: var(--text-2);
+  font-size: var(--type-small);
+  font-weight: 600;
+}
+
+.rail a:hover {
+  color: var(--text);
+  border-left-color: var(--kelp);
+}
+
+.rail a[aria-current="true"] {
+  color: var(--lamp);
+  border-left-color: var(--lamp);
+}
+
+@media (max-width: 900px) {
+  .rail { position: static; max-height: none; }
+}
+
+.crumbs {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2);
+  margin: 0 0 var(--space-4);
+  padding: 0;
+  list-style: none;
+  font-size: var(--type-small);
+  font-weight: 600;
+  color: var(--text-2);
+}
+
+.crumbs li + li::before {
+  content: "/";
+  margin-right: var(--space-2);
+  color: var(--kelp);
+}
+
+.crumbs [aria-current="page"] { color: var(--text); }
+
+/* -------------------------------------------------------------- controls */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--gap-plate);
+  font-family: Overpass, ui-sans-serif, system-ui, sans-serif;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  line-height: 1.2;
+  border: 1px solid transparent;
+  border-radius: 0;
+  cursor: pointer;
+  text-decoration: none;
+  transition:
+    background-color 120ms var(--ease),
+    border-color 120ms var(--ease);
+}
+
+.btn-primary {
+  background: var(--lamp);
+  color: var(--on-lamp);
+  border-color: var(--lamp);
+}
+
+.btn-primary:hover { background: var(--foam); border-color: var(--foam); }
+.btn-primary:active { background: var(--mist); border-color: var(--mist); }
+
+.btn-secondary {
+  background: transparent;
+  color: var(--lamp);
+  border-color: var(--lamp);
+}
+
+.btn-secondary:hover { background: var(--plate); }
+.btn-secondary:active { background: var(--shoal); }
+
+.btn-ghost {
+  background: transparent;
+  color: var(--lamp);
+  border-color: transparent;
+}
+
+.btn-ghost:hover { border-color: var(--rule); }
+
+.btn-small {
+  padding: var(--space-1) var(--space-2);
+  font-size: var(--type-sounding);
+  font-family: "Overpass Mono", ui-monospace, monospace;
+}
+
+.btn:disabled,
+.btn[aria-disabled="true"] {
+  background: var(--plate);
+  color: var(--lamp);
+  border-color: var(--rule);
+  cursor: not-allowed;
+  background-image: repeating-linear-gradient(
+    -45deg,
+    transparent,
+    transparent 4px,
+    var(--ink) 4px,
+    var(--ink) 5px
+  );
+}
+
+.btn-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.btn-row.actions { justify-content: flex-end; }
+
+/* ----------------------------------------------------------------- forms */
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  min-width: 0;
+}
+
+.field > label {
+  font-size: var(--type-small);
+  font-weight: 700;
+  color: var(--text-2);
+}
+
+.field :is(input, textarea, select) {
+  background: var(--ink);
+  color: var(--text);
+  border: 1px solid var(--rule);
+  border-radius: 0;
+  padding: var(--space-3) var(--space-4);
+  font-family: Overpass, ui-sans-serif, system-ui, sans-serif;
+  font-size: var(--type-body);
+  caret-color: var(--lamp);
+}
+
+.field :is(input, textarea)::placeholder {
+  color: var(--text-2);
+  opacity: 1;
+}
+
+.field :is(input, textarea, select):hover { border-color: var(--kelp); }
+
+.field[data-error] :is(input, textarea, select) {
+  border-style: dashed;
+  border-color: var(--lamp);
+}
+
+.field :is(.hint, .error) {
+  font-size: var(--type-small);
+  font-weight: 600;
+  color: var(--text-2);
+}
+
+.field .error { color: var(--lamp); }
+
+form.stack {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+/* Square check control: the tick is lamp, the box is a chart cell. */
+.check {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: var(--text);
+  cursor: pointer;
+}
+
+.check input {
+  appearance: none;
+  width: 16px;
+  height: 16px;
+  margin: 0;
+  background: var(--ink);
+  border: 1px solid var(--rule);
+  border-radius: 0;
+  display: grid;
+  place-content: center;
+  cursor: pointer;
+}
+
+.check input:checked {
+  border-color: var(--lamp);
+  background: var(--lamp);
+}
+
+.check input:checked::after {
+  content: "";
+  width: 8px;
+  height: 4px;
+  border: 2px solid var(--on-lamp);
+  border-top: 0;
+  border-right: 0;
+  transform: translateY(-1px) rotate(-45deg);
+}
+
+/* ----------------------------------------------------------------- chips */
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  padding: var(--space-1) var(--space-2);
+  border: 1px solid var(--rule);
+  border-radius: 0;
+  background: var(--ink);
+  color: var(--text);
+  font-family: "Overpass Mono", ui-monospace, monospace;
+  font-variant-numeric: tabular-nums;
+  font-size: var(--type-sounding);
+  font-weight: 500;
+  letter-spacing: 0;
+}
+
+.chip[data-sampled="true"] { border-color: var(--lamp); }
+.chip-row { display: flex; flex-wrap: wrap; gap: var(--space-2); }
+
+/* ------------------------------------------------------------------ tabs */
+
+.tabs [role="tablist"] {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0;
+  border-bottom: 1px solid var(--rule);
+  margin-bottom: var(--space-4);
+}
+
+.tabs [role="tab"] {
+  appearance: none;
+  background: transparent;
+  border: 0;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -1px;
+  padding: var(--space-3) var(--space-4);
+  font-family: inherit;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: var(--text-2);
+  cursor: pointer;
+}
+
+.tabs [role="tab"]:hover { color: var(--text); }
+
+.tabs [role="tab"][aria-selected="true"] {
+  color: var(--lamp);
+  border-bottom-color: var(--lamp);
+}
+
+.tabs [role="tabpanel"][hidden] { display: none; }
+
+/* ----------------------------------------------------------------- table */
+
+.table-wrap { overflow-x: auto; }
+
+table.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-variant-numeric: tabular-nums;
+}
+
+table.table :is(th, td) {
+  text-align: left;
+  padding: var(--space-3) var(--space-4);
+  border-bottom: 1px solid var(--rule);
+  font-size: var(--type-small);
+}
+
+table.table thead th {
+  position: sticky;
+  top: 0;
+  background: var(--shoal);
+  color: var(--text-2);
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+table.table tbody tr:hover { background: var(--shoal); }
+table.table tbody tr[data-sampled="true"] { outline: 1px solid var(--lamp); }
+table.table td.num,
+table.table th.num {
+  text-align: right;
+  font-family: "Overpass Mono", ui-monospace, monospace;
+}
+
+/* Sort control lives in the header cell so the whole row stays keyboard
+ * reachable in reading order. */
+table.table th button {
+  appearance: none;
+  background: transparent;
+  border: 0;
+  padding: 0;
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+}
+
+table.table th button::after {
+  content: "";
+  font-family: "Overpass Mono", ui-monospace, monospace;
+  color: var(--kelp);
+}
+
+table.table th[aria-sort="ascending"] button::after { content: "^"; color: var(--lamp); }
+table.table th[aria-sort="descending"] button::after { content: "v"; color: var(--lamp); }
+table.table th[aria-sort="none"] button:hover::after { content: "-"; }
+
+/* --------------------------------------------------- readouts and meters */
+
+dl.kv {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: var(--space-2) var(--space-4);
+  margin: 0;
+  font-family: "Overpass Mono", ui-monospace, monospace;
+  font-variant-numeric: tabular-nums;
+  font-size: var(--type-sounding);
+}
+
+dl.kv dt { color: var(--lamp); font-weight: 600; }
+dl.kv dd { margin: 0; color: var(--text-2); }
+
+.meter {
+  display: block;
+  height: 8px;
+  background: var(--ink);
+  border: 1px solid var(--rule);
+}
+
+.meter > span {
+  display: block;
+  height: 100%;
+  background: var(--lamp);
+}
+
+.stat {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.stat .value {
+  font-family: "Overpass Mono", ui-monospace, monospace;
+  font-variant-numeric: tabular-nums;
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: var(--text);
+  line-height: 1;
+}
+
+.stat .label {
+  font-size: var(--type-sounding);
+  font-weight: 600;
+  color: var(--kelp);
+}
+
+/* ------------------------------------------------------------------ code */
+
+.code {
+  position: relative;
+  background: var(--ink);
+  border: 1px solid var(--rule);
+}
+
+.code pre {
+  margin: 0;
+  padding: var(--space-4);
+  overflow-x: auto;
+  font-family: "Overpass Mono", ui-monospace, monospace;
+  font-size: var(--type-small);
+  line-height: 1.6;
+  color: var(--text);
+  tab-size: 2;
+}
+
+.code > .btn-small {
+  position: absolute;
+  top: var(--space-2);
+  right: var(--space-2);
+  background: var(--plate);
+  color: var(--lamp);
+  border-color: var(--rule);
+}
+
+.code > .btn-small:hover { border-color: var(--lamp); }
+
+code {
+  font-family: "Overpass Mono", ui-monospace, monospace;
+  font-size: 0.9em;
+  color: var(--text);
+  background: var(--ink);
+  border: 1px solid var(--rule);
+  padding: 0 var(--space-1);
+}
+
+/* ------------------------------------------------- notices and emptiness */
+
+/* Status is a mark plus a word, never a hue this system does not own. */
+.callout {
+  border: 1px solid var(--rule);
+  border-left: 2px solid var(--kelp);
+  background: var(--shoal);
+  padding: var(--space-4);
+}
+
+.callout > .label {
+  display: block;
+  margin-bottom: var(--space-2);
+  font-family: "Overpass Mono", ui-monospace, monospace;
+  font-size: var(--type-sounding);
+  font-weight: 700;
+  color: var(--kelp);
+}
+
+.callout[data-kind="signal"] { border-left-color: var(--lamp); }
+.callout[data-kind="signal"] > .label { color: var(--lamp); }
+.callout[data-kind="warn"] {
+  border-left-style: dashed;
+  border-left-color: var(--lamp);
+}
+.callout[data-kind="warn"] > .label { color: var(--lamp); }
+.callout > :last-child { margin-bottom: 0; }
+
+.empty {
+  border: 1px dashed var(--rule);
+  padding: var(--space-7) var(--space-5);
+  text-align: center;
+  color: var(--text-2);
+}
+
+.empty .title {
+  display: block;
+  margin-bottom: var(--space-2);
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--text);
+}
+
+/* Indeterminate work: a lamp tick sweeping a rule, not a spinner. */
+.loading {
+  display: block;
+  height: 2px;
+  background: var(--rule);
+  overflow: hidden;
+}
+
+.loading::after {
+  content: "";
+  display: block;
+  width: 33%;
+  height: 100%;
+  background: var(--lamp);
+  animation: harbor-sweep 1.2s var(--ease) infinite;
+}
+
+@keyframes harbor-sweep {
+  from { transform: translateX(-100%); }
+  to { transform: translateX(300%); }
+}
+
+/* ---------------------------------------------------------------- overlay */
+
+dialog.plate-dialog {
+  background: var(--plate);
+  color: var(--text);
+  border: 1px solid var(--lamp);
+  border-radius: 0;
+  padding: var(--space-5);
+  max-width: min(560px, calc(100vw - var(--space-6)));
+  /* Shadows are for floating UI only: offset and blur, never a glow halo. */
+  box-shadow: 0 12px 32px rgb(0 0 0 / 60%);
+}
+
+dialog.plate-dialog::backdrop {
+  background: rgb(11 16 24 / 78%);
+}
+
+dialog.plate-dialog h2 { margin-top: 0; }
+
+.toast-stack {
+  position: fixed;
+  right: var(--gap-plate);
+  bottom: var(--gap-plate);
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  max-width: min(380px, calc(100vw - var(--space-6)));
+}
+
+.toast {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+  background: var(--plate);
+  border: 1px solid var(--rule);
+  border-left: 2px solid var(--lamp);
+  padding: var(--space-3) var(--space-4);
+  font-size: var(--type-small);
+  font-weight: 600;
+  color: var(--text);
+  box-shadow: 0 8px 24px rgb(0 0 0 / 50%);
+  animation: harbor-rise 160ms var(--ease) both;
+}
+
+@keyframes harbor-rise {
+  from { transform: translateY(8px); opacity: 0; }
+  to { transform: none; opacity: 1; }
+}
+
+/* Tooltip: a sounding label, described by aria-describedby on the trigger. */
+.tip {
+  position: relative;
+  display: inline-flex;
+  border-bottom: 1px dashed var(--kelp);
+}
+
+.tip > .tip-body {
+  position: absolute;
+  bottom: calc(100% + var(--space-2));
+  left: 0;
+  z-index: 5;
+  width: max-content;
+  max-width: 260px;
+  background: var(--plate);
+  color: var(--text);
+  border: 1px solid var(--lamp);
+  padding: var(--space-2) var(--space-3);
+  font-family: "Overpass Mono", ui-monospace, monospace;
+  font-size: var(--type-sounding);
+  font-weight: 500;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 120ms var(--ease), visibility 120ms var(--ease);
+}
+
+.tip:hover > .tip-body,
+.tip:focus-within > .tip-body {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* ------------------------------------------------------------- footnotes */
+
+.footnotes {
+  border-top: 1px solid var(--rule);
+  padding-top: var(--space-4);
+  font-size: var(--type-small);
+  color: var(--text-2);
+}
+
+.footnotes ol { padding-left: var(--space-5); }
+.footnotes li:target { outline: 1px solid var(--lamp); }
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  clip-path: inset(50%);
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+/* --------------------------------------------------------------- motion */
+
+/* One authored moment per surface: a west-to-east lamp wipe that uncovers
+ * the graticule of already-visible content. */
+.graticule {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image:
+    repeating-linear-gradient(to right, var(--rule) 0 1px, transparent 1px 80px),
+    repeating-linear-gradient(to bottom, var(--rule) 0 1px, transparent 1px 80px);
+  animation: harbor-wipe 600ms var(--ease) both;
+}
+
+@keyframes harbor-wipe {
+  from { clip-path: inset(0 100% 0 0); }
+  to { clip-path: inset(0 0 0 0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .graticule,
+  .toast,
+  .loading::after {
+    animation: none;
+  }
+  * { transition-duration: 1ms !important; }
+}
+
+/* ---------------------------------------------------------------- print */
+
+/* The chart is a night chart on paper too: keep the ground and drop the
+ * interactive furniture. Reviewers get what they saw on screen. */
+@media print {
+  html { print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+  .shell { display: block; padding: 0; }
+  .rail,
+  .toast-stack,
+  .code > .btn-small,
+  .anchor { display: none; }
+  .plate { break-inside: avoid; page-break-inside: avoid; }
+  .tabs [role="tabpanel"][hidden] { display: block !important; }
+  .tabs [role="tablist"] { display: none; }
+  a[href^="http"]::after {
+    content: " (" attr(href) ")";
+    font-family: "Overpass Mono", ui-monospace, monospace;
+    font-size: 0.75em;
+    color: var(--text-2);
+  }
+}
