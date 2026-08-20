@@ -89,21 +89,27 @@ Install every skill in this repo:
 bunx skills add SystemFiles/skills --skill '*'
 ```
 
-### Cursor plugin (IDE / team / Cloud Agents)
+Laptop `--global` writes into your home skill dirs. Cursor Cloud Agents run on isolated VMs and do not see that home.
 
-This repo is also an [Agent Plugin](https://agent-plugins.org): root [`plugin.json`](plugin.json) plus `skills/*/SKILL.md`. Prefer this path when you want Cursor (not other agents) to load the whole catalog without the skills CLI.
+### Cursor Cloud
 
-Local dry-run:
+Cloud Agents load skills from the consumer checkout (`.cursor/skills/` or `.agents/skills/`) and from skill dirs on the **VM** home. They do not load a workspace-root plugin manifest.
+
+Preferred: attach a Cloud environment whose `install` runs at Build time:
 
 ```bash
-ln -s "$(pwd)" ~/.cursor/plugins/local/systemfiles-skills
+bunx skills add SystemFiles/skills --skill '*' --yes --global
 ```
 
-Reload Cursor, then confirm skills under Customize.
+That populates the VM home skill dirs. Re-run a Build after catalog changes. A just-in-time agent with no environment skips this and gets only what is already in the checkout.
 
-Team Marketplace (Teams / Enterprise): Dashboard → Plugins → import this GitHub repo → set Required or Default On. Enable auto-refresh if the Cursor GitHub App is on the repo.
+Fallback: install (or copy) selected skills into the consumer repo and commit:
 
-Cloud Agents do not see `bunx skills add --global` home installs. After marketplace install, verify a Cloud Agent can invoke a skill from this catalog. If it cannot, commit the needed skills under `.agents/skills/` or `.cursor/skills/` in the target repo (project-scoped discovery).
+```bash
+bunx skills add SystemFiles/skills --skill issue-triage --yes
+```
+
+Then commit the resulting `.cursor/skills/` or `.agents/skills/` paths.
 
 ## Updating and removing
 

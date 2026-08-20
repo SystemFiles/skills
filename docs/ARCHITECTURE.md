@@ -1,12 +1,11 @@
 # Architecture
 
-This repo is a **skills.sh source catalog** and an [Agent Plugin](https://agent-plugins.org) package. Consumers install skills with the [skills CLI](https://github.com/vercel-labs/skills) (`bunx skills add SystemFiles/skills …`) or load the whole catalog as a Cursor plugin via root `plugin.json`. Agents load installed `SKILL.md` files; this repo’s Python tooling only validates the catalog and vendors upstream copies. Prefer `bun`/`bunx` over `npm`/`npx`.
+This repo is a **skills.sh source catalog**. Consumers install skills with the [skills CLI](https://github.com/vercel-labs/skills) (`bunx skills add SystemFiles/skills …`). Agents load installed `SKILL.md` files; this repo’s Python tooling only validates the catalog and vendors upstream copies. Prefer `bun`/`bunx` over `npm`/`npx`.
 
 ## Layout
 
 ```text
 .
-├── plugin.json             # Agent Plugins manifest (Cursor / portable clients)
 ├── skills/<name>/          # installable units (authored + vendored)
 │   └── SKILL.md            # required; YAML frontmatter name + description
 ├── scripts/                # catalog maintenance (sync / capture)
@@ -58,16 +57,17 @@ The skills CLI finds skills by **frontmatter `name`**, not directory name alone.
 
 Install surface for humans: root `README.md` skill tables.
 
-## Cursor / Agent Plugin install
+## Install surfaces
 
-Root [`plugin.json`](../plugin.json) follows the [Agent Plugins](https://agent-plugins.org) standard. Cursor discovers every immediate child of `skills/` that has a `SKILL.md`. Catalog dirs (`scripts/`, `tests/`, `docs/`) stay in-repo; plugin clients ignore them.
+The skills CLI is the only supported install path. There is no Agent Plugin manifest.
 
 | Surface | Mechanism | Cloud Agents |
 | --- | --- | --- |
-| skills CLI | `bunx skills add …` into agent skill dirs | No — cloud VMs lack user home installs |
-| Cursor plugin | Team Marketplace import of this repo, or `~/.cursor/plugins/local` symlink | Verify after install; if missing, commit skills under `.agents/skills/` / `.cursor/skills/` in the target repo |
+| skills CLI (project) | `bunx skills add …` into the consumer repo’s agent skill dirs; commit those dirs | Yes — files are in the checkout |
+| skills CLI (`--global` on a laptop) | Home skill dirs on the developer machine | No — Cloud VMs do not see that home |
+| Cloud environment `install` | Build-time `bunx skills add SystemFiles/skills --skill '*' --yes --global` on the VM | Yes — when that environment is attached; JIT agents with no environment skip it |
 
-Team distribution: Dashboard → Plugins → import this GitHub repo → **Required** or **Default On**. Local dry-run: symlink the repo to `~/.cursor/plugins/local/systemfiles-skills` and reload Cursor.
+Team Marketplace plugin import and `~/.cursor/plugins/local` symlinks are not supported for this catalog.
 
 ## Quality pipeline
 
