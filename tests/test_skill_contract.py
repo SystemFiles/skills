@@ -25,6 +25,7 @@ EXPECTED_SKILLS = {
     "pr-feedback-qa",
     "research_codebase",
     "sdd-qa",
+    "sykesdev-design-system",
     "sync-upstream",
     "visual-explain",
 }
