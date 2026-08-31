@@ -89,7 +89,7 @@ Or generate candidates: `task capture-project PROJECT=…` (local-only installs 
 
 - Don’t commit credentials; gitleaks is in the lint gate.
 - Local development needs no secrets.
-- Scheduled upstream sync in CI needs `SYNC_UPSTREAM_PAT` (see `CONTRIBUTING.md`).
+- Scheduled upstream sync uses `GITHUB_TOKEN` (no PAT). CI follows via `workflow_run`. See `CONTRIBUTING.md`.
 
 ### Branches and commits
 

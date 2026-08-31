@@ -18,7 +18,7 @@ Agent skills catalog for the [skills CLI](https://github.com/vercel-labs/skills)
 | --- | --- |
 | [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) | Repo shape, authored vs vendored, discovery contract, quality pipeline |
 | [docs/DEVELOPMENT.md](docs/DEVELOPMENT.md) | Bootstrap, `task` operations, local patterns (skills, tests, vendor sync) |
-| [CONTRIBUTING.md](CONTRIBUTING.md) | Human contributor workflow, upstream PAT, commit/PR conventions |
+| [CONTRIBUTING.md](CONTRIBUTING.md) | Human contributor workflow, commit/PR conventions |
 | [README.md](README.md) | Install UX and public skill inventory |
 
 ## Orientation (one screen)

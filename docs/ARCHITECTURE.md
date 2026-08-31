@@ -42,7 +42,7 @@ Optional under a skill: `scripts/`, `evals/`, `references/`, `examples/`, attrib
 | **Authored** | `skills/<name>/` in this repo | Edit freely; keep dir name = frontmatter `name` |
 | **Vendored** | `upstream-skills.toml` + upstream git | Do not hand-edit `skills/<name>/`; change catalog → re-sync → commit tree + lockfile |
 
-Sync clones each `[[skill]]`, copies the skill folder (and LICENSE/NOTICE), refuses copyleft licenses, writes provenance to `upstream-skills.lock.json`. Scheduled workflow [sync-upstream-skills](../.github/workflows/sync-upstream-skills.yml) refreshes vendored copies; pushes use `SYNC_UPSTREAM_PAT` so other workflows still fire.
+Sync clones each `[[skill]]`, copies the skill folder (and LICENSE/NOTICE), refuses copyleft licenses, writes provenance to `upstream-skills.lock.json`. Scheduled workflow [sync-upstream-skills](../.github/workflows/sync-upstream-skills.yml) refreshes vendored copies with `GITHUB_TOKEN`; [ci.yml](../.github/workflows/ci.yml) re-runs via `workflow_run` because `GITHUB_TOKEN` pushes do not trigger other workflows.
 
 `task capture-project PROJECT=…` scans another project’s installed skills and proposes catalog entries. Local-only skills with no shareable git source stay out of the catalog (promotion target: authored skills here).
 

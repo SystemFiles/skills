@@ -16,12 +16,12 @@ jobs:
     permissions:
       contents: write
     steps:
-      # GITHUB_TOKEN pushes do not trigger other workflows in this repo.
-      # Checkout with a PAT so vendor commits run CI and other push workflows.
+      # GITHUB_TOKEN pushes do not trigger other workflows (GitHub's
+      # recursive-run guard). Checkout with the default token; ci.yml listens
+      # on workflow_run after this job succeeds so vendor commits still get
+      # tested. Do not restore a PAT / SYNC_UPSTREAM_PAT.
       - name: Checkout repository
-        uses: actions/checkout@v4
-        with:
-          token: ${{ secrets.SYNC_UPSTREAM_PAT }}
+        uses: actions/checkout@v5
 
       - name: Set up uv
         uses: astral-sh/setup-uv@v8.2.0
@@ -32,10 +32,13 @@ jobs:
         run: uv sync
 
       - name: Vendor upstream skills from the catalog
+        env:
+          GIT_TERMINAL_PROMPT: "0"
         run: uv run python scripts/sync_upstream_skills.py
 
       - name: Commit refreshed skills if anything changed
         run: |
+          set -euo pipefail
           if [ -z "$(git status --porcelain skills upstream-skills.lock.json)" ]; then
             echo "No upstream changes to vendor."
             exit 0

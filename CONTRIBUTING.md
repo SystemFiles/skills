@@ -58,15 +58,12 @@ A scheduled GitHub Action (`Sync Upstream Skills`) re-runs the sync so vendored
 copies stay current without manual effort. Do not hand-edit `skills/<name>/` for
 vendored skills; edit the catalog and re-sync.
 
-**CI secret.** Vendor commits must use a PAT so pushes trigger other workflows
-(`GITHUB_TOKEN` pushes do not). Add a repository secret named `SYNC_UPSTREAM_PAT`:
-
-1. Create a fine-grained PAT scoped to this repo with **Contents: Read and write**
-   (or a classic PAT with the `repo` scope).
-2. In GitHub: **Settings → Secrets and variables → Actions → New repository secret**
-   → name `SYNC_UPSTREAM_PAT`, paste the token.
-3. Run the workflow manually (**Actions → Sync Upstream Skills → Run workflow**) to
-   confirm it can push; a vendor commit should then trigger CI.
+**Scheduled sync (no PAT).** The workflow checks out and pushes with the default
+`GITHUB_TOKEN` (`contents: write`). GitHub does not re-trigger workflows on
+`GITHUB_TOKEN` pushes, so `ci.yml` also listens for `workflow_run` on successful
+completion of `Sync Upstream Skills`. No repository secret is required. Upstream
+catalog repos are assumed public; a private upstream that `GITHUB_TOKEN` cannot
+clone is a blocker — do not mint a PAT to paper over it.
 
 **Licensing.** Only vendor permissively licensed skills — the sync refuses
 copyleft licenses (GPL/AGPL/LGPL). The upstream `LICENSE`/`NOTICE` is copied into
