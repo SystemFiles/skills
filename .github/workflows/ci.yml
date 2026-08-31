@@ -5,16 +5,33 @@ on:
     branches: ["main"]
   pull_request:
   workflow_dispatch:
+  # GITHUB_TOKEN vendor pushes from Sync Upstream Skills do not fire the
+  # push trigger. workflow_run is the substitute so those commits still run CI.
+  workflow_run:
+    workflows: ["Sync Upstream Skills"]
+    types:
+      - completed
 
 jobs:
   lint:
     name: Tests and Linting
     runs-on: ubuntu-latest
+    if: ${{ github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success' }}
     permissions:
       contents: read
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        if: ${{ github.event_name != 'workflow_run' }}
+        uses: actions/checkout@v5
+
+      # workflow_run.head_sha is the commit the sync job started from, not a
+      # vendor commit it may have pushed afterwards. Check out the branch to
+      # get post-push HEAD.
+      - name: Checkout post-sync branch HEAD
+        if: ${{ github.event_name == 'workflow_run' }}
+        uses: actions/checkout@v5
+        with:
+          ref: ${{ github.event.workflow_run.head_branch }}
 
       - name: Set up uv
         uses: astral-sh/setup-uv@v8.2.0

@@ -34,25 +34,64 @@ def resolve_repo_url(repo: str) -> str:
     return f"https://github.com/{repo}"
 
 
+def _require_text(value: object, what: str) -> str:
+    if not isinstance(value, str) or not value.strip():
+        raise SystemExit(f"sync: {what} is missing or empty")
+    return value.strip()
+
+
+def resolve_catalog_path() -> Path:
+    """Return the catalog path, failing if ``CATALOG`` is set but empty."""
+    if "CATALOG" not in os.environ:
+        return Path.cwd() / "upstream-skills.toml"
+    return Path(_require_text(os.environ.get("CATALOG"), "CATALOG"))
+
+
 def load_catalog(catalog_path: Path) -> list[dict]:
+    if not catalog_path.is_file():
+        raise SystemExit(f"sync: catalog not found: {catalog_path}")
     data = tomllib.loads(catalog_path.read_text(encoding="utf-8"))
-    return data.get("skill", [])
+    skills = data.get("skill")
+    if not skills:
+        raise SystemExit(f"sync: catalog has no [[skill]] entries: {catalog_path}")
+    if not isinstance(skills, list):
+        raise SystemExit(f"sync: catalog 'skill' must be a list: {catalog_path}")
+    for i, entry in enumerate(skills):
+        if not isinstance(entry, dict):
+            raise SystemExit(f"sync: catalog skill[{i}] is not a table")
+        entry["name"] = _require_text(entry.get("name"), f"catalog skill[{i}] name")
+        entry["repo"] = _require_text(entry.get("repo"), f"'{entry['name']}' catalog URL (repo)")
+    return skills
 
 
 def clone(url: str, ref: str | None, dest: Path) -> None:
+    url = _require_text(url, "catalog URL")
     args = ["git", "clone", "--depth", "1"]
     if ref:
         args += ["--branch", ref]
     args += [url, str(dest)]
-    subprocess.run(args, check=True, capture_output=True, text=True)
+    env = os.environ.copy()
+    env["GIT_TERMINAL_PROMPT"] = "0"
+    try:
+        subprocess.run(args, check=True, capture_output=True, text=True, env=env)
+    except subprocess.CalledProcessError as exc:
+        detail = (exc.stderr or exc.stdout or "").strip() or f"exit {exc.returncode}"
+        raise SystemExit(f"sync: failed to clone {url}: {detail}") from None
 
 
 def git_head(checkout: Path) -> str:
-    proc = subprocess.run(
-        ["git", "-C", str(checkout), "rev-parse", "HEAD"],
-        check=True, capture_output=True, text=True,
-    )
-    return proc.stdout.strip()
+    try:
+        proc = subprocess.run(
+            ["git", "-C", str(checkout), "rev-parse", "HEAD"],
+            check=True, capture_output=True, text=True,
+        )
+    except subprocess.CalledProcessError as exc:
+        detail = (exc.stderr or exc.stdout or "").strip() or f"exit {exc.returncode}"
+        raise SystemExit(f"sync: failed to read HEAD in {checkout}: {detail}") from None
+    sha = proc.stdout.strip()
+    if not sha:
+        raise SystemExit(f"sync: empty HEAD in {checkout}")
+    return sha
 
 
 def copy_attribution(checkout: Path, dest: Path) -> None:
@@ -152,8 +191,8 @@ def dir_fingerprint(root: Path) -> dict[str, bytes]:
 
 
 def vendor_skill(entry: dict, repo_root: Path, prev_lock: dict[str, dict]) -> dict:
-    name = entry["name"]
-    catalog_repo = entry["repo"]
+    name = _require_text(entry.get("name"), "catalog entry name")
+    catalog_repo = _require_text(entry.get("repo"), f"'{name}' catalog URL (repo)")
     url = resolve_repo_url(catalog_repo)
     dest = repo_root / "skills" / name
     with tempfile.TemporaryDirectory() as tmp:
@@ -212,7 +251,7 @@ def write_lock(repo_root: Path, records: dict[str, dict]) -> None:
 
 
 def main() -> int:
-    catalog_path = Path(os.environ.get("CATALOG") or (Path.cwd() / "upstream-skills.toml"))
+    catalog_path = resolve_catalog_path()
     repo_root = catalog_path.parent
     prev_lock = read_existing_lock(repo_root)
     records: dict[str, dict] = {}

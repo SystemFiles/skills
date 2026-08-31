@@ -146,3 +146,72 @@ def test_rejects_non_permissive_license(tmp_path: Path) -> None:
     assert proc.returncode != 0
     assert "license" in (proc.stderr + proc.stdout).lower()
     assert not (repo_root / "skills" / "copyleft-skill").exists(), "must not vendor non-permissive"
+
+
+def _output(proc) -> str:
+    return proc.stderr + proc.stdout
+
+
+def test_fails_when_catalog_missing(tmp_path: Path) -> None:
+    repo_root = tmp_path / "repo"
+    repo_root.mkdir()
+    missing = repo_root / "upstream-skills.toml"
+
+    proc = sync(repo_root)
+
+    assert proc.returncode != 0
+    assert "catalog" in _output(proc).lower()
+    assert not (repo_root / "upstream-skills.lock.json").exists()
+    assert missing.exists() is False
+
+
+def test_fails_when_skill_list_empty(tmp_path: Path) -> None:
+    repo_root = tmp_path / "repo"
+    repo_root.mkdir()
+    write_catalog(repo_root, "# no [[skill]] entries")
+
+    proc = sync(repo_root)
+
+    assert proc.returncode != 0
+    assert "skill" in _output(proc).lower()
+    assert not (repo_root / "upstream-skills.lock.json").exists(), "must not write an empty lock"
+
+
+def test_fails_when_catalog_env_is_empty(tmp_path: Path) -> None:
+    repo_root = tmp_path / "repo"
+    repo_root.mkdir()
+    write_catalog(repo_root, entry("ghost", "owner/repo"))
+
+    proc = run_repo_script(
+        "sync_upstream_skills.py", cwd=repo_root, env={"CATALOG": ""},
+    )
+
+    assert proc.returncode != 0
+    assert "catalog" in _output(proc).lower()
+
+
+def test_fails_when_repo_url_empty(tmp_path: Path) -> None:
+    repo_root = tmp_path / "repo"
+    repo_root.mkdir()
+    write_catalog(repo_root, '[[skill]]\nname = "ghost"\nrepo = ""\n')
+
+    proc = sync(repo_root)
+
+    assert proc.returncode != 0
+    text = _output(proc).lower()
+    assert "url" in text or "repo" in text
+    assert not (repo_root / "skills" / "ghost").exists()
+
+
+def test_fails_when_clone_fails(tmp_path: Path) -> None:
+    repo_root = tmp_path / "repo"
+    repo_root.mkdir()
+    missing = tmp_path / "no-such-upstream"
+    write_catalog(repo_root, entry("ghost", missing, path="skills/ghost"))
+
+    proc = sync(repo_root)
+
+    assert proc.returncode != 0
+    assert "clone" in _output(proc).lower()
+    assert not (repo_root / "skills" / "ghost").exists()
+    assert not (repo_root / "upstream-skills.lock.json").exists()

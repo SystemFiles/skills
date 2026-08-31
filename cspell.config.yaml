@@ -7,6 +7,8 @@ words:
   - Codex
   - evals
   - frontmatter
+  - GITHUB
+  - PAT
   - sighup
   - wayfinder
   - mattpocock
@@ -19,6 +21,7 @@ words:
   - taskfile
   - venv
   - vercel
+  - workflow
 
 ignorePaths:
   - .git/**
