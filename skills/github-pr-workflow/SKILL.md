@@ -1,6 +1,6 @@
 ---
 name: github-pr-workflow
-description: Create or update GitHub issues and pull requests for SystemFiles repositories using the shared templates, plain concise writing, and Conventional Commits. Use when authoring an issue, branch, commit, or PR.
+description: Create or update GitHub issues and pull requests for SystemFiles repositories using the shared templates, plain concise writing, and Conventional Commits. Use when authoring an issue or PR in GitHub.
 ---
 
 # GitHub PR Workflow
