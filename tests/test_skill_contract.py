@@ -20,6 +20,7 @@ SKILLS_DIR = ROOT / "skills"
 # tests/test_upstream_catalog.py).
 EXPECTED_SKILLS = {
     "issue-triage",
+    "github-pr-workflow",
     "bro",
     "jj-case-insensitive-clone-fix",
     "pr-feedback-qa",

@@ -13,6 +13,7 @@ Each skill is a directory under `skills/<name>/` containing a `SKILL.md` (plus a
 | Skill | Description |
 | --- | --- |
 | `issue-triage` | Turn a rough GitHub Issue into an agent-executable sealed body with `ready` + size labels (explicit invocation). Clarifying Q&A persists under `.issue-triage/` (gitignored) for resume. Ships `issue_ops` + validators, offline `evals/`, and `mock_gh` for script unit tests. |
+| `github-pr-workflow` | Create GitHub issues and pull requests with SystemFiles templates, plain concise writing, and Conventional Commits. |
 | `bro` | Slash-command only (`/bro`): restate the last message plainly and concisely, without jargon. |
 | `jj-case-insensitive-clone-fix` | Diagnose and fix the `jj git clone` "Failed to update refs" error on case-insensitive filesystems (e.g. macOS APFS). |
 | `pr-feedback-qa` | Disposition PR or file-based review feedback one item at a time (Address / Skip / GitHub Issue), with resumable JSON sessions under `.scratch/pr-feedback-qa/` and a final decision table. |
