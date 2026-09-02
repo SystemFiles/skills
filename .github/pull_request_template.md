@@ -11,19 +11,41 @@ Examples:
 The PR title is validated automatically.
 -->
 
-## Why?
+## Summary
 
-<!-- Summarize the motivation for this change. -->
+<!-- What changed, why now, and the user or system impact. -->
 
-## What Changed?
+## Changes
 
-<!-- Call out the key updates (which skill(s) added/updated, tooling changes, etc.). -->
+<!-- Concise bullets; call out intentionally omitted or deferred work. -->
 
-## Additional Notes
+-
 
-<!-- Optional: follow-ups, rollout concerns, or reviewer guidance. -->
+## Validation
+
+<!-- List commands/checks run and their result. State "Not run" with a reason if applicable. -->
 
 - [ ] Ran validation: `task validate`
 - [ ] Ran the full gate: `task lint`
 - [ ] New/updated skills have valid `SKILL.md` frontmatter (`name` + `description`)
 - [ ] Verified discovery: `task verify-discovery`
+
+## Risk and rollout
+
+<!-- Compatibility, security, data, infrastructure, cost, or operational impact. Include rollback/migration notes when relevant. -->
+
+**Risk:** <!-- None / Low / Medium / High — explain -->
+
+**Rollback / migration:** <!-- N/A or steps -->
+
+## Agent disclosure
+
+<!-- Complete only when an AI/coding agent materially contributed. The responsible human must still complete validation and risk. -->
+
+- **Agent/tool:**
+- **Human owner/reviewer:**
+- **Agent contribution and human verification:**
+
+## Reviewer notes
+
+<!-- Focus reviewers on design decisions, trade-offs, or areas needing special attention. -->
