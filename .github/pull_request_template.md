@@ -11,6 +11,11 @@ Examples:
 The PR title is validated automatically.
 -->
 
+<!-- Required writing rules:
+- Be extremely concise. Even sacrifice grammar for the sake of concision.
+- Stop using jargon and speak coherently. State it more simply and concisely, like one human talking to another.
+-->
+
 ## Why
 
 <!-- Briefly explain why this change is needed, in plain language. -->
