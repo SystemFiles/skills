@@ -6,126 +6,126 @@
       "source_url": "https://github.com/mattpocock/skills",
       "path": "skills/engineering/code-review",
       "ref": null,
-      "commit": "b0618bc436ad893b3c5e84e55fba86586d34a404",
+      "commit": "49dd158d1076134a641b33efb035946536778336",
       "license": "MIT",
-      "synced_at": "2026-10-08T13:22:45.876631+00:00"
+      "synced_at": "2026-10-09T13:11:12.340767+00:00"
     },
     "codebase-design": {
       "repo": "mattpocock/skills",
       "source_url": "https://github.com/mattpocock/skills",
       "path": "skills/engineering/codebase-design",
       "ref": null,
-      "commit": "b0618bc436ad893b3c5e84e55fba86586d34a404",
+      "commit": "49dd158d1076134a641b33efb035946536778336",
       "license": "MIT",
-      "synced_at": "2026-10-08T13:22:46.284820+00:00"
+      "synced_at": "2026-10-09T13:11:12.986310+00:00"
     },
     "domain-modeling": {
       "repo": "mattpocock/skills",
       "source_url": "https://github.com/mattpocock/skills",
       "path": "skills/engineering/domain-modeling",
       "ref": null,
-      "commit": "b0618bc436ad893b3c5e84e55fba86586d34a404",
+      "commit": "49dd158d1076134a641b33efb035946536778336",
       "license": "MIT",
-      "synced_at": "2026-10-08T13:22:46.733715+00:00"
+      "synced_at": "2026-10-09T13:11:13.596851+00:00"
     },
     "grill-me": {
       "repo": "mattpocock/skills",
       "source_url": "https://github.com/mattpocock/skills",
       "path": "skills/productivity/grill-me",
       "ref": null,
-      "commit": "b0618bc436ad893b3c5e84e55fba86586d34a404",
+      "commit": "49dd158d1076134a641b33efb035946536778336",
       "license": "MIT",
-      "synced_at": "2026-10-08T13:22:47.120526+00:00"
+      "synced_at": "2026-10-09T13:11:14.196120+00:00"
     },
     "grill-with-docs": {
       "repo": "mattpocock/skills",
       "source_url": "https://github.com/mattpocock/skills",
       "path": "skills/engineering/grill-with-docs",
       "ref": null,
-      "commit": "b0618bc436ad893b3c5e84e55fba86586d34a404",
+      "commit": "49dd158d1076134a641b33efb035946536778336",
       "license": "MIT",
-      "synced_at": "2026-10-08T13:22:47.537160+00:00"
+      "synced_at": "2026-10-09T13:11:14.754544+00:00"
     },
     "grilling": {
       "repo": "mattpocock/skills",
       "source_url": "https://github.com/mattpocock/skills",
       "path": "skills/productivity/grilling",
       "ref": null,
-      "commit": "b0618bc436ad893b3c5e84e55fba86586d34a404",
+      "commit": "49dd158d1076134a641b33efb035946536778336",
       "license": "MIT",
-      "synced_at": "2026-10-08T13:22:47.954424+00:00"
+      "synced_at": "2026-10-09T13:11:15.348333+00:00"
     },
     "improve-codebase-architecture": {
       "repo": "mattpocock/skills",
       "source_url": "https://github.com/mattpocock/skills",
       "path": "skills/engineering/improve-codebase-architecture",
       "ref": null,
-      "commit": "b0618bc436ad893b3c5e84e55fba86586d34a404",
+      "commit": "49dd158d1076134a641b33efb035946536778336",
       "license": "MIT",
-      "synced_at": "2026-10-08T13:22:48.561219+00:00"
+      "synced_at": "2026-10-09T13:11:16.042103+00:00"
     },
     "prototype": {
       "repo": "mattpocock/skills",
       "source_url": "https://github.com/mattpocock/skills",
       "path": "skills/engineering/prototype",
       "ref": null,
-      "commit": "b0618bc436ad893b3c5e84e55fba86586d34a404",
+      "commit": "49dd158d1076134a641b33efb035946536778336",
       "license": "MIT",
-      "synced_at": "2026-10-08T13:22:48.955715+00:00"
+      "synced_at": "2026-10-09T13:11:16.927994+00:00"
     },
     "research": {
       "repo": "mattpocock/skills",
       "source_url": "https://github.com/mattpocock/skills",
       "path": "skills/engineering/research",
       "ref": null,
-      "commit": "b0618bc436ad893b3c5e84e55fba86586d34a404",
+      "commit": "49dd158d1076134a641b33efb035946536778336",
       "license": "MIT",
-      "synced_at": "2026-10-08T13:22:49.442038+00:00"
+      "synced_at": "2026-10-09T13:11:17.812406+00:00"
     },
     "tdd": {
       "repo": "mattpocock/skills",
       "source_url": "https://github.com/mattpocock/skills",
       "path": "skills/engineering/tdd",
       "ref": null,
-      "commit": "b0618bc436ad893b3c5e84e55fba86586d34a404",
+      "commit": "49dd158d1076134a641b33efb035946536778336",
       "license": "MIT",
-      "synced_at": "2026-10-08T13:22:49.817214+00:00"
+      "synced_at": "2026-10-09T13:11:18.504974+00:00"
     },
     "teach": {
       "repo": "mattpocock/skills",
       "source_url": "https://github.com/mattpocock/skills",
       "path": "skills/productivity/teach",
       "ref": null,
-      "commit": "b0618bc436ad893b3c5e84e55fba86586d34a404",
+      "commit": "49dd158d1076134a641b33efb035946536778336",
       "license": "MIT",
-      "synced_at": "2026-10-08T13:22:50.274842+00:00"
+      "synced_at": "2026-10-09T13:11:19.098093+00:00"
     },
     "to-spec": {
       "repo": "mattpocock/skills",
       "source_url": "https://github.com/mattpocock/skills",
       "path": "skills/engineering/to-spec",
       "ref": null,
-      "commit": "b0618bc436ad893b3c5e84e55fba86586d34a404",
+      "commit": "49dd158d1076134a641b33efb035946536778336",
       "license": "MIT",
-      "synced_at": "2026-10-08T13:22:50.723244+00:00"
+      "synced_at": "2026-10-09T13:11:19.777534+00:00"
     },
     "to-tickets": {
       "repo": "mattpocock/skills",
       "source_url": "https://github.com/mattpocock/skills",
       "path": "skills/engineering/to-tickets",
       "ref": null,
-      "commit": "b0618bc436ad893b3c5e84e55fba86586d34a404",
+      "commit": "49dd158d1076134a641b33efb035946536778336",
       "license": "MIT",
-      "synced_at": "2026-10-08T13:22:51.121786+00:00"
+      "synced_at": "2026-10-09T13:11:20.418028+00:00"
     },
     "wayfinder": {
       "repo": "mattpocock/skills",
       "source_url": "https://github.com/mattpocock/skills",
       "path": "skills/engineering/wayfinder",
       "ref": null,
-      "commit": "b0618bc436ad893b3c5e84e55fba86586d34a404",
+      "commit": "49dd158d1076134a641b33efb035946536778336",
       "license": "MIT",
-      "synced_at": "2026-10-08T13:22:51.601945+00:00"
+      "synced_at": "2026-10-09T13:11:21.011617+00:00"
     }
   }
 }
