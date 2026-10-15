@@ -81,3 +81,23 @@ path = "skills/engineering/to-tickets"
 name = "wayfinder"
 repo = "mattpocock/skills"
 path = "skills/engineering/wayfinder"
+
+[[skill]]
+name = "clean-code"
+repo = "sickn33/agentic-awesome-skills"
+path = "skills/clean-code"
+
+[[skill]]
+name = "documentation"
+repo = "anthropics/knowledge-work-plugins"
+path = "engineering/skills/documentation"
+
+[[skill]]
+name = "sdd"
+repo = "liatrio-labs/spec-driven-workflow"
+path = "skill"
+
+[[skill]]
+name = "terraform-style-guide"
+repo = "hashicorp/agent-skills"
+path = "plugins/terraform/skills/terraform-style-guide"

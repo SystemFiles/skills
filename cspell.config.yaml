@@ -2,6 +2,7 @@ version: "0.2"
 language: en
 
 words:
+  - anthropics
   - APFS
   - bunx
   - Codex
@@ -13,6 +14,7 @@ words:
   - wayfinder
   - mattpocock
   - pytest
+  - sickn
   - repo
   - sdd
   - skillsrc

@@ -35,7 +35,9 @@ Provenance (source commit and license) is recorded in `upstream-skills.lock.json
 
 | Skill | Upstream | License | Description |
 | --- | --- | --- | --- |
+| `clean-code` | [sickn33/agentic-awesome-skills](https://github.com/sickn33/agentic-awesome-skills) | MIT / CC-BY-4.0 | Apply "Clean Code" (Robert C. Martin) principles to turn working code into clean code. |
 | `code-review` | [mattpocock/skills](https://github.com/mattpocock/skills) | MIT | Two-axis review (Standards + Spec) of changes since a commit, branch, tag, or merge-base. |
+| `documentation` | [anthropics/knowledge-work-plugins](https://github.com/anthropics/knowledge-work-plugins) | Apache-2.0 | Write and maintain technical docs: READMEs, API docs, architecture docs, runbooks. |
 | `codebase-design` | [mattpocock/skills](https://github.com/mattpocock/skills) | MIT | Shared vocabulary for designing deep modules (interfaces, seams, testability). |
 | `domain-modeling` | [mattpocock/skills](https://github.com/mattpocock/skills) | MIT | Build and sharpen a project's domain model (`CONTEXT.md` / ADRs). |
 | `grill-me` | [mattpocock/skills](https://github.com/mattpocock/skills) | MIT | Relentless interview to sharpen a plan or design (explicit invocation). |
@@ -44,8 +46,10 @@ Provenance (source commit and license) is recorded in `upstream-skills.lock.json
 | `improve-codebase-architecture` | [mattpocock/skills](https://github.com/mattpocock/skills) | MIT | Scan for deepening opportunities, present an HTML report, then grill one. |
 | `prototype` | [mattpocock/skills](https://github.com/mattpocock/skills) | MIT | Throwaway logic or UI prototype to answer a design question. |
 | `research` | [mattpocock/skills](https://github.com/mattpocock/skills) | MIT | Investigate a question against primary sources and write findings as Markdown in the repo. |
+| `sdd` | [liatrio-labs/spec-driven-workflow](https://github.com/liatrio-labs/spec-driven-workflow) | Apache-2.0 | Spec-driven development: spec → task list → implementation → validation, with proof artifacts. |
 | `tdd` | [mattpocock/skills](https://github.com/mattpocock/skills) | MIT | Test-first / red-green-refactor workflow with seam-based tests. |
 | `teach` | [mattpocock/skills](https://github.com/mattpocock/skills) | MIT | Teach a skill or concept inside the current workspace. |
+| `terraform-style-guide` | [hashicorp/agent-skills](https://github.com/hashicorp/agent-skills) | MPL-2.0 | Write and review Terraform HCL using HashiCorp's style conventions. |
 | `to-spec` | [mattpocock/skills](https://github.com/mattpocock/skills) | MIT | Synthesize the current conversation into a spec and publish it (explicit invocation). |
 | `to-tickets` | [mattpocock/skills](https://github.com/mattpocock/skills) | MIT | Break a plan, spec, or conversation into tracer-bullet tickets with blocking edges (explicit invocation). |
 | `wayfinder` | [mattpocock/skills](https://github.com/mattpocock/skills) | MIT | Map large work as decision tickets on an issue tracker and resolve them one by one. |

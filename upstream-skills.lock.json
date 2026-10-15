@@ -1,6 +1,15 @@
 {
   "version": 1,
   "skills": {
+    "clean-code": {
+      "repo": "sickn33/agentic-awesome-skills",
+      "source_url": "https://github.com/sickn33/agentic-awesome-skills",
+      "path": "skills/clean-code",
+      "ref": null,
+      "commit": "a3072641b750a1fb2f6ce695a5f984ea3d4c3ec1",
+      "license": "MIT",
+      "synced_at": "2026-10-15T22:02:14.652997+00:00"
+    },
     "code-review": {
       "repo": "mattpocock/skills",
       "source_url": "https://github.com/mattpocock/skills",
@@ -18,6 +27,15 @@
       "commit": "49dd158d1076134a641b33efb035946536778336",
       "license": "MIT",
       "synced_at": "2026-10-09T13:11:12.986310+00:00"
+    },
+    "documentation": {
+      "repo": "anthropics/knowledge-work-plugins",
+      "source_url": "https://github.com/anthropics/knowledge-work-plugins",
+      "path": "engineering/skills/documentation",
+      "ref": null,
+      "commit": "e6b505348c39c6e751a70d52ff407e7b0a6bf676",
+      "license": "Apache-2.0",
+      "synced_at": "2026-10-15T22:02:16.525031+00:00"
     },
     "domain-modeling": {
       "repo": "mattpocock/skills",
@@ -82,6 +100,15 @@
       "license": "MIT",
       "synced_at": "2026-10-09T13:11:17.812406+00:00"
     },
+    "sdd": {
+      "repo": "liatrio-labs/spec-driven-workflow",
+      "source_url": "https://github.com/liatrio-labs/spec-driven-workflow",
+      "path": "skill",
+      "ref": null,
+      "commit": "7010cb80984ce01714a7719748aa599f934c1681",
+      "license": "Apache-2.0",
+      "synced_at": "2026-10-15T22:02:18.504786+00:00"
+    },
     "tdd": {
       "repo": "mattpocock/skills",
       "source_url": "https://github.com/mattpocock/skills",
@@ -99,6 +126,15 @@
       "commit": "49dd158d1076134a641b33efb035946536778336",
       "license": "MIT",
       "synced_at": "2026-10-09T13:11:19.098093+00:00"
+    },
+    "terraform-style-guide": {
+      "repo": "hashicorp/agent-skills",
+      "source_url": "https://github.com/hashicorp/agent-skills",
+      "path": "plugins/terraform/skills/terraform-style-guide",
+      "ref": null,
+      "commit": "f706481af9b8fedb66de909f6243ad29601afa0c",
+      "license": "MPL-2.0",
+      "synced_at": "2026-10-15T22:02:31.055717+00:00"
     },
     "to-spec": {
       "repo": "mattpocock/skills",
