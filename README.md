@@ -13,7 +13,7 @@ Each skill is a directory under `skills/<name>/` containing a `SKILL.md` (plus a
 | Skill | Description |
 | --- | --- |
 | `issue-triage` | Turn a rough GitHub Issue into an agent-executable sealed body with `ready` + size labels (explicit invocation). Clarifying Q&A persists under `.issue-triage/` (gitignored) for resume. Ships `issue_ops` + validators, offline `evals/`, and `mock_gh` for script unit tests. |
-| `github-pr-workflow` | Create GitHub issues and pull requests with SystemFiles templates, plain concise writing, and Conventional Commits. |
+| `github-pr` | Create, update, view, comment on, or merge GitHub PRs and issues with jj + `gh`. Preflight script handles fork → upstream heads, existing-PR detection, and repo or owner-default templates. |
 | `bro` | Slash-command only (`/bro`): restate the last message plainly and concisely, without jargon. |
 | `jj-case-insensitive-clone-fix` | Diagnose and fix the `jj git clone` "Failed to update refs" error on case-insensitive filesystems (e.g. macOS APFS). |
 | `pr-feedback-qa` | Disposition PR or file-based review feedback one item at a time (Address / Skip / GitHub Issue), with resumable JSON sessions under `.scratch/pr-feedback-qa/` and a final decision table. |
@@ -21,7 +21,9 @@ Each skill is a directory under `skills/<name>/` containing a `SKILL.md` (plus a
 | `sdd-qa` | Ask SDD `docs/specs` clarification questions ONE-by-ONE and write decisions back to the questions file (explicit slash invocation). |
 | `sykesdev-design-system` | Apply the sykesdev Harbor Chart design system to app UI, pages, and fully self-contained single-file HTML documents. Ships tokens, a component + behavior layer, self-hosted fonts, the mark, a document starter, `bundle_html.py` (inline everything into one sendable file) and `render_check.py` (tmp screenshots for judging, not shipping). |
 | `sync-upstream` | Sync a fork's default branch with its upstream remote using merge or rebase, resolving conflicts as needed. |
+| `useful-mr-descriptions` | Write PR/MR descriptions as a TLDR blockquote, then Why, then What changed; honors repo templates and cuts what CI already shows. |
 | `visual-explain` | Interactive local HTML explanation of a diff/branch/PR (Background, Intuition, Code walkthrough, Quiz). Adapted from sighup/claude-workflow `cw-explain`. |
+| `write-better` | Plain, jargon-free writing for anything a human reads: PRs, issues, tickets. |
 
 ### Vendored from upstream
 

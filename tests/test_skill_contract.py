@@ -20,7 +20,7 @@ SKILLS_DIR = ROOT / "skills"
 # tests/test_upstream_catalog.py).
 EXPECTED_SKILLS = {
     "issue-triage",
-    "github-pr-workflow",
+    "github-pr",
     "bro",
     "jj-case-insensitive-clone-fix",
     "pr-feedback-qa",
@@ -28,7 +28,9 @@ EXPECTED_SKILLS = {
     "sdd-qa",
     "sykesdev-design-system",
     "sync-upstream",
+    "useful-mr-descriptions",
     "visual-explain",
+    "write-better",
 }
 
 FRONTMATTER_RE = re.compile(r"^---\n(.*?)\n---\n", re.DOTALL)
