@@ -22,6 +22,8 @@ words:
   - venv
   - vercel
   - workflow
+  - worktree
+  - worktrees
 
 ignorePaths:
   - .git/**
