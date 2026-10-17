@@ -13,7 +13,7 @@ Each skill is a directory under `skills/<name>/` containing a `SKILL.md` (plus a
 | Skill | Description |
 | --- | --- |
 | `issue-triage` | Turn a rough GitHub Issue into an agent-executable sealed body with `ready` + size labels (explicit invocation). Clarifying Q&A persists under `.issue-triage/` (gitignored) for resume. Ships `issue_ops` + validators, offline `evals/`, and `mock_gh` for script unit tests. |
-| `github-pr-workflow` | Create GitHub issues and pull requests with SystemFiles templates, plain concise writing, and Conventional Commits. |
+| `github-pr` | Create, update, view, comment on, or merge GitHub PRs and issues with jj + `gh`. Preflight script handles fork → upstream heads, existing-PR detection, and repo or owner-default templates. |
 | `bro` | Slash-command only (`/bro`): restate the last message plainly and concisely, without jargon. |
 | `jj-case-insensitive-clone-fix` | Diagnose and fix the `jj git clone` "Failed to update refs" error on case-insensitive filesystems (e.g. macOS APFS). |
 | `jj-worktree` | Isolated jj workspace per repo in scope, via `jj workspace` rather than git worktree. Use when asked to work in a worktree, or via `/jj-worktree`. |
@@ -23,7 +23,9 @@ Each skill is a directory under `skills/<name>/` containing a `SKILL.md` (plus a
 | `sdd-qa` | Ask SDD `docs/specs` clarification questions ONE-by-ONE and write decisions back to the questions file (explicit slash invocation). |
 | `sykesdev-design-system` | Apply the sykesdev Harbor Chart design system to app UI, pages, and fully self-contained single-file HTML documents. Ships tokens, a component + behavior layer, self-hosted fonts, the mark, a document starter, `bundle_html.py` (inline everything into one sendable file) and `render_check.py` (tmp screenshots for judging, not shipping). |
 | `sync-upstream` | Sync a fork's default branch with its upstream remote using merge or rebase, resolving conflicts as needed. |
+| `useful-mr-descriptions` | Write PR/MR descriptions as a TLDR blockquote, then Why, then What changed; honors repo templates and cuts what CI already shows. |
 | `visual-explain` | Interactive local HTML explanation of a diff/branch/PR (Background, Intuition, Code walkthrough, Quiz). Adapted from sighup/claude-workflow `cw-explain`. |
+| `write-better` | Plain, jargon-free writing for anything a human reads: PRs, issues, tickets. |
 
 ### Vendored from upstream
 
@@ -37,7 +39,9 @@ Provenance (source commit and license) is recorded in `upstream-skills.lock.json
 
 | Skill | Upstream | License | Description |
 | --- | --- | --- | --- |
+| `clean-code` | [sickn33/agentic-awesome-skills](https://github.com/sickn33/agentic-awesome-skills) | MIT / CC-BY-4.0 | Apply "Clean Code" (Robert C. Martin) principles to turn working code into clean code. |
 | `code-review` | [mattpocock/skills](https://github.com/mattpocock/skills) | MIT | Two-axis review (Standards + Spec) of changes since a commit, branch, tag, or merge-base. |
+| `documentation` | [anthropics/knowledge-work-plugins](https://github.com/anthropics/knowledge-work-plugins) | Apache-2.0 | Write and maintain technical docs: READMEs, API docs, architecture docs, runbooks. |
 | `codebase-design` | [mattpocock/skills](https://github.com/mattpocock/skills) | MIT | Shared vocabulary for designing deep modules (interfaces, seams, testability). |
 | `domain-modeling` | [mattpocock/skills](https://github.com/mattpocock/skills) | MIT | Build and sharpen a project's domain model (`CONTEXT.md` / ADRs). |
 | `grill-me` | [mattpocock/skills](https://github.com/mattpocock/skills) | MIT | Relentless interview to sharpen a plan or design (explicit invocation). |
@@ -46,8 +50,10 @@ Provenance (source commit and license) is recorded in `upstream-skills.lock.json
 | `improve-codebase-architecture` | [mattpocock/skills](https://github.com/mattpocock/skills) | MIT | Scan for deepening opportunities, present an HTML report, then grill one. |
 | `prototype` | [mattpocock/skills](https://github.com/mattpocock/skills) | MIT | Throwaway logic or UI prototype to answer a design question. |
 | `research` | [mattpocock/skills](https://github.com/mattpocock/skills) | MIT | Investigate a question against primary sources and write findings as Markdown in the repo. |
+| `sdd` | [liatrio-labs/spec-driven-workflow](https://github.com/liatrio-labs/spec-driven-workflow) | Apache-2.0 | Spec-driven development: spec → task list → implementation → validation, with proof artifacts. |
 | `tdd` | [mattpocock/skills](https://github.com/mattpocock/skills) | MIT | Test-first / red-green-refactor workflow with seam-based tests. |
 | `teach` | [mattpocock/skills](https://github.com/mattpocock/skills) | MIT | Teach a skill or concept inside the current workspace. |
+| `terraform-style-guide` | [hashicorp/agent-skills](https://github.com/hashicorp/agent-skills) | MPL-2.0 | Write and review Terraform HCL using HashiCorp's style conventions. |
 | `to-spec` | [mattpocock/skills](https://github.com/mattpocock/skills) | MIT | Synthesize the current conversation into a spec and publish it (explicit invocation). |
 | `to-tickets` | [mattpocock/skills](https://github.com/mattpocock/skills) | MIT | Break a plan, spec, or conversation into tracer-bullet tickets with blocking edges (explicit invocation). |
 | `wayfinder` | [mattpocock/skills](https://github.com/mattpocock/skills) | MIT | Map large work as decision tickets on an issue tracker and resolve them one by one. |
