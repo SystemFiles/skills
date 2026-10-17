@@ -16,6 +16,8 @@ Each skill is a directory under `skills/<name>/` containing a `SKILL.md` (plus a
 | `github-pr-workflow` | Create GitHub issues and pull requests with SystemFiles templates, plain concise writing, and Conventional Commits. |
 | `bro` | Slash-command only (`/bro`): restate the last message plainly and concisely, without jargon. |
 | `jj-case-insensitive-clone-fix` | Diagnose and fix the `jj git clone` "Failed to update refs" error on case-insensitive filesystems (e.g. macOS APFS). |
+| `jj-worktree` | Isolated jj workspace per repo in scope, via `jj workspace` rather than git worktree. Use when asked to work in a worktree, or via `/jj-worktree`. |
+| `jj-worktree-cleanup` | Remove workspaces recorded by `jj-worktree`. Use when asked to delete those worktrees, or via `/jj-worktree-cleanup`. |
 | `pr-feedback-qa` | Disposition PR or file-based review feedback one item at a time (Address / Skip / GitHub Issue), with resumable JSON sessions under `.scratch/pr-feedback-qa/` and a final decision table. |
 | `research_codebase` | Map how a codebase works today and save a dated, citation-backed report under `thoughts/`, using parallel sub-agents by default. |
 | `sdd-qa` | Ask SDD `docs/specs` clarification questions ONE-by-ONE and write decisions back to the questions file (explicit slash invocation). |

@@ -23,6 +23,8 @@ EXPECTED_SKILLS = {
     "github-pr-workflow",
     "bro",
     "jj-case-insensitive-clone-fix",
+    "jj-worktree",
+    "jj-worktree-cleanup",
     "pr-feedback-qa",
     "research_codebase",
     "sdd-qa",
