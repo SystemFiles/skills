@@ -159,6 +159,33 @@ def workspace_state(cwd: Path) -> tuple[bool | None, str | None, str | None]:
     return lines[0] == "true", lines[1], None
 
 
+def unpushed_changes(repo: Path, name: str) -> tuple[list[dict] | None, str | None]:
+    """Non-empty changes under the workspace's @ that no remote bookmark and no main checkout has.
+
+    Snapshot the workspace first (workspace_state) or a dirty @ reads as empty.
+    """
+    revset = f'(::"{name}"@ ~ ::(remote_bookmarks() | @)) ~ empty()'
+    proc = jj(
+        repo,
+        "log",
+        "--no-graph",
+        "-r",
+        revset,
+        "-T",
+        'change_id.short() ++ "\\t" ++ description.first_line() ++ "\\n"',
+        ignore_working_copy=True,
+    )
+    if proc.returncode != 0:
+        return None, proc.stderr.strip() or "jj log failed"
+    changes = []
+    for line in proc.stdout.splitlines():
+        if not line.strip():
+            continue
+        change_id, _, description = line.partition("\t")
+        changes.append({"change_id": change_id.strip(), "description": description.strip()})
+    return changes, None
+
+
 def unique_name(repo: Path, base: str) -> str:
     taken = workspace_names(repo)
     if base not in taken:
@@ -418,6 +445,8 @@ def enrich(entry: dict) -> dict:
         "exists": path.is_dir(),
         "tracked": False,
         "empty": None,
+        "unpushed": [],
+        "in_flight": None,
     }
     if repo.is_dir():
         try:
@@ -431,6 +460,15 @@ def enrich(entry: dict) -> dict:
             info["change_id"] = change_id
         if err:
             info["state_error"] = err
+    if info["tracked"]:
+        unpushed, err = unpushed_changes(repo, entry["name"])
+        if err:
+            info["unpushed_error"] = err
+        else:
+            info["unpushed"] = unpushed
+            info["in_flight"] = bool(unpushed)
+    elif not info["exists"]:
+        info["in_flight"] = False
     return info
 
 
@@ -445,7 +483,7 @@ def cmd_list(args: argparse.Namespace) -> int:
     return emit({"status": "ok", "workspaces": [enrich(row) for row in rows]}, 0)
 
 
-def forget_one(entry: dict, discard: bool) -> dict:
+def forget_one(entry: dict, confirmed: bool, allow_in_flight: bool) -> dict:
     for key in ("id", "session", "name", "repo", "path"):
         if not entry.get(key):
             return {"action": "error", "message": f"registry entry missing {key}", "entry": entry}
@@ -486,6 +524,15 @@ def forget_one(entry: dict, discard: bool) -> dict:
             result["message"] = "that name is the repo's own workspace"
             return result
 
+    tracked = False
+    if repo.is_dir():
+        try:
+            tracked = name in workspace_names(repo)
+        except Failure as exc:
+            result["action"] = "error"
+            result["message"] = exc.message
+            return result
+
     if path.is_dir():
         empty, change_id, err = workspace_state(path)
         if change_id:
@@ -495,19 +542,34 @@ def forget_one(entry: dict, discard: bool) -> dict:
             result["message"] = err or "could not tell whether the checkout has changes"
             return result
         result["empty"] = empty
-        if not empty and not discard:
-            result["action"] = "kept"
-            result["message"] = "checkout has changes; left it in place"
-            return result
 
-    tracked = False
-    if repo.is_dir():
-        try:
-            tracked = name in workspace_names(repo)
-        except Failure as exc:
+    unpushed: list[dict] = []
+    if tracked:
+        found, err = unpushed_changes(repo, name)
+        if found is None:
             result["action"] = "error"
-            result["message"] = exc.message
+            result["message"] = f"could not tell whether the work is pushed: {err}"
             return result
+        unpushed = found
+    elif path.is_dir():
+        result["action"] = "error"
+        result["message"] = "directory exists but jj no longer tracks the workspace; inspect it by hand"
+        return result
+    result["unpushed"] = unpushed
+    result["in_flight"] = bool(unpushed)
+
+    if not confirmed:
+        result["action"] = "pending"
+        result["message"] = "not removed; rerun with --yes after the user confirms"
+        return result
+    if unpushed and not allow_in_flight:
+        result["action"] = "kept"
+        result["message"] = (
+            "has changes no remote has; left it in place. "
+            "Push them, or rerun with --allow-in-flight after the user says OK"
+        )
+        return result
+
     if tracked:
         proc = jj(repo, "workspace", "forget", name)
         if proc.returncode != 0:
@@ -563,7 +625,7 @@ def cmd_forget(args: argparse.Namespace) -> int:
             1,
         )
 
-    results = [forget_one(row, args.discard_checkout) for row in chosen]
+    results = [forget_one(row, args.yes, args.allow_in_flight) for row in chosen]
     removed_ids = {row["id"] for row in results if row.get("action") == "removed"}
     if removed_ids:
         def drop(data: dict) -> None:
@@ -579,7 +641,7 @@ def cmd_forget(args: argparse.Namespace) -> int:
     actions = {row.get("action") for row in results}
     if "error" in actions or "refused" in actions or missing:
         status, code = "error", 1
-    elif "kept" in actions:
+    elif "kept" in actions or "pending" in actions:
         status, code = "needs_confirmation", 2
     else:
         status, code = "ok", 0
@@ -604,7 +666,12 @@ def build_parser() -> argparse.ArgumentParser:
     group.add_argument("--session")
     group.add_argument("--id", action="append")
     group.add_argument("--all", action="store_true")
-    forget.add_argument("--discard-checkout", action="store_true")
+    forget.add_argument("--yes", action="store_true", help="the user confirmed; without it nothing is removed")
+    forget.add_argument(
+        "--allow-in-flight",
+        action="store_true",
+        help="also remove workspaces with unpushed changes (needs the user's explicit OK)",
+    )
     return parser
 
 

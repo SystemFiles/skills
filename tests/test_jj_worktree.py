@@ -148,11 +148,27 @@ def test_one_session_per_repo_in_scope(tmp_path: Path) -> None:
     )
     assert code == 0
     assert len(listed["workspaces"]) == 2
+    assert {row["in_flight"] for row in listed["workspaces"]} == {False}
+
+    code, dry = run_json(
+        "jj-worktree-cleanup",
+        "cleanup.py",
+        "forget",
+        "--session",
+        payload["session"],
+        env=env,
+    )
+    assert code == 2, dry
+    assert dry["status"] == "needs_confirmation"
+    assert {row["action"] for row in dry["results"]} == {"pending"}
+    assert Path(payload["workspaces"][0]["path"]).is_dir()
+    assert Path(payload["workspaces"][1]["path"]).is_dir()
 
     code, forgotten = run_json(
         "jj-worktree-cleanup",
         "cleanup.py",
         "forget",
+        "--yes",
         "--session",
         payload["session"],
         env=env,
@@ -184,7 +200,7 @@ def test_git_repo_does_not_grow_a_worktree(tmp_path: Path) -> None:
 
 
 @requires("jj")
-def test_dirty_checkout_needs_confirmation_then_discard_keeps_the_change(tmp_path: Path) -> None:
+def test_dirty_checkout_is_in_flight_until_explicit_ok(tmp_path: Path) -> None:
     env = jj_env(tmp_path)
     repo = make_jj_repo(tmp_path / "repo", env)
     code, payload = run_json(
@@ -194,8 +210,13 @@ def test_dirty_checkout_needs_confirmation_then_discard_keeps_the_change(tmp_pat
     ws = payload["workspaces"][0]
     (Path(ws["path"]) / "extra.txt").write_text("x\n", encoding="utf-8")
 
+    code, listed = run_json("jj-worktree", "jj_worktree.py", "list", env=env)
+    assert code == 0
+    assert listed["workspaces"][0]["in_flight"] is True
+    assert listed["workspaces"][0]["unpushed"][0]["description"] == "jj-worktree: keep"
+
     code, kept = run_json(
-        "jj-worktree", "jj_worktree.py", "forget", "--id", ws["id"], env=env
+        "jj-worktree", "jj_worktree.py", "forget", "--yes", "--id", ws["id"], env=env
     )
     assert code == 2
     assert kept["results"][0]["action"] == "kept"
@@ -205,8 +226,9 @@ def test_dirty_checkout_needs_confirmation_then_discard_keeps_the_change(tmp_pat
         "jj-worktree",
         "jj_worktree.py",
         "forget",
+        "--yes",
+        "--allow-in-flight",
         "--id", ws["id"],
-        "--discard-checkout",
         env=env,
     )
     assert code == 0, dropped
@@ -216,6 +238,57 @@ def test_dirty_checkout_needs_confirmation_then_discard_keeps_the_change(tmp_pat
     still = jj(repo, env, "log", "-r", change_id, "--no-graph", "-T", "change_id.short()")
     assert change_id in still.stdout
     assert (repo / "README.md").is_file()
+
+
+@requires("jj")
+def test_committed_but_unpushed_work_is_in_flight(tmp_path: Path) -> None:
+    env = jj_env(tmp_path)
+    repo = make_jj_repo(tmp_path / "repo", env)
+    code, payload = run_json(
+        "jj-worktree", "jj_worktree.py", "create", "--name", "wip", "--root", str(repo), env=env
+    )
+    assert code == 0, payload
+    ws = payload["workspaces"][0]
+    wt = Path(ws["path"])
+    (wt / "extra.txt").write_text("x\n", encoding="utf-8")
+    jj(wt, env, "commit", "-m", "feat: local only")
+
+    code, kept = run_json(
+        "jj-worktree", "jj_worktree.py", "forget", "--yes", "--id", ws["id"], env=env
+    )
+    assert code == 2, kept
+    row = kept["results"][0]
+    assert row["empty"] is True
+    assert row["action"] == "kept"
+    assert [c["description"] for c in row["unpushed"]] == ["feat: local only"]
+    assert wt.is_dir()
+
+
+@requires("jj")
+def test_pushed_work_is_not_in_flight(tmp_path: Path) -> None:
+    env = jj_env(tmp_path)
+    repo = make_jj_repo(tmp_path / "repo", env)
+    remote = tmp_path / "remote.git"
+    git(tmp_path, "init", "--bare", "-q", str(remote))
+    jj(repo, env, "git", "remote", "add", "origin", str(remote))
+    code, payload = run_json(
+        "jj-worktree", "jj_worktree.py", "create", "--name", "pushed", "--root", str(repo), env=env
+    )
+    assert code == 0, payload
+    ws = payload["workspaces"][0]
+    wt = Path(ws["path"])
+    (wt / "extra.txt").write_text("x\n", encoding="utf-8")
+    jj(wt, env, "commit", "-m", "feat: pushed")
+    jj(wt, env, "bookmark", "create", "feat-pushed", "-r", "@-")
+    jj(wt, env, "git", "push", "-b", "feat-pushed")
+
+    code, removed = run_json(
+        "jj-worktree", "jj_worktree.py", "forget", "--yes", "--id", ws["id"], env=env
+    )
+    assert code == 0, removed
+    assert removed["results"][0]["action"] == "removed"
+    assert removed["results"][0]["in_flight"] is False
+    assert not wt.exists()
 
 
 @requires("jj")
