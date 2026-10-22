@@ -6,9 +6,9 @@
       "source_url": "https://github.com/sickn33/agentic-awesome-skills",
       "path": "skills/clean-code",
       "ref": null,
-      "commit": "2984de11956e413008c6f98121cd141c499e47a3",
+      "commit": "e3ae112bf3bd0c4540fef5a1413ad176f0ced2d8",
       "license": "MIT",
-      "synced_at": "2026-10-21T11:42:42.300137+00:00"
+      "synced_at": "2026-10-22T11:45:51.853218+00:00"
     },
     "code-review": {
       "repo": "mattpocock/skills",
@@ -33,9 +33,9 @@
       "source_url": "https://github.com/anthropics/knowledge-work-plugins",
       "path": "engineering/skills/documentation",
       "ref": null,
-      "commit": "bc8f6922cfeea215a202cdcc9f0d299a990889a8",
+      "commit": "33d3dea41a341b341d4f5da2e8801ae0c89be2b8",
       "license": "Apache-2.0",
-      "synced_at": "2026-10-21T11:42:43.076518+00:00"
+      "synced_at": "2026-10-22T11:45:52.763052+00:00"
     },
     "domain-modeling": {
       "repo": "mattpocock/skills",
