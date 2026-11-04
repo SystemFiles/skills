@@ -6,9 +6,9 @@
       "source_url": "https://github.com/sickn33/agentic-awesome-skills",
       "path": "skills/clean-code",
       "ref": null,
-      "commit": "8ceacbb9d499e71cc1a8d364ab22685ef2463d5a",
+      "commit": "48de968b4615c294de601f72268aa7be88dde863",
       "license": "MIT",
-      "synced_at": "2026-11-03T14:05:28.527114+00:00"
+      "synced_at": "2026-11-04T14:26:10.407123+00:00"
     },
     "code-review": {
       "repo": "mattpocock/skills",
@@ -33,9 +33,9 @@
       "source_url": "https://github.com/anthropics/knowledge-work-plugins",
       "path": "engineering/skills/documentation",
       "ref": null,
-      "commit": "2574e29377c7173d0cecffef29a6ecbd7f8ccb5d",
+      "commit": "d900840716eb262e1feb17c6f4406c9ce0e06bcf",
       "license": "Apache-2.0",
-      "synced_at": "2026-10-28T12:45:54.373945+00:00"
+      "synced_at": "2026-11-04T14:26:10.829679+00:00"
     },
     "domain-modeling": {
       "repo": "mattpocock/skills",
@@ -132,9 +132,9 @@
       "source_url": "https://github.com/hashicorp/agent-skills",
       "path": "plugins/terraform/skills/terraform-style-guide",
       "ref": null,
-      "commit": "bc6b14b77481c3cbfbb06a0166be7245ed45798c",
+      "commit": "5e30fa5c867ba6777c37e4206babfd08049c396f",
       "license": "MPL-2.0",
-      "synced_at": "2026-10-29T12:54:59.447802+00:00"
+      "synced_at": "2026-11-04T14:26:11.458960+00:00"
     },
     "to-spec": {
       "repo": "mattpocock/skills",
