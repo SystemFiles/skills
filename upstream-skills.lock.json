@@ -46,6 +46,15 @@
       "license": "MIT",
       "synced_at": "2026-11-01T13:15:03.164919+00:00"
     },
+    "eli5": {
+      "repo": "anthropics/claude-plugins-community",
+      "source_url": "https://github.com/anthropics/claude-plugins-community",
+      "path": "eli5/skills/eli5",
+      "ref": null,
+      "commit": "163301d1904c0a994539f5226ce0fcd65b8652bf",
+      "license": "Apache-2.0",
+      "synced_at": "2026-11-08T22:40:36.106540+00:00"
+    },
     "grill-me": {
       "repo": "mattpocock/skills",
       "source_url": "https://github.com/mattpocock/skills",

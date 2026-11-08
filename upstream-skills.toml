@@ -101,3 +101,9 @@ path = "skill"
 name = "terraform-style-guide"
 repo = "hashicorp/agent-skills"
 path = "plugins/terraform/skills/terraform-style-guide"
+
+[[skill]]
+name = "eli5"
+repo = "anthropics/claude-plugins-community"
+path = "eli5/skills/eli5"
+
