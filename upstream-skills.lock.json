@@ -33,9 +33,9 @@
       "source_url": "https://github.com/anthropics/knowledge-work-plugins",
       "path": "engineering/skills/documentation",
       "ref": null,
-      "commit": "02717ef04446b6ef5aa4b8af15bb536d79f42ed0",
+      "commit": "e91a134584eb798bac7fb0379358006a2b63b965",
       "license": "Apache-2.0",
-      "synced_at": "2026-11-13T14:29:47.442272+00:00"
+      "synced_at": "2026-11-14T13:26:48.345021+00:00"
     },
     "domain-modeling": {
       "repo": "mattpocock/skills",
