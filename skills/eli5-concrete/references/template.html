@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="color-scheme" content="light dark">
+<title>ELI5: TOPIC</title>
+<style>
+  /* Every colour is a variable, so the dark block below re-themes the whole page,
+     SVG included. Never put a hex value in an SVG fill or stroke attribute. */
+  :root {
+    color-scheme: light dark;
+    --bg: #fdfbf6; --card: #ffffff; --ink: #1f2430; --soft: #6b7280; --line: #e5e7eb;
+    --shadow: rgba(0,0,0,.06); --inline-code: #f1f5f9; --later: #f8fafc; --later-line: #cbd5e1;
+    --code-bg: #0f172a; --code-ink: #e2e8f0; --code-line: transparent;
+    /* Accents: a stroke colour and a pale tint for the shape it outlines. */
+    --a: #3b82f6; --a-tint: #eff6ff;
+    --b: #f59e0b; --b-tint: #fffbeb;
+    --c: #a855f7; --c-tint: #faf5ff;
+    --bad: #ef4444; --bad-tint: #fef2f2;
+    --ok: #16a34a; --ok-tint: #f0fdf4;
+    --tag-done: #dbeafe; --tag-done-ink: #1d4ed8;
+    --tag-prop: #e5e7eb; --tag-prop-ink: #374151;
+    --tag-open: #fef3c7; --tag-open-ink: #92400e;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #0f1115; --card: #181b22; --ink: #e6e8ee; --soft: #9aa3b2; --line: #2a2f3a;
+      --shadow: rgba(0,0,0,.4); --inline-code: #252a34; --later: #14171d; --later-line: #3a4150;
+      --code-bg: #0b0e14; --code-ink: #e2e8f0; --code-line: #2a2f3a;
+      --a: #60a5fa; --a-tint: #172540;
+      --b: #fbbf24; --b-tint: #33280f;
+      --c: #c084fc; --c-tint: #2b1d3d;
+      --bad: #f87171; --bad-tint: #3a1d1f;
+      --ok: #4ade80; --ok-tint: #14301f;
+      --tag-done: #1e3a6b; --tag-done-ink: #bfdbfe;
+      --tag-prop: #2a2f3a; --tag-prop-ink: #d1d5db;
+      --tag-open: #4a3510; --tag-open-ink: #fde68a;
+    }
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--ink);
+    font: 20px/1.45 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+  header { text-align: center; padding: 48px 20px 8px; }
+  header h1 { font-size: 46px; margin: 0; }
+  header p { color: var(--soft); margin: 8px 0 0; }
+  nav { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; padding: 18px; }
+  nav a { text-decoration: none; color: var(--ink); background: var(--card); border: 2px solid var(--line);
+    border-radius: 999px; padding: 6px 14px; font-size: 16px; }
+  nav a:hover { border-color: var(--a); }
+  section { max-width: 1200px; margin: 28px auto; background: var(--card); border-radius: 28px;
+    padding: 30px 34px; box-shadow: 0 6px 24px var(--shadow); }
+  section h2 { font-size: 34px; margin: 0 0 4px; }
+  section .num { display: inline-block; width: 46px; height: 46px; border-radius: 50%;
+    background: var(--ink); color: var(--card); text-align: center; line-height: 46px; font-size: 24px;
+    margin-right: 10px; vertical-align: middle; }
+  .say { font-size: 24px; margin: 14px 0 0; }
+  .say b { color: var(--a); }
+  .later { border: 4px dashed var(--later-line); background: var(--later); }
+  .tag { display: inline-block; font-size: 14px; font-weight: 700; padding: 3px 10px;
+    border-radius: 8px; vertical-align: middle; margin-left: 8px; }
+  .tag.done { background: var(--tag-done); color: var(--tag-done-ink); }
+  .tag.prop { background: var(--tag-prop); color: var(--tag-prop-ink); }
+  .tag.open { background: var(--tag-open); color: var(--tag-open-ink); }
+  code { background: var(--inline-code); padding: 1px 7px; border-radius: 6px; font-size: .85em; }
+
+  /* Pictures. Shapes take a class (box + accent); text inherits --ink unless classed. */
+  svg { width: 100%; max-width: 1000px; height: auto; display: block; margin: 16px auto 0; }
+  svg text { font-family: inherit; fill: var(--ink); }
+  svg .t-soft { fill: var(--soft); }
+  svg .t-a { fill: var(--a); } svg .t-c { fill: var(--c); }
+  svg .t-bad { fill: var(--bad); } svg .t-ok { fill: var(--ok); }
+  svg .t-on-solid { fill: var(--card); }
+  svg .box { stroke-width: 3; fill: var(--card); stroke: var(--ink); }
+  svg .box.a { fill: var(--a-tint); stroke: var(--a); }
+  svg .box.b { fill: var(--b-tint); stroke: var(--b); }
+  svg .box.c { fill: var(--c-tint); stroke: var(--c); }
+  svg .box.bad { fill: var(--bad-tint); stroke: var(--bad); }
+  svg .box.ok { fill: var(--ok-tint); stroke: var(--ok); }
+  svg .box.card-a { fill: var(--card); stroke: var(--a); }
+  svg .solid.a { fill: var(--a); } svg .solid.bad { fill: var(--bad); }
+
+  /* Concrete examples: two columns at full width, one when narrow. */
+  .code { display: grid; grid-template-columns: repeat(auto-fit, minmax(480px, 1fr)); gap: 16px;
+    margin-top: 18px; }
+  .code figure { margin: 0; }
+  .code figcaption { font-size: 15px; font-weight: 700; margin-bottom: 6px; color: var(--soft); }
+  .code figcaption.before { color: var(--bad); }
+  .code figcaption.after { color: var(--ok); }
+  pre { margin: 0; background: var(--code-bg); color: var(--code-ink); border: 1px solid var(--code-line);
+    border-radius: 14px; padding: 14px 16px;
+    font: 13px/1.5 ui-monospace, SFMono-Regular, Menlo, monospace; overflow-x: auto; }
+  pre .c { color: #94a3b8; }    /* comment: maps a line to the picture */
+  pre .k { color: #7dd3fc; }    /* key worth noticing */
+  pre .bad { color: #fca5a5; }  /* removed, or rejected */
+  pre .good { color: #86efac; } /* added, or accepted */
+
+  footer { text-align: center; color: var(--soft); font-size: 15px; padding: 30px 20px 60px; }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>🧸 TOPIC, simply</h1>
+  <p>SOURCE · STATUS</p>
+</header>
+
+<nav>
+  <a href="#p1">1 · Panel title</a>
+</nav>
+
+<!-- One panel: picture, one sentence, concrete example. Copy per idea. -->
+<section id="p1">
+  <h2><span class="num">1</span>Panel title<span class="tag done">decided</span></h2>
+  <svg viewBox="0 0 900 240">
+    <g text-anchor="middle">
+      <rect class="box bad" x="60" y="30" width="330" height="180" rx="20"/>
+      <text x="225" y="70" font-size="22" font-weight="700">before</text>
+      <text x="225" y="145" font-size="60">📦📦📦</text>
+      <text x="225" y="190" font-size="16" class="t-soft">a few words, at most</text>
+      <text x="450" y="135" font-size="50">➡️</text>
+      <rect class="box ok" x="510" y="30" width="330" height="180" rx="20"/>
+      <text x="675" y="70" font-size="22" font-weight="700">after</text>
+      <text x="675" y="145" font-size="60">📦</text>
+    </g>
+  </svg>
+  <p class="say">One plain sentence that names the real thing once: <code>field.name</code>.</p>
+  <div class="code">
+    <figure>
+      <figcaption class="before">Before · path/to/file.yaml</figcaption>
+<pre>key:
+  <span class="bad">old: value</span>          <span class="c"># 📦📦📦 in the picture</span></pre>
+    </figure>
+    <figure>
+      <figcaption class="after">After · path/to/file.yaml</figcaption>
+<pre>key:
+  <span class="good">new: value</span>          <span class="c"># 📦</span></pre>
+    </figure>
+  </div>
+</section>
+
+<footer>Source: SOURCE.</footer>
+</body>
+</html>

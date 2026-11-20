@@ -22,6 +22,7 @@ EXPECTED_SKILLS = {
     "issue-triage",
     "github-pr",
     "bro",
+    "eli5-concrete",
     "jj-case-insensitive-clone-fix",
     "jj-worktree",
     "jj-worktree-cleanup",
