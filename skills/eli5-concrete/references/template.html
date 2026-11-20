@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>ELI5: TOPIC</title>
+<style>
+  :root {
+    --bg: #fdfbf6; --ink: #1f2430; --soft: #6b7280; --card: #ffffff;
+    --a: #3b82f6; --b: #f59e0b; --c: #a855f7; --bad: #ef4444; --ok: #16a34a;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--ink);
+    font: 20px/1.45 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+  header { text-align: center; padding: 48px 20px 8px; }
+  header h1 { font-size: 46px; margin: 0; }
+  header p { color: var(--soft); margin: 8px 0 0; }
+  nav { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; padding: 18px; }
+  nav a { text-decoration: none; color: var(--ink); background: #fff; border: 2px solid #e5e7eb;
+    border-radius: 999px; padding: 6px 14px; font-size: 16px; }
+  nav a:hover { border-color: var(--a); }
+  section { max-width: 1200px; margin: 28px auto; background: var(--card); border-radius: 28px;
+    padding: 30px 34px; box-shadow: 0 6px 24px rgba(0,0,0,.06); }
+  section h2 { font-size: 34px; margin: 0 0 4px; }
+  section .num { display: inline-block; width: 46px; height: 46px; border-radius: 50%;
+    background: var(--ink); color: #fff; text-align: center; line-height: 46px; font-size: 24px;
+    margin-right: 10px; vertical-align: middle; }
+  .say { font-size: 24px; margin: 14px 0 0; }
+  .say b { color: var(--a); }
+  svg { width: 100%; max-width: 1000px; height: auto; display: block; margin: 16px auto 0; }
+  svg text { font-family: inherit; }
+  .later { border: 4px dashed #cbd5e1; background: #f8fafc; }
+  .tag { display: inline-block; font-size: 14px; font-weight: 700; padding: 3px 10px;
+    border-radius: 8px; vertical-align: middle; margin-left: 8px; }
+  .tag.done { background: #dbeafe; color: #1d4ed8; }
+  .tag.prop { background: #e5e7eb; color: #374151; }
+  .tag.open { background: #fef3c7; color: #92400e; }
+  code { background: #f1f5f9; padding: 1px 7px; border-radius: 6px; font-size: .85em; }
+
+  /* Concrete examples: two columns at full width, one when narrow. */
+  .code { display: grid; grid-template-columns: repeat(auto-fit, minmax(480px, 1fr)); gap: 16px;
+    margin-top: 18px; }
+  .code figure { margin: 0; }
+  .code figcaption { font-size: 15px; font-weight: 700; margin-bottom: 6px; color: var(--soft); }
+  .code figcaption.before { color: var(--bad); }
+  .code figcaption.after { color: var(--ok); }
+  pre { margin: 0; background: #0f172a; color: #e2e8f0; border-radius: 14px; padding: 14px 16px;
+    font: 13px/1.5 ui-monospace, SFMono-Regular, Menlo, monospace; overflow-x: auto; }
+  pre .c { color: #94a3b8; }    /* comment: maps a line to the picture */
+  pre .k { color: #7dd3fc; }    /* key worth noticing */
+  pre .bad { color: #fca5a5; }  /* removed, or rejected */
+  pre .good { color: #86efac; } /* added, or accepted */
+
+  footer { text-align: center; color: var(--soft); font-size: 15px; padding: 30px 20px 60px; }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>🧸 TOPIC, simply</h1>
+  <p>SOURCE · STATUS</p>
+</header>
+
+<nav>
+  <a href="#p1">1 · Panel title</a>
+</nav>
+
+<!-- One panel: picture, one sentence, concrete example. Copy per idea. -->
+<section id="p1">
+  <h2><span class="num">1</span>Panel title<span class="tag done">decided</span></h2>
+  <svg viewBox="0 0 900 240">
+    <g text-anchor="middle">
+      <rect x="60" y="30" width="330" height="180" rx="20" fill="#fef2f2" stroke="#ef4444" stroke-width="3"/>
+      <text x="225" y="70" font-size="22" font-weight="700">before</text>
+      <text x="225" y="145" font-size="60">📦📦📦</text>
+      <text x="450" y="135" font-size="50">➡️</text>
+      <rect x="510" y="30" width="330" height="180" rx="20" fill="#f0fdf4" stroke="#16a34a" stroke-width="3"/>
+      <text x="675" y="70" font-size="22" font-weight="700">after</text>
+      <text x="675" y="145" font-size="60">📦</text>
+    </g>
+  </svg>
+  <p class="say">One plain sentence that names the real thing once: <code>field.name</code>.</p>
+  <div class="code">
+    <figure>
+      <figcaption class="before">Before · path/to/file.yaml</figcaption>
+<pre>key:
+  <span class="bad">old: value</span>          <span class="c"># 📦📦📦 in the picture</span></pre>
+    </figure>
+    <figure>
+      <figcaption class="after">After · path/to/file.yaml</figcaption>
+<pre>key:
+  <span class="good">new: value</span>          <span class="c"># 📦</span></pre>
+    </figure>
+  </div>
+</section>
+
+<footer>Source: SOURCE.</footer>
+</body>
+</html>
