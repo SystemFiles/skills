@@ -72,9 +72,16 @@ Never explain from memory. Read the real thing before drawing:
 ## Build it
 
 Start from [`references/template.html`](references/template.html). It has the
-styles, a before → after code grid, and one example panel. Keep the page
+styles with a light and a dark palette, a before → after code grid, and one
+example panel. Keep the page
 self-contained: inline CSS and SVG, no network.
 
+- **Follow the reader's theme.** The template follows the OS light or dark
+  setting with `prefers-color-scheme`. Keep every colour in its CSS variables.
+  In SVG, give shapes and text the template's classes (`box a`, `box bad`,
+  `t-soft`, …) instead of `fill="#…"` or `stroke="#…"` attributes. A hex value
+  in an attribute stays light-mode in dark mode. When a picture needs a colour
+  the template lacks, add a variable to both theme blocks first.
 - Write the page outside any repo, such as `/tmp/eli5-<slug>.html`, unless the
   user names a place. Open it with `open <file>`.
 - Add a top nav of numbered pills, one per panel.
@@ -83,18 +90,29 @@ self-contained: inline CSS and SVG, no network.
 
 ## Check it before reporting
 
-Look at the page. Don't assume it renders. A headless screenshot is enough:
+Look at the page in both themes. Don't assume it renders. A headless screenshot
+of each is enough. Headless Chrome follows the OS theme unless told otherwise,
+so force each one: `preferredColorScheme=1` is light and `0` is dark.
 
 ```bash
-"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" --headless \
-  --disable-gpu --hide-scrollbars --window-size=1300,10000 \
-  --screenshot=/tmp/eli5-check.png "file:///tmp/eli5-<slug>.html"
-sips --cropToHeightWidth 1300 1300 --cropOffset <y> 0 /tmp/eli5-check.png \
-  --out /tmp/eli5-crop.png
+chrome="/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
+for pcs in 1:light 0:dark; do
+  "$chrome" --headless --disable-gpu --hide-scrollbars \
+    --blink-settings=preferredColorScheme="${pcs%%:*}" \
+    --window-size=1300,10000 --screenshot="/tmp/eli5-<slug>-${pcs#*:}-<n>.png" \
+    "file:///tmp/eli5-<slug>.html"
+done
+sips --cropToHeightWidth 1300 1300 --cropOffset <y> 0 \
+  /tmp/eli5-<slug>-dark-<n>.png --out /tmp/eli5-<slug>-crop-<n>.png
 ```
 
-Read crops from a few panels. Fix any code block that clips horizontally: widen
-the panel, shorten the line, or drop to one column.
+Bump `<n>` on every re-shot. An image reader can cache a path and show the old
+picture.
+
+Read crops from a few panels in each theme. Fix any code block that clips
+horizontally: widen the panel, shorten the line, or drop to one column. Fix
+anything that stays light in the dark shot (usually a hex colour in an SVG
+attribute) or that is hard to read in either theme.
 
 ## Report
 

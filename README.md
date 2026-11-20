@@ -14,7 +14,7 @@ Each skill is a directory under `skills/<name>/` containing a `SKILL.md` (plus a
 | --- | --- |
 | `issue-triage` | Turn a rough GitHub Issue into an agent-executable sealed body with `ready` + size labels (explicit invocation). Clarifying Q&A persists under `.issue-triage/` (gitignored) for resume. Ships `issue_ops` + validators, offline `evals/`, and `mock_gh` for script unit tests. |
 | `github-pr` | Create, update, view, comment on, or merge GitHub PRs and issues with jj + `gh`. Preflight script handles fork → upstream heads, existing-PR detection, and repo or owner-default templates. |
-| `eli5-concrete` | Explain a topic like I'm five as an HTML page of big pictures, each grounded by the real code, config or error it stands for, as before → after deltas. Ships a page template. Builds on upstream `eli5`. |
+| `eli5-concrete` | Explain a topic like I'm five as an HTML page of big pictures, each grounded by the real code, config or error it stands for, as before → after deltas. Pages follow the reader's light or dark theme. Ships a page template. Builds on upstream `eli5`. |
 | `bro` | Slash-command only (`/bro`): restate the last message plainly and concisely, without jargon. |
 | `jj-case-insensitive-clone-fix` | Diagnose and fix the `jj git clone` "Failed to update refs" error on case-insensitive filesystems (e.g. macOS APFS). |
 | `jj-worktree` | Isolated jj workspace per repo in scope, via `jj workspace` rather than git worktree. Use when asked to work in a worktree, or via `/jj-worktree`. |
