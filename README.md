@@ -25,6 +25,7 @@ Each skill is a directory under `skills/<name>/` containing a `SKILL.md` (plus a
 | `sync-upstream` | Sync a fork's default branch with its upstream remote using merge or rebase, resolving conflicts as needed. |
 | `useful-mr-descriptions` | Write PR/MR descriptions as a TLDR blockquote, then Why, then What changed; honors repo templates and cuts what CI already shows. |
 | `visual-explain` | Interactive local HTML explanation of a diff/branch/PR (Background, Intuition, Code walkthrough, Quiz). Adapted from sighup/claude-workflow `cw-explain`. |
+| `write-adr` | Record, draft, supersede, or review an architecture decision record under `docs/adr/`. |
 | `write-better` | Plain, jargon-free writing for anything a human reads: PRs, issues, tickets. |
 
 ### Vendored from upstream
