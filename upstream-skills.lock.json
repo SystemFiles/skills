@@ -6,45 +6,45 @@
       "source_url": "https://github.com/sickn33/agentic-awesome-skills",
       "path": "skills/clean-code",
       "ref": null,
-      "commit": "a99b3d3bb6db184e75020f26714bce1951629356",
+      "commit": "166f581cfdc37d94cf56efe4454fb06a5759776c",
       "license": "MIT",
-      "synced_at": "2026-11-23T17:58:31.556335+00:00"
+      "synced_at": "2026-11-24T17:36:25.066633+00:00"
     },
     "code-review": {
       "repo": "mattpocock/skills",
       "source_url": "https://github.com/mattpocock/skills",
       "path": "skills/engineering/code-review",
       "ref": null,
-      "commit": "abeeaf95660ba9e8b7c753eb38f441ca707a8823",
+      "commit": "d65391149dbb5fe76478e76fa8d5122b2aa5a70e",
       "license": "MIT",
-      "synced_at": "2026-11-19T15:40:08.126212+00:00"
+      "synced_at": "2026-11-24T17:36:16.281773+00:00"
     },
     "codebase-design": {
       "repo": "mattpocock/skills",
       "source_url": "https://github.com/mattpocock/skills",
       "path": "skills/engineering/codebase-design",
       "ref": null,
-      "commit": "abeeaf95660ba9e8b7c753eb38f441ca707a8823",
+      "commit": "d65391149dbb5fe76478e76fa8d5122b2aa5a70e",
       "license": "MIT",
-      "synced_at": "2026-11-19T15:40:08.466710+00:00"
+      "synced_at": "2026-11-24T17:36:16.449466+00:00"
     },
     "documentation": {
       "repo": "anthropics/knowledge-work-plugins",
       "source_url": "https://github.com/anthropics/knowledge-work-plugins",
       "path": "engineering/skills/documentation",
       "ref": null,
-      "commit": "2baf6d1eded3cd7aeff0b5c5918601a5799189b4",
+      "commit": "5e504ae11498f2b8daa30d86b7dab97b2ecd8092",
       "license": "Apache-2.0",
-      "synced_at": "2026-11-23T17:58:32.087476+00:00"
+      "synced_at": "2026-11-24T17:36:25.468475+00:00"
     },
     "domain-modeling": {
       "repo": "mattpocock/skills",
       "source_url": "https://github.com/mattpocock/skills",
       "path": "skills/engineering/domain-modeling",
       "ref": null,
-      "commit": "abeeaf95660ba9e8b7c753eb38f441ca707a8823",
+      "commit": "d65391149dbb5fe76478e76fa8d5122b2aa5a70e",
       "license": "MIT",
-      "synced_at": "2026-11-19T15:40:08.859577+00:00"
+      "synced_at": "2026-11-24T17:36:16.582801+00:00"
     },
     "eli5": {
       "repo": "anthropics/claude-plugins-community",
@@ -60,54 +60,54 @@
       "source_url": "https://github.com/mattpocock/skills",
       "path": "skills/productivity/grill-me",
       "ref": null,
-      "commit": "abeeaf95660ba9e8b7c753eb38f441ca707a8823",
+      "commit": "d65391149dbb5fe76478e76fa8d5122b2aa5a70e",
       "license": "MIT",
-      "synced_at": "2026-11-19T15:40:09.223017+00:00"
+      "synced_at": "2026-11-24T17:36:16.714708+00:00"
     },
     "grill-with-docs": {
       "repo": "mattpocock/skills",
       "source_url": "https://github.com/mattpocock/skills",
       "path": "skills/engineering/grill-with-docs",
       "ref": null,
-      "commit": "abeeaf95660ba9e8b7c753eb38f441ca707a8823",
+      "commit": "d65391149dbb5fe76478e76fa8d5122b2aa5a70e",
       "license": "MIT",
-      "synced_at": "2026-11-19T15:40:09.585597+00:00"
+      "synced_at": "2026-11-24T17:36:16.851911+00:00"
     },
     "grilling": {
       "repo": "mattpocock/skills",
       "source_url": "https://github.com/mattpocock/skills",
       "path": "skills/productivity/grilling",
       "ref": null,
-      "commit": "abeeaf95660ba9e8b7c753eb38f441ca707a8823",
+      "commit": "d65391149dbb5fe76478e76fa8d5122b2aa5a70e",
       "license": "MIT",
-      "synced_at": "2026-11-19T15:40:10.156459+00:00"
+      "synced_at": "2026-11-24T17:36:16.989291+00:00"
     },
     "improve-codebase-architecture": {
       "repo": "mattpocock/skills",
       "source_url": "https://github.com/mattpocock/skills",
       "path": "skills/engineering/improve-codebase-architecture",
       "ref": null,
-      "commit": "abeeaf95660ba9e8b7c753eb38f441ca707a8823",
+      "commit": "d65391149dbb5fe76478e76fa8d5122b2aa5a70e",
       "license": "MIT",
-      "synced_at": "2026-11-19T15:40:10.737148+00:00"
+      "synced_at": "2026-11-24T17:36:17.138913+00:00"
     },
     "prototype": {
       "repo": "mattpocock/skills",
       "source_url": "https://github.com/mattpocock/skills",
       "path": "skills/engineering/prototype",
       "ref": null,
-      "commit": "abeeaf95660ba9e8b7c753eb38f441ca707a8823",
+      "commit": "d65391149dbb5fe76478e76fa8d5122b2aa5a70e",
       "license": "MIT",
-      "synced_at": "2026-11-19T15:40:11.081728+00:00"
+      "synced_at": "2026-11-24T17:36:17.274899+00:00"
     },
     "research": {
       "repo": "mattpocock/skills",
       "source_url": "https://github.com/mattpocock/skills",
       "path": "skills/engineering/research",
       "ref": null,
-      "commit": "abeeaf95660ba9e8b7c753eb38f441ca707a8823",
+      "commit": "d65391149dbb5fe76478e76fa8d5122b2aa5a70e",
       "license": "MIT",
-      "synced_at": "2026-11-19T15:40:11.434096+00:00"
+      "synced_at": "2026-11-24T17:36:17.465741+00:00"
     },
     "sdd": {
       "repo": "liatrio-labs/spec-driven-workflow",
@@ -123,18 +123,18 @@
       "source_url": "https://github.com/mattpocock/skills",
       "path": "skills/engineering/tdd",
       "ref": null,
-      "commit": "abeeaf95660ba9e8b7c753eb38f441ca707a8823",
+      "commit": "d65391149dbb5fe76478e76fa8d5122b2aa5a70e",
       "license": "MIT",
-      "synced_at": "2026-11-19T15:40:11.800721+00:00"
+      "synced_at": "2026-11-24T17:36:17.609481+00:00"
     },
     "teach": {
       "repo": "mattpocock/skills",
       "source_url": "https://github.com/mattpocock/skills",
       "path": "skills/productivity/teach",
       "ref": null,
-      "commit": "abeeaf95660ba9e8b7c753eb38f441ca707a8823",
+      "commit": "d65391149dbb5fe76478e76fa8d5122b2aa5a70e",
       "license": "MIT",
-      "synced_at": "2026-11-19T15:40:13.187186+00:00"
+      "synced_at": "2026-11-24T17:36:17.750612+00:00"
     },
     "terraform-style-guide": {
       "repo": "hashicorp/agent-skills",
@@ -150,27 +150,27 @@
       "source_url": "https://github.com/mattpocock/skills",
       "path": "skills/engineering/to-spec",
       "ref": null,
-      "commit": "abeeaf95660ba9e8b7c753eb38f441ca707a8823",
+      "commit": "d65391149dbb5fe76478e76fa8d5122b2aa5a70e",
       "license": "MIT",
-      "synced_at": "2026-11-19T15:40:13.509383+00:00"
+      "synced_at": "2026-11-24T17:36:17.886488+00:00"
     },
     "to-tickets": {
       "repo": "mattpocock/skills",
       "source_url": "https://github.com/mattpocock/skills",
       "path": "skills/engineering/to-tickets",
       "ref": null,
-      "commit": "abeeaf95660ba9e8b7c753eb38f441ca707a8823",
+      "commit": "d65391149dbb5fe76478e76fa8d5122b2aa5a70e",
       "license": "MIT",
-      "synced_at": "2026-11-19T15:40:13.869175+00:00"
+      "synced_at": "2026-11-24T17:36:18.029205+00:00"
     },
     "wayfinder": {
       "repo": "mattpocock/skills",
       "source_url": "https://github.com/mattpocock/skills",
       "path": "skills/engineering/wayfinder",
       "ref": null,
-      "commit": "abeeaf95660ba9e8b7c753eb38f441ca707a8823",
+      "commit": "d65391149dbb5fe76478e76fa8d5122b2aa5a70e",
       "license": "MIT",
-      "synced_at": "2026-11-19T15:40:14.321196+00:00"
+      "synced_at": "2026-11-24T17:36:18.164393+00:00"
     }
   }
 }
