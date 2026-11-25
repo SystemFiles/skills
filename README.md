@@ -27,6 +27,7 @@ Each skill is a directory under `skills/<name>/` containing a `SKILL.md` (plus a
 | `visual-explain` | Interactive local HTML explanation of a diff/branch/PR (Background, Intuition, Code walkthrough, Quiz). Adapted from sighup/claude-workflow `cw-explain`. |
 | `write-adr` | Record, draft, supersede, or review an architecture decision record under `docs/adr/`. |
 | `write-better` | Plain, jargon-free writing for anything a human reads: PRs, issues, tickets. |
+| `zed` | Open the active jj workspace (not the root checkout) in the Zed IDE. |
 
 ### Vendored from upstream
 
